@@ -23,6 +23,10 @@ connectDB()
 //mount middleware
 app.use(logger);
 
+
+//use express body parser
+app.use(express.json())
+
 app.use("/api/v1/restaurants", RestaurantRoutes);
 
 app.get("/", (req, res) => {
