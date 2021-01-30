@@ -5,6 +5,10 @@ import {useDispatch,useSelector} from 'react-redux'
 //import action
 import {getRestaurantList} from '../../Actions/RestaurantActions/RestaurantActions'
 
+//import custom loading and message component
+import Loader from '../../Components/Loading/Loader'
+import Message from '../../Components/Message/Message'
+
 
 const RestaurantsListPage = () => {
 
@@ -24,7 +28,7 @@ const RestaurantsListPage = () => {
           <div>
               <h1> Our Restaurants </h1>
               </div>
-              {loading ? <h1>Loading...</h1> : error ? <h1> {error} </h1> : (
+              {loading ? <Loader/> : error ? <Message> {error} </Message> : (
                   <div>
                       {restaurants.map(restaurant => (
                           <h1> {restaurant.name} </h1>
