@@ -3,5 +3,8 @@
 
 .error-component{
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
+    left: 40vw;
+    position: absolute;
+    margin: 0 auto;
+
 }

@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.restaurant-card {
+  border: 1px solid tan;
+  width: 30vw;
+  text-align: center;
+  border-radius: 10px;
+  padding: 8px;
+  background-color: white;
+  margin: 1rem auto;
+  margin-right: 5vw;
+  margin-top: 2rem;
+  transition: linear 0.3s;
+  cursor: pointer;
+}
+
+
+.restaurant-card:hover{
+    transform: scale(1.05) translateZ(0);
+    box-shadow: rgba(22, 22, 22,0.1) 10px 5px;
+    overflow: hidden;
+    
+}
+
+
+.restaurant-name{
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.restaurant-description{
+    font-family: 'Montserrat', sans-serif;
+}
