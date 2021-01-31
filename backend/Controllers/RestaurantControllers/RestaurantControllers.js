@@ -1,6 +1,9 @@
 //import restaurant model
 import { Restaurant } from "../../Models/RestaurantModel.js";
 
+//bring custom error class
+import { ErrorResponse } from "../../Utilis/errorResponse.js";
+
 //api/v1/restaurants
 //GET request
 //access:all
@@ -29,7 +32,9 @@ export const getRestaurant = async (req, res, next) => {
     const restaurant = await Restaurant.findById(req.params.id);
 
     if (!restaurant) {
-      return res.status(400).json({ success: false });
+      return  next(
+        new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
+      );
     }
 
     res.status(200).json({
@@ -37,9 +42,9 @@ export const getRestaurant = async (req, res, next) => {
       data: restaurant,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(
+      new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
+    );
   }
 };
 
@@ -66,22 +71,26 @@ export const createRestaurant = async (req, res, next) => {
 //PUT request
 //access:admin,owner
 //update a restaurant
-export const updateRestaurant = async(req, res, next) => {
-  try{
-    const restaurant = await Restaurant.findByIdAndUpdate(req.params.id,req.body,{
-      new:true,
-      runValidators:true
-    })
+export const updateRestaurant = async (req, res, next) => {
+  try {
+    const restaurant = await Restaurant.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     if (!restaurant) {
       return res.status(400).json({
         success: false,
       });
     }
     res.status(200).json({
-      success:true,
-      data:restaurant
-    })
-  }catch(err){
+      success: true,
+      data: restaurant,
+    });
+  } catch (err) {
     res.status(400).json({
       success: false,
     });
@@ -103,9 +112,9 @@ export const deleteRestaurant = async (req, res, next) => {
     }
 
     res.status(200).json({
-      success:true,
-      data:{}
-    })
+      success: true,
+      data: {},
+    });
   } catch (err) {
     res.status(400).json({
       success: false,

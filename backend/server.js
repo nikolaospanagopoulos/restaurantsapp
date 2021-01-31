@@ -12,6 +12,9 @@ import { connectDB } from "./Config/db.js";
 //import custom logging middleware
 import { logger } from "./Middleware/logger.js";
 
+//import custom error middleware
+import {errorHandler} from './Middleware/error.js'
+
 dotenv.config();
 
 const app = express();
@@ -29,9 +32,7 @@ app.use(express.json())
 
 app.use("/api/v1/restaurants", RestaurantRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Api is running");
-});
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000;
 
