@@ -17,9 +17,7 @@ export const getRestaurants = async (req, res, next) => {
       data: restaurants,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -32,8 +30,11 @@ export const getRestaurant = async (req, res, next) => {
     const restaurant = await Restaurant.findById(req.params.id);
 
     if (!restaurant) {
-      return  next(
-        new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
+      return next(
+        new ErrorResponse(
+          `Restaurant not found with id of ${req.params.id}`,
+          404
+        )
       );
     }
 
@@ -42,9 +43,7 @@ export const getRestaurant = async (req, res, next) => {
       data: restaurant,
     });
   } catch (err) {
-    next(
-      new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
-    );
+    next(err);
   }
 };
 
@@ -61,9 +60,7 @@ export const createRestaurant = async (req, res, next) => {
       data: restaurant,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -82,18 +79,19 @@ export const updateRestaurant = async (req, res, next) => {
       }
     );
     if (!restaurant) {
-      return res.status(400).json({
-        success: false,
-      });
+      return next(
+        new ErrorResponse(
+          `Restaurant not found with id of ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({
       success: true,
       data: restaurant,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -106,9 +104,12 @@ export const deleteRestaurant = async (req, res, next) => {
     const restaurant = await Restaurant.findByIdAndRemove(req.params.id);
 
     if (!restaurant) {
-      return res.status(400).json({
-        success: false,
-      });
+      return next(
+        new ErrorResponse(
+          `Restaurant not found with id of ${req.params.id}`,
+          404
+        )
+      );
     }
 
     res.status(200).json({
@@ -116,8 +117,6 @@ export const deleteRestaurant = async (req, res, next) => {
       data: {},
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };

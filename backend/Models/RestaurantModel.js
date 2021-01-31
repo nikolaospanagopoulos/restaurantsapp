@@ -26,7 +26,7 @@ const RestaurantSchema = new mongoose.Schema({
   phone: {
     type: String,
     maxlength: [15, "Phone number should not be longer than 15 characters"],
-    required: true,
+    required: [true,'Please add a phone number'],
   },
   email: {
     type: String,
@@ -34,7 +34,7 @@ const RestaurantSchema = new mongoose.Schema({
       /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/,
       "Please add a valid email",
     ],
-    required: true,
+    required: [true,'Please add a valid email address'],
   },
   address: {
     type: String,
