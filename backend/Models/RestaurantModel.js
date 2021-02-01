@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 //import slugify in order to make a slug of the name
 import slugify from "slugify";
 
+//import geocoder configuration
+import { geocoder } from "../Utilis/geocoder.js";
+
 //create the restaurant Schema
 
 const RestaurantSchema = new mongoose.Schema({
@@ -56,7 +59,6 @@ const RestaurantSchema = new mongoose.Schema({
     formattedAddress: String,
     street: String,
     city: String,
-    state: String,
     zipcode: String,
     country: String,
   },
@@ -89,6 +91,23 @@ const RestaurantSchema = new mongoose.Schema({
 //create restaurant slug
 RestaurantSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+//geocode and create location fields
+RestaurantSchema.pre("save", async function (next) {
+  const loc = await geocoder.geocode(this.address);
+  this.location = {
+    type: "Point",
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress,
+    street: loc[0].streetName,
+    city: loc[0].city,
+    zipcode: loc[0].zipcode,
+    country: loc[0].countryCode,
+  };
+  //we dont need input address because we have formatted one
+  this.address = undefined;
   next();
 });
 
