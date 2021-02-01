@@ -4,10 +4,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 //import reducers
 import {RestaurantListReducer} from './Reducers/RestaurantReducers/RestaurantListReducers'
+import { restaurantDetailsReducer } from "./Reducers/RestaurantReducers/RestaurantDetailsReducers";
 
 
 const reducer = combineReducers({
-    restaurantList:RestaurantListReducer
+    restaurantList:RestaurantListReducer,
+    restaurantDetails:restaurantDetailsReducer
 });
 
 const initialState = {};

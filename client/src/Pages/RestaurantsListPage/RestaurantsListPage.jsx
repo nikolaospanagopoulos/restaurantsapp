@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import {useDispatch,useSelector} from 'react-redux'
 import './RestaurantsListPage.css'
 //import action
-import {getRestaurantList} from '../../Actions/RestaurantActions/RestaurantActions'
+import {getRestaurantList} from '../../Actions/RestaurantActions/RestaurantListActions'
 
 //import custom loading and message component
 import Loader from '../../Components/Loading/Loader'
