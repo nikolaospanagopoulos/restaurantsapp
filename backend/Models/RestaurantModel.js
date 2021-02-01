@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+//import slugify in order to make a slug of the name
+import slugify from "slugify";
+
 //create the restaurant Schema
 
 const RestaurantSchema = new mongoose.Schema({
@@ -26,7 +29,7 @@ const RestaurantSchema = new mongoose.Schema({
   phone: {
     type: String,
     maxlength: [15, "Phone number should not be longer than 15 characters"],
-    required: [true,'Please add a phone number'],
+    required: [true, "Please add a phone number"],
   },
   email: {
     type: String,
@@ -34,7 +37,7 @@ const RestaurantSchema = new mongoose.Schema({
       /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/,
       "Please add a valid email",
     ],
-    required: [true,'Please add a valid email address'],
+    required: [true, "Please add a valid email address"],
   },
   address: {
     type: String,
@@ -82,6 +85,11 @@ const RestaurantSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+//create restaurant slug
+RestaurantSchema.pre("save", function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
