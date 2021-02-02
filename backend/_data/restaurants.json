@@ -7,7 +7,7 @@
 		"website": "https://greekrestaurant.com",
 		"phone": "(111) 111-1111",
 		"email": "greekrestaurant@gmail.com",
-		"address": "16 Gretza Palaiologou Patras 26331",
+		"address": "Gretza Palaiologou 16 Patras 26331",
 		"vegan": false,
 		"fusion": false,
 		"traditional": true
@@ -20,7 +20,7 @@
 		"website": "https://modernrestaurant.com",
 		"phone": "(222) 222-2222",
 		"email": "restaurant@modern.com",
-		"address": "32 Ioanni Vlachou Pireaus",
+		"address": "Ioanni Vlachou 32 Pireaus",
 		"careers": ["Web Development", "UI/UX", "Mobile Development"],
 		"vegan": true,
 		"fusion": true,
