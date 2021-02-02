@@ -5,8 +5,11 @@ import {
   getRestaurant,
   getRestaurants,
   updateRestaurant,
+  getRestaurantsWithinRadius,
 } from "../../Controllers/RestaurantControllers/RestaurantControllers.js";
 const router = express.Router();
+
+router.route("/radius/:zipcode/:distance").get(getRestaurantsWithinRadius);
 
 router.route("/").get(getRestaurants).post(createRestaurant);
 router

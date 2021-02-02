@@ -7,6 +7,9 @@ import { ErrorResponse } from "../../Utilis/errorResponse.js";
 //import async await middleware
 import { asyncHandler } from "../../Middleware/async.js";
 
+//import geocoder configuration
+import { geocoder } from "../../Utilis/geocoder.js";
+
 //api/v1/restaurants
 //GET request
 //access:all
@@ -93,3 +96,38 @@ export const deleteRestaurant = asyncHandler(async (req, res, next) => {
     data: {},
   });
 });
+
+//api/v1/restaurants/radius/:zipcode/:distance
+//GET restaurants in radius
+//access:public
+//find restaurants close to the user
+export const getRestaurantsWithinRadius = asyncHandler(
+  async (req, res, next) => {
+    const { zipcode, distance } = req.params;
+
+    //get latitude and longitude
+    const loc = await geocoder.geocode(zipcode);
+    const loc2 = loc.filter(function(el){
+       return el.countryCode == 'gr'
+    })
+    const lat = loc2[0].latitude;
+    const lng = loc2[0].longitude;
+    
+
+    //calculate the radius of earth
+    //divide distance by earth radius
+    //earth radius is 6,378.1 km
+
+    const radius = distance/6378;
+    const restaurants = await Restaurant.find({
+      location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
+      
+    });
+console.log(loc2)
+    res.status(200).json({
+      success: true,
+      count: restaurants.length,
+      data: restaurants,
+    });
+  }
+);
