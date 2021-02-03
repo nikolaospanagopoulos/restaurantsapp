@@ -4,13 +4,10 @@ import {
   RESTAURANT_DETAILS_SUCCESS,
 } from "../../Constants/RestaurantConstants/RestaurantDetailsConstants";
 
-export const restaurantDetailsReducer = (
-  state = { restaurant: {reviews:[]} },
-  action
-) => {
+export const restaurantDetailsReducer =(state = { restaurant: {reviews:[],location:{}} }, action)=> {
   switch (action.type) {
     case RESTAURANT_DETAILS_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, ...state};
     case RESTAURANT_DETAILS_SUCCESS:
       return { loading: false, restaurant: action.payload };
     case RESTAURANT_DETAILS_FAIL:

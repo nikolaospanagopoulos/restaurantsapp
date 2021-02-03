@@ -7,9 +7,9 @@ import { BrowserRouter as Router,Route } from "react-router-dom";
 const App = () => {
   return (
     <Router>
-    
+
         <Header />
-        <Route component={RestaurantDetailsPage} path='/restaurants/restaurant/:id' />
+        <Route component={RestaurantDetailsPage} path='/restaurants/:id' />
         <Route component={RestaurantsListPage} path='/' exact/>
       
     </Router>

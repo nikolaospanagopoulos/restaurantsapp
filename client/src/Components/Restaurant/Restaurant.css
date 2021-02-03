@@ -35,3 +35,8 @@
 .restaurant-address{
     font-family: 'Montserrat', sans-serif;
 }
+
+.restaurant-link{
+    text-decoration: none;
+    color: black;
+}

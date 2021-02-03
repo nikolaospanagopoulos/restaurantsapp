@@ -58,6 +58,7 @@ const RestaurantSchema = new mongoose.Schema({
     },
     formattedAddress: String,
     street: String,
+    streetNumber:String,
     city: String,
     zipcode: String,
     country: String,
@@ -102,11 +103,13 @@ RestaurantSchema.pre("save", async function (next) {
     coordinates: [loc[0].longitude, loc[0].latitude],
     formattedAddress: loc[0].formattedAddress,
     street: loc[0].streetName,
+    streetNumber:this.address.split(' ')[0],
     city: loc[0].city,
     zipcode: loc[0].zipcode,
     country: loc[0].countryCode,
   };
-  //we dont need input address because we have formatted one
+  console.log(loc)
+  //we dont need input address because we have formatted one55236
   this.address = undefined;
   next();
 });
