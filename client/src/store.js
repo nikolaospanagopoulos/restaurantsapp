@@ -5,11 +5,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 //import reducers
 import {RestaurantListReducer} from './Reducers/RestaurantReducers/RestaurantListReducers'
 import { restaurantDetailsReducer } from "./Reducers/RestaurantReducers/RestaurantDetailsReducers";
+import { restaurantLocationReducer } from "./Reducers/RestaurantReducers/RestaurantGeolocationReducer";
 
 
 const reducer = combineReducers({
     restaurantList:RestaurantListReducer,
-    restaurantDetails:restaurantDetailsReducer
+    restaurantDetails:restaurantDetailsReducer,
+    restaurantLocation:restaurantLocationReducer
 });
 
 const initialState = {};

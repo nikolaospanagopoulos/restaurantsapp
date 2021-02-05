@@ -1,0 +1,46 @@
+.distance-input,.zipcode-input{
+    padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+    font-size: 13px;
+    display: block;
+    margin: 10px auto;
+}
+
+
+
+.location-fields{
+    
+    
+    text-align: center;
+    margin:  0;
+}
+
+
+.location-form-div{
+    width: 100%;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.location-form-div button{
+    width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+
+.location-form-div button:hover{
+    border: 1px solid black;
+}

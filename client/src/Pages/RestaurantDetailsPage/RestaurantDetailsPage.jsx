@@ -27,6 +27,7 @@ const RestaurantDetailsPage = ({ match }) => {
             <h4>Phone Number: {restaurant.phone}</h4>
             
             <h5> {restaurant.location.city} </h5>
+            <img src={restaurant.photo} alt=""/>
           </div>
         )}
       </div>

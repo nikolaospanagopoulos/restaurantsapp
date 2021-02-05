@@ -12,4 +12,11 @@
 
 .restaurant-list{
    margin-top: 15rem;
+   position: relative;
+}
+
+.location-form{
+    position: absolute;
+    top: 15vh;
+    margin-left: 10vw;
 }
