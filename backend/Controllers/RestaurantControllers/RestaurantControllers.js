@@ -15,7 +15,15 @@ import { geocoder } from "../../Utilis/geocoder.js";
 //access:all
 //get all restaurants
 export const getRestaurants = asyncHandler(async (req, res, next) => {
-  const restaurants = await Restaurant.find({});
+  let query;
+
+  let queryStr = JSON.stringify(req.query);
+
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
+  
+  query = Restaurant.find(JSON.parse(queryStr))
+
+  const restaurants = await query;
   res.status(200).json({
     success: true,
     count: restaurants.length,

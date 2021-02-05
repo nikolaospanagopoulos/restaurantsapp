@@ -31,7 +31,7 @@
 
 .location-form-div button{
     width: 100px;
-	background: #27AE60;
+	background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -39,6 +39,11 @@
 	cursor: pointer;
 	padding: 10px 5px;
 	margin: 10px 5px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.location-form-div h2{
+	color: white;
 }
 
 .location-form-div button:hover{

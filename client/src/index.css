@@ -5,10 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(./Images/restaurant3.jpg);
-  
-  background-size: 100% 120vh;
-  background-repeat: no-repeat;
+  background-image: url(./Images/pexels-pixabay-426279.jpg);
+  background-size: 100% 100%;
 }
 
 code {
