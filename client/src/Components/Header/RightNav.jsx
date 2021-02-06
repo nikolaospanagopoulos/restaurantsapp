@@ -53,7 +53,7 @@ const Ul = styled.ul`
   @media (max-width: 768px) {
     border: 1px solid black;
     flex-flow: column nowrap;
-    background-color: #66ff66;
+    background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
     position: fixed;
     transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
     top: 0;

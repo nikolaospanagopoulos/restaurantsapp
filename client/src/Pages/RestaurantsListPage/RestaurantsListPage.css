@@ -2,7 +2,6 @@
 
 .restaurant-list-title{
     text-align: center;
-    margin-bottom: 2rem;
     margin-left: 59vw;
     margin-top: 0;
     font-family: 'Montserrat', sans-serif;
@@ -16,10 +15,48 @@
 .restaurant-list{
    margin-top: 8vh;
    position: relative;
+   
+   
 }
 
 .location-form{
     position: absolute;
     top: 20vh;
-    margin-left: 10vw;
+    left: 10vw;
+     
+}
+
+.restaurant-list-restaurants{
+    margin-left: 57vw;
+    margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 823px){
+    .restaurant-list{
+        text-align: center;
+        margin-top: 0;
+        position: relative;
+        top: 10vh;
+        
+    }
+    .location-form{
+        top: -45vh;
+        left: 0;
+        margin: 0 auto;
+        position: relative;
+        display: block;
+        width: fit-content;
+    }
+    .restaurant-list-restaurants{
+        position: relative;
+        margin: 0 auto;
+        bottom: 30vh;
+    }
+    .restaurant-list-title{
+        text-align: center;
+        margin: 0;
+        margin-top: 45vh;
+        margin-bottom: 0;
+    }
+
 }

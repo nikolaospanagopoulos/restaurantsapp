@@ -41,7 +41,7 @@ const RestaurantsListPage = ({history}) => {
       ) : (
         <div>
           {restaurants.map((restaurant) => (
-            <div key={restaurant._id}>
+            <div key={restaurant._id} className='restaurant-list-restaurants'>
               <Restaurant restaurant={restaurant} />
             </div>
           ))}

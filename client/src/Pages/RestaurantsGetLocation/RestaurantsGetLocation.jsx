@@ -20,9 +20,7 @@ useEffect(() => {
 
 console.log(restaurants)
     return ( 
-        <div>
-
-        </div>
+        <div style={{height:'100vh'}}></div>
      );
 }
  
