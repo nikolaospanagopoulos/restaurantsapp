@@ -16,13 +16,42 @@ import { geocoder } from "../../Utilis/geocoder.js";
 //get all restaurants
 export const getRestaurants = asyncHandler(async (req, res, next) => {
   let query;
+  //copy req.query
+  const reqQuery = { ...req.query };
 
-  let queryStr = JSON.stringify(req.query);
+  //fields to exclude
+  const removeFields = ["select", "sort"];
 
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
-  
-  query = Restaurant.find(JSON.parse(queryStr))
+  //loop over removeFields and exclude them from reqQuery
+  removeFields.forEach((param) => delete reqQuery[param]);
+  let queryStr = JSON.stringify(reqQuery);
 
+  //add the $ symbol before the gt|gte|lt|lte|in operators so that they can work in the query
+
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+  //find resource
+  query = Restaurant.find(JSON.parse(queryStr));
+
+  //select fields
+  if (req.query.select) {
+    //seperate string by coma and make an array and then use space to marge it back into a string
+    const fields = req.query.select.split(",").join(" ");
+    query = query.select(fields);
+  }
+
+  // sort
+  if (req.query.sort) {
+    //seperate string by coma and make an array and then use space to marge it back into a string
+    const sortBy = req.query.sort.split(",").join(" ");
+    query = query.sort(sortBy);
+  } else {
+    query = query.sort("-createdAt");
+  }
+
+  //execute query
   const restaurants = await query;
   res.status(200).json({
     success: true,
@@ -115,23 +144,21 @@ export const getRestaurantsWithinRadius = asyncHandler(
 
     //get latitude and longitude
     const loc = await geocoder.geocode(zipcode);
-    const loc2 = loc.filter(function(el){
-       return el.countryCode == 'gr'
-    })
+    const loc2 = loc.filter(function (el) {
+      return el.countryCode == "gr";
+    });
     const lat = loc2[0].latitude;
     const lng = loc2[0].longitude;
-    
 
     //calculate the radius of earth
     //divide distance by earth radius
     //earth radius is 6,378.1 km
 
-    const radius = distance/6378;
+    const radius = distance / 6378;
     const restaurants = await Restaurant.find({
       location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
-      
     });
-console.log(loc2)
+    console.log(loc2);
     res.status(200).json({
       success: true,
       count: restaurants.length,
