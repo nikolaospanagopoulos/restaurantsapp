@@ -1,0 +1,20 @@
+[
+	{
+		"name": "Amazing Lazagna",
+		"description": "A plate of traditional Italian Lazania with tomato sauce and parmezana cheese",
+		"price": 10,
+		"vegeterian": true,
+		"vegan": false,
+		"restaurant": "601dce545231f23e54fec7ce"
+		
+	},
+	{
+		"name": "Greek Pita",
+		"description": "A traditional Greek dish, it can be made with gyros or souvlaki",
+		"price": 8,
+		"vegeterian": false,
+		"vegan": false,
+		"restaurant": "601b18e49691c84260284ec2"
+		
+	}
+]

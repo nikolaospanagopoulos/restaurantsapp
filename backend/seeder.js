@@ -5,8 +5,9 @@ import dotenv from "dotenv";
 
 import path from "path";
 
-//bring the model
+//bring the models
 import { Restaurant } from "./Models/RestaurantModel.js";
+import { Dish } from "./Models/DishModel.js";
 
 //load env variables
 dotenv.config();
@@ -26,13 +27,16 @@ const __dirname = path.resolve();
 const restaurants = JSON.parse(
   fs.readFileSync(`${__dirname}/backend/_data/restaurants.json`, "utf-8")
 );
+const dishes = JSON.parse(
+  fs.readFileSync(`${__dirname}/backend/_data/dishes.json`, "utf-8")
+);
 
 //import to database
 
 const importData = async () => {
   try {
-    await Restaurant.create(restaurants);
-
+    //await Restaurant.create(restaurants);
+    await Dish.create(dishes);
     console.log("data imported");
     process.exit(0);
   } catch (err) {
@@ -45,7 +49,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Restaurant.deleteMany();
-
+    await Dish.deleteMany();
     console.log("data deleted");
     process.exit(0);
   } catch (err) {
