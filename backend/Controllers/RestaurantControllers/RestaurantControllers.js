@@ -20,7 +20,7 @@ export const getRestaurants = asyncHandler(async (req, res, next) => {
   const reqQuery = { ...req.query };
 
   //fields to exclude
-  const removeFields = ["select", "sort"];
+  const removeFields = ["select", "sort", "page", "limit"];
 
   //loop over removeFields and exclude them from reqQuery
   removeFields.forEach((param) => delete reqQuery[param]);
@@ -51,11 +51,37 @@ export const getRestaurants = asyncHandler(async (req, res, next) => {
     query = query.sort("-createdAt");
   }
 
+  //pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 15;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const total = await Restaurant.countDocuments();
+
+  query = query.skip(startIndex).limit(limit);
   //execute query
   const restaurants = await query;
+
+  //pagination result
+  const pagination = {};
+
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+  }
+
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    };
+  }
   res.status(200).json({
     success: true,
     count: restaurants.length,
+    pagination,
     data: restaurants,
   });
 });
