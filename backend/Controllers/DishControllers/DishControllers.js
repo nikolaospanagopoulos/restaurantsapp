@@ -12,14 +12,17 @@ export const getDishes = asyncHandler(async (req, res, next) => {
   if (req.params.restaurantId) {
     query = Dish.find({ restaurant: req.params.restaurantId });
   } else {
-    query = Dish.find();
+    query = Dish.find().populate({
+      path: "restaurant",
+      select: "name description",
+    });
   }
 
   const dishes = await query;
 
   res.status(200).json({
-      success:true,
-      count:dishes.length,
-      data:dishes
-  })
+    success: true,
+    count: dishes.length,
+    data: dishes,
+  });
 });

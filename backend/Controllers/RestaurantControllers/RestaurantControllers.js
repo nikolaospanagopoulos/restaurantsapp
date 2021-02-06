@@ -33,7 +33,7 @@ export const getRestaurants = asyncHandler(async (req, res, next) => {
     (match) => `$${match}`
   );
   //find resource
-  query = Restaurant.find(JSON.parse(queryStr));
+  query = Restaurant.find(JSON.parse(queryStr)).populate('dishes');
 
   //select fields
   if (req.query.select) {
@@ -146,14 +146,14 @@ export const updateRestaurant = asyncHandler(async (req, res, next) => {
 //access:admin
 //delete a restaurant
 export const deleteRestaurant = asyncHandler(async (req, res, next) => {
-  const restaurant = await Restaurant.findByIdAndRemove(req.params.id);
+  const restaurant = await Restaurant.findById(req.params.id);
 
   if (!restaurant) {
     return next(
       new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
     );
   }
-
+  restaurant.remove()
   res.status(200).json({
     success: true,
     data: {},
@@ -183,7 +183,7 @@ export const getRestaurantsWithinRadius = asyncHandler(
     const radius = distance / 6378;
     const restaurants = await Restaurant.find({
       location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
-    });
+    }).populate('dishes');
     console.log(loc2);
     res.status(200).json({
       success: true,
