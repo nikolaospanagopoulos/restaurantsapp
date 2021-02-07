@@ -73,6 +73,18 @@ const RestaurantSchema = new mongoose.Schema(
       type: String,
       default: "no-photo.jpg",
     },
+    photo2: {
+      type: String,
+      default: "no-photo.jpg",
+    },
+    photo3: {
+      type: String,
+      default: "no-photo.jpg",
+    },
+    photo4: {
+      type: String,
+      default: "no-photo.jpg",
+    },
     vegan: {
       type: Boolean,
       default: false,

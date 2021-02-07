@@ -24,7 +24,7 @@ export const getRestaurants = asyncHandler(async (req, res, next) => {
 //access:all
 //get a restaurant
 export const getRestaurant = asyncHandler(async (req, res, next) => {
-  const restaurant = await Restaurant.findById(req.params.id);
+  const restaurant = await Restaurant.findById(req.params.id).populate('dishes');
 
   if (!restaurant) {
     return next(
@@ -117,7 +117,7 @@ export const getRestaurantsWithinRadius = asyncHandler(
     const restaurants = await Restaurant.find({
       location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
     }).populate('dishes');
-    console.log(loc2);
+    
     res.status(200).json({
       success: true,
       count: restaurants.length,
