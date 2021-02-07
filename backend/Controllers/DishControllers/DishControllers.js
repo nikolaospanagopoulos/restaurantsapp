@@ -10,9 +10,9 @@ export const getDishes = asyncHandler(async (req, res, next) => {
   let query;
 
   if (req.params.restaurantId) {
-    query = Dish.find({ restaurant: req.params.restaurantId });
+    query = await Dish.find({ restaurant: req.params.restaurantId });
   } else {
-    query = Dish.find().populate({
+    query = await Dish.find().populate({
       path: "restaurant",
       select: "name description",
     });
@@ -58,13 +58,40 @@ export const addDish = asyncHandler(async (req, res, next) => {
 
   if (!restaurant) {
     return next(
-      new ErrorResponse(`No dish with id of ${req.params.restaurantId}`, 404)
+      new ErrorResponse(`No restaurant with id of ${req.params.restaurantId}`, 404)
     );
   }
 
   const dish = await Dish.create(req.body);
 
   res.status(201).json({
+    success: true,
+    data: dish,
+  });
+});
+
+
+//update a dish
+//PUT /api/v1/dishes/:id
+//Private
+
+export const updateDish = asyncHandler(async (req, res, next) => {
+  //we take the restaurant id from the params and put it in the body
+
+  let dish = await Dish.findById(req.params.id);
+
+  if (!dish) {
+    return next(
+      new ErrorResponse(`No dish with id of ${req.params.restaurantId}`, 404)
+    );
+  }
+
+   dish = await Dish.findByIdAndUpdate(req.params.id,req.body,{
+     new:true,
+     runValidators:true
+   })
+
+  res.status(200).json({
     success: true,
     data: dish,
   });
