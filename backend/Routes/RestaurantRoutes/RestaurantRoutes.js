@@ -15,7 +15,6 @@ const router = express.Router();
 
 //reroute into other resource routes
 router.use('/:restaurantId/dishes',DishRoutes)
-
 router.route("/radius/:zipcode/:distance").get(getRestaurantsWithinRadius);
 
 router.route("/").get(getRestaurants).post(createRestaurant);
