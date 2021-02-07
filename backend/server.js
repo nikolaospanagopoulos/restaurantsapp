@@ -1,11 +1,12 @@
 import express from "express";
-
+import path from 'path'
 //import dotenv so that we can add environment variables
 import dotenv from "dotenv";
 
 //import routes
 import RestaurantRoutes from "./Routes/RestaurantRoutes/RestaurantRoutes.js";
 import DishRoutes from "./Routes/DishRoutes/DishRoutes.js";
+
 //import database connection function
 import { connectDB } from "./Config/db.js";
 
@@ -30,6 +31,11 @@ app.use(express.json());
 
 app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
+
+
+//make uploads a static folder
+const __dirname = path.resolve()
+app.use('/uploads',express.static(path.join(__dirname,'/uploads')))
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

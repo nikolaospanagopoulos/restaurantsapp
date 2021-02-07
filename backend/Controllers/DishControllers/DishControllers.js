@@ -7,24 +7,16 @@ import { Restaurant } from "../../Models/RestaurantModel.js";
 //GET /api/v1/restaurants/:restaurantId/dishes
 //Public
 export const getDishes = asyncHandler(async (req, res, next) => {
-  let query;
+
 
   if (req.params.restaurantId) {
-    query = await Dish.find({ restaurant: req.params.restaurantId });
+    const dishes = await Dish.find({ restaurant: req.params.restaurantId });
+
+    res.status(200).json(res.advancedResults)
   } else {
-    query = await Dish.find().populate({
-      path: "restaurant",
-      select: "name description",
-    });
+    res.status(200).json(res.advancedResults)
   }
 
-  const dishes = await query;
-
-  res.status(200).json({
-    success: true,
-    count: dishes.length,
-    data: dishes,
-  });
 });
 
 //get a dish

@@ -15,75 +15,8 @@ import { geocoder } from "../../Utilis/geocoder.js";
 //access:all
 //get all restaurants
 export const getRestaurants = asyncHandler(async (req, res, next) => {
-  let query;
-  //copy req.query
-  const reqQuery = { ...req.query };
-
-  //fields to exclude
-  const removeFields = ["select", "sort", "page", "limit"];
-
-  //loop over removeFields and exclude them from reqQuery
-  removeFields.forEach((param) => delete reqQuery[param]);
-  let queryStr = JSON.stringify(reqQuery);
-
-  //add the $ symbol before the gt|gte|lt|lte|in operators so that they can work in the query
-
-  queryStr = queryStr.replace(
-    /\b(gt|gte|lt|lte|in)\b/g,
-    (match) => `$${match}`
-  );
-  //find resource
-  query = Restaurant.find(JSON.parse(queryStr)).populate('dishes');
-
-  //select fields
-  if (req.query.select) {
-    //seperate string by coma and make an array and then use space to marge it back into a string
-    const fields = req.query.select.split(",").join(" ");
-    query = query.select(fields);
-  }
-
-  // sort
-  if (req.query.sort) {
-    //seperate string by coma and make an array and then use space to marge it back into a string
-    const sortBy = req.query.sort.split(",").join(" ");
-    query = query.sort(sortBy);
-  } else {
-    query = query.sort("-createdAt");
-  }
-
-  //pagination
-  const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 15;
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
-  const total = await Restaurant.countDocuments();
-
-  query = query.skip(startIndex).limit(limit);
-  //execute query
-  const restaurants = await query;
-
-  //pagination result
-  const pagination = {};
-
-  if (endIndex < total) {
-    pagination.next = {
-      page: page + 1,
-      limit,
-    };
-  }
-
-  if (startIndex > 0) {
-    pagination.prev = {
-      page: page - 1,
-      limit,
-    };
-  }
-  res.status(200).json({
-    success: true,
-    count: restaurants.length,
-    pagination,
-    data: restaurants,
-  });
+  
+  res.status(200).json(res.advancedResults);
 });
 
 //api/v1/restaurants/:id
