@@ -26,6 +26,12 @@ const Nav = styled.nav`
 .logo a{
   text-decoration:none;
 }
+@media screen and (max-width: 823px){
+  .logo h3{
+    font-size:1.5rem;
+    position:relative;
+    bottom:0.2rem;
+}
 `;
 
 const Header = () => {

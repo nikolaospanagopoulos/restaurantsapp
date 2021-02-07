@@ -39,6 +39,7 @@
   background-color: aliceblue;
   width: 35vw;
   margin: 5vh auto;
+  text-align: center;
   border-radius: 15px;
   transition: all 0.4s;
   border: 1px solid #ffff99;
@@ -46,4 +47,23 @@
 .restaurant-details-card:hover {
   box-shadow: 10px 15px rgba(241, 120, 90, 0.459);
   transform: scale(1.05);
+}
+
+@media screen and (max-width: 823px){
+    .restaurant-images{
+        grid-template-columns: 1fr;
+    }
+    .restaurant-images img{
+        width: 95vw;
+        
+    }
+    .restaurant-details-card{
+        width:90vw;
+    }
+    .restaurant-details-card h4 {
+        font-size: 1rem;
+    }
+    .restaurant-details-card h5 {
+        font-size: 1rem;
+    }
 }
