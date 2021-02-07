@@ -58,7 +58,10 @@ export const addDish = asyncHandler(async (req, res, next) => {
 
   if (!restaurant) {
     return next(
-      new ErrorResponse(`No restaurant with id of ${req.params.restaurantId}`, 404)
+      new ErrorResponse(
+        `No restaurant with id of ${req.params.restaurantId}`,
+        404
+      )
     );
   }
 
@@ -70,29 +73,47 @@ export const addDish = asyncHandler(async (req, res, next) => {
   });
 });
 
-
 //update a dish
 //PUT /api/v1/dishes/:id
 //Private
 
 export const updateDish = asyncHandler(async (req, res, next) => {
-  //we take the restaurant id from the params and put it in the body
-
   let dish = await Dish.findById(req.params.id);
 
   if (!dish) {
     return next(
-      new ErrorResponse(`No dish with id of ${req.params.restaurantId}`, 404)
+      new ErrorResponse(`No dish with id of ${req.params.id}`, 404)
     );
   }
 
-   dish = await Dish.findByIdAndUpdate(req.params.id,req.body,{
-     new:true,
-     runValidators:true
-   })
+  dish = await Dish.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     success: true,
     data: dish,
+  });
+});
+
+//delete a dish
+//DELETE /api/v1/dishes/:id
+//Private
+
+export const deleteDish = asyncHandler(async (req, res, next) => {
+  const dish = await Dish.findById(req.params.id);
+
+  if (!dish) {
+    return next(
+      new ErrorResponse(`No dish with id of ${req.params.id}`, 404)
+    );
+  }
+
+  await dish.remove();
+
+  res.status(200).json({
+    success: true,
+    data: {},
   });
 });
