@@ -3,17 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRestaurantDetails } from "../../Actions/RestaurantActions/RestaurantDetailsActions";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
+import {Link} from 'react-router-dom'
 import "./RestaurantDetailsPage.css";
-const RestaurantDetailsPage = ({ match }) => {
+const RestaurantDetailsPage = ({ match,history }) => {
+
+const restaurantId = match.params.id
+
   const restaurantDetails = useSelector((state) => state.restaurantDetails);
   const { restaurant, error, loading } = restaurantDetails;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRestaurantDetails(match.params.id));
-  }, [dispatch, match]);
-  console.log(restaurant);
+    dispatch(getRestaurantDetails(restaurantId));
+  }, [dispatch, match,restaurantId]);
+
+  const jumpToDishPage = (e) => {
+    e.preventDefault();
+    history.push(`restaurants/${restaurantId}/dishes`)
+  }
+
   return (
     <div>
       <div className="restaurant-details">
@@ -23,7 +32,11 @@ const RestaurantDetailsPage = ({ match }) => {
           <Message> {error} </Message>
         ) : (
           <div>
+            <div>
             <h2> {restaurant.name} </h2>
+            <button className='order-button' onClick={jumpToDishPage}> Order Now </button>
+            </div>
+            
             <div className="restaurant-images grid-item">
               <img src={restaurant.photo} alt="dishes" />
               <img src={restaurant.photo2} alt="dishes" />

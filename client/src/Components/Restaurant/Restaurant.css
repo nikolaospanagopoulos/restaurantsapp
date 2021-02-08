@@ -6,7 +6,7 @@
   text-align: center;
   border-radius: 10px;
   padding: 8px;
-  background-color: white;
+  background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
   margin: 1rem auto;
   
   transition: linear 0.3s;
@@ -24,6 +24,7 @@
 
 .restaurant-name{
     font-family: 'Montserrat', sans-serif;
+    color: white;
     
 }
 
