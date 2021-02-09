@@ -11,9 +11,10 @@ const App = () => {
     <Router>
 
         <Header />
-        <Route  component={RestaurantDishesPage} path='/restaurants/:restaurantId/dishes'/>
+        
         <Route component={RestaurantsGetLocation} path='/restaurants/location/:zipcode/:distance' />
         <Route component={RestaurantDetailsPage} path='/restaurants/:id' exact/>
+        <Route  component={RestaurantDishesPage} path='/restaurants/:id/dishes'/>
         <Route component={RestaurantsListPage} path='/' exact/>
        
     </Router>

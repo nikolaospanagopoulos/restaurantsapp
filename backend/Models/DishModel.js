@@ -24,6 +24,14 @@ const DishSchema = new mongoose.Schema({
     type: Boolean,
     required: [true, "A dish must have a category"],
   },
+  traditional:{
+    type:Boolean,
+    required:[true,'A dish must have a category']
+  },
+  available:{
+    type:Boolean,
+    required:[true,"A dish must be available or not"]
+  },
   createdAt: {
     type: Date,
     default: Date.now,

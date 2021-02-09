@@ -20,7 +20,7 @@ const restaurantId = match.params.id
 
   const jumpToDishPage = (e) => {
     e.preventDefault();
-    history.push(`restaurants/${restaurantId}/dishes`)
+    history.push(`/restaurants/${restaurantId}/dishes`)
   }
 
   return (
@@ -49,11 +49,7 @@ const restaurantId = match.params.id
               <h5> {restaurant.location.city} </h5>
             </div>
 
-            {restaurant.dishes.map((dish) => (
-              <div key={dish._id}>
-                <h3> {dish.name} </h3>
-              </div>
-            ))}
+            
           </div>
         )}
       </div>

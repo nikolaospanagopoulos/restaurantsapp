@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+
+.dish-card{
+    font-family: "Yusei Magic", sans-serif;
+    border: 1px solid tan;
+    margin: 1rem auto;
+    width: 40vw;
+    cursor: pointer;
+    background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+}
+
+.dish-card h4{
+    margin: 0;
+}

@@ -12,7 +12,11 @@ export const getDishes = asyncHandler(async (req, res, next) => {
   if (req.params.restaurantId) {
     const dishes = await Dish.find({ restaurant: req.params.restaurantId });
 
-    res.status(200).json(res.advancedResults)
+    res.status(200).json({
+      success:true,
+      count:dishes.length,
+      data:dishes
+    })
   } else {
     res.status(200).json(res.advancedResults)
   }
