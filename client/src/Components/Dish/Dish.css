@@ -5,10 +5,41 @@
     border: 1px solid tan;
     margin: 1rem auto;
     width: 40vw;
-    cursor: pointer;
+    text-align: center;
     background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
 }
 
 .dish-card h4{
     margin: 0;
+}
+
+.cart-button{
+    font-family: "Yusei Magic", sans-serif;
+    display: block;
+    margin: 1rem auto;
+    outline: none;
+    border: 0.5px solid tomato;
+    border-radius: 5px;
+    height: 30px;
+    
+    color: black;
+    cursor: pointer;
+    transition: 0.3s all;
+        
+}
+
+.cart-button:hover{
+    background-image: linear-gradient(to bottom right,  #ffff99,#ff3333);
+}
+
+.select-dish-number{
+    display: inline-flex;
+}
+.select-dish-number select{
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    border:0.5px solid tomato;
+    margin-left: 5px;
+    
 }

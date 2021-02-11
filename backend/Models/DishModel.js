@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 //create schema to add dishes in each restaurant
 
-
 const DishSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,13 +23,25 @@ const DishSchema = new mongoose.Schema({
     type: Boolean,
     required: [true, "A dish must have a category"],
   },
-  traditional:{
-    type:Boolean,
-    required:[true,'A dish must have a category']
+  traditional: {
+    type: Boolean,
+    required: [true, "A dish must have a category"],
   },
-  available:{
-    type:Boolean,
-    required:[true,"A dish must be available or not"]
+  chinese: {
+    type: Boolean,
+  },
+  mexican: {
+    type: Boolean,
+  },
+  greek: {
+    type: Boolean,
+  },
+  italian: {
+    type: Boolean,
+  },
+  available: {
+    type: Number,
+    required: [true, "A dish must be available or not"],
   },
   createdAt: {
     type: Date,
@@ -45,5 +56,4 @@ const DishSchema = new mongoose.Schema({
 
 const Dish = mongoose.model("Dish", DishSchema);
 
-
-export {Dish}
+export { Dish };

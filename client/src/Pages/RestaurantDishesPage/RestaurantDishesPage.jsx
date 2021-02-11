@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRestaurantDishesList } from "../../Actions/DishesActions/GetRestaurantDishesActions";
 import "./RestaurantDishesPage.css";
 
-const RestaurantDishesPage = ({ match }) => {
+const RestaurantDishesPage = ({ match,history }) => {
   const restaurantId = match.params.id;
 
   const restaurantDishes = useSelector((state) => state.restaurantDishes);
@@ -24,7 +24,7 @@ const RestaurantDishesPage = ({ match }) => {
         <div>
           {dishes.map((dish) => (
             <div key={dish._id} className='dish-list'>
-              <Dish dish={dish} />
+              <Dish dish={dish} history={history} match={match} />
             </div>
           ))}
         </div>

@@ -94,6 +94,9 @@ const RightNav = ({ open, setOpen, history }) => {
         <Link to="/tours">Restaurants</Link>
       </li>
       <li>
+        <Link to="/dishes">Dishes</Link>
+      </li>
+      <li>
         <Link to="/cart">Cart</Link>
       </li>
       <li>
