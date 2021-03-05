@@ -40,6 +40,7 @@
 	padding: 10px 5px;
 	margin: 10px 5px;
 	font-family: 'Montserrat', sans-serif;
+	transition: 0.2 all;
 }
 
 .location-form-div h2{
@@ -47,5 +48,5 @@
 }
 
 .location-form-div button:hover{
-    border: 1px solid black;
+    transform: scale(1.05);
 }

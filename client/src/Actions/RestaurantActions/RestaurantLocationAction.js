@@ -13,7 +13,7 @@ export const getRestaurantLocation = (zipcode, distance) => async (
 
     const { data } = await axios.get(`/api/v1/restaurants/radius/${zipcode}/${distance}`);
 
-    dispatch({ type: RESTAURANT_LOCATION_SUCCESS, payload: data });
+    dispatch({ type: RESTAURANT_LOCATION_SUCCESS, payload: data.data });
   } catch (error) {
     dispatch({
       type: RESTAURANT_LOCATION_FAIL,

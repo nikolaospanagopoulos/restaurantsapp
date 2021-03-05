@@ -6,10 +6,18 @@ import slugify from "slugify";
 //import geocoder configuration
 import { geocoder } from "../Utilis/geocoder.js";
 
+//import review schema
+import { reviewSchema } from './ReviewSchema.js'
+
 //create the restaurant Schema
 
 const RestaurantSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    },
     name: {
       type: String,
       required: [true, "a restaurant must have a name"],
@@ -64,10 +72,11 @@ const RestaurantSchema = new mongoose.Schema(
       zipcode: String,
       country: String,
     },
-    averageRating: {
+    reviews: [reviewSchema],
+    numReviews: {
       type: Number,
-      min: [1, "Rating must be at least 1"],
-      max: [10, "Rating cannot be more than 10"],
+      required: true,
+      default: 0
     },
     photo: {
       type: String,

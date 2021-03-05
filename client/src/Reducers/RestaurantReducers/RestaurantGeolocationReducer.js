@@ -5,7 +5,7 @@ import {
 } from "../../Constants/RestaurantConstants/RestaurantGeolocationConstants";
 
 export const restaurantLocationReducer = (
-  state = { restaurants: {location:[]} },
+  state = { restaurants: [] },
   action
 ) => {
   switch (action.type) {
