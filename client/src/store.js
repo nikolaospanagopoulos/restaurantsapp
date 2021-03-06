@@ -7,15 +7,21 @@ import { RestaurantListReducer } from "./Reducers/RestaurantReducers/RestaurantL
 import { restaurantDetailsReducer } from "./Reducers/RestaurantReducers/RestaurantDetailsReducers";
 import { restaurantLocationReducer } from "./Reducers/RestaurantReducers/RestaurantGeolocationReducer";
 import { GetRestaurantDishesReducer } from "./Reducers/DishesReducers/GetRestaurantDishesReducer";
-
+import { cartReducer } from "./Reducers/CartReducers/CartReducers"
 const reducer = combineReducers({
   restaurantList: RestaurantListReducer,
   restaurantDetails: restaurantDetailsReducer,
   restaurantLocation: restaurantLocationReducer,
   restaurantDishes: GetRestaurantDishesReducer,
+  cart: cartReducer
 });
 
-const initialState = {};
+const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse
+  (localStorage.getItem('cartItems')) : []
+
+const initialState = {
+  cart: { cartItems: cartItemsFromStorage }
+};
 
 //we use thunk for asynchronous requests
 const middleware = [thunk];

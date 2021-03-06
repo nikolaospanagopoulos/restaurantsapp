@@ -7,7 +7,28 @@
     width: 40vw;
     text-align: center;
     background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+    text-align: center;
+    display: block;
+    
 }
+
+.dish-image{
+    margin: 0 ;
+    overflow: hidden;
+
+}
+
+
+.dish-image img{
+    width: 11vw;
+    margin-top: 5vh;
+    height: 150px;
+    margin-right: 0px;
+    border-radius: 15px;
+    border: 1px solid tomato;
+
+}
+
 
 .dish-card h4{
     margin: 0;

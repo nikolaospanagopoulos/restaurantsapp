@@ -11,6 +11,9 @@ const DishSchema = new mongoose.Schema({
     type: String,
     required: [true, "A dish must have a description"],
   },
+  image: {
+    type:String
+  },
   price: {
     type: Number,
     required: [true, "A dish must have a price"],
