@@ -12,7 +12,7 @@ export const getRestaurantDishesList = (restaurantId) => async (dispatch) => {
       `/api/v1/restaurants/${restaurantId}/dishes`
     );
 
-    dispatch({ type: RESTAURANT_DISHES_SUCCESS, payload: data.data });
+    dispatch({ type: RESTAURANT_DISHES_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: RESTAURANT_DISHES_FAIL,

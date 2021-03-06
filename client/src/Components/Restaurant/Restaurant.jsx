@@ -1,17 +1,9 @@
 import React from "react";
 import "./Restaurant.css";
 import { Link } from "react-router-dom";
+import { removeWord } from "../../Utilis/Regex";
 
-const removeWord = (string) => {
-  {
-    const uselessWordsArray = ["Municipal", "Municipality", "of", "Unit"];
 
-    const expStr = uselessWordsArray.join("|");
-    return string
-      .replace(new RegExp("\\b(" + expStr + ")\\b", "gi"), " ")
-      .replace(/\s{2,}/g, " ");
-  }
-};
 
 const Restaurant = ({ restaurant }) => {
   return (

@@ -11,7 +11,7 @@ export const getRestaurantList = () => async (dispatch) => {
 
     const { data } = await axios.get("/api/v1/restaurants");
 
-    dispatch({ type: RESTAURANT_LIST_SUCCESS, payload: data.data });
+    dispatch({ type: RESTAURANT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: RESTAURANT_LIST_FAIL,

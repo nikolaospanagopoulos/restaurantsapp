@@ -24,7 +24,7 @@ const RestaurantDishesPage = ({ match,history }) => {
         <div>
           
           {loading ? <Loader /> : error ? <Message> {error} </Message> : (
-            dishes.map((dish) => (
+            dishes.data.map((dish) => (
               <div key={dish._id} className='dish-list'>
                 <Dish dish={dish} history={history} match={match} />
               </div>
