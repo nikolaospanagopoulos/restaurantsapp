@@ -1,10 +1,10 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose  from 'mongoose'
 
 const orderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:'User'
+        ref: 'User'
     },
     orderItems: [
         {
@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema({
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
-                ref:'Dish'
+                ref: 'Dish'
             }
         }
     ],
@@ -25,8 +25,54 @@ const orderSchema = new mongoose.Schema({
         postalCode: { type: String, required: true },
     },
     paymentMethod: {
-        type: String,
-        required:[true,'You must choose a payment']
+        id: { type: String },
+        required: [true, 'You must choose a payment method']
+    },
+    paymentResult: {
+        id: { type: String },
+        status: { type: String },
+        update_time: { type: String },
+        email_address: { type: String }
+    },
+    taxPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
+
+    },
+    shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
+
+    },
+    totalPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
+
+    },
+    isPaid: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    paidAt: {
+        type: Date
+    },
+    isDelivered: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    deliveredAt: {
+        type: Date
     }
-    
+
+}, {
+    timestamps: true
 })
+
+const Order = mongoose.model('Order', orderSchema)
+
+export { Order }
