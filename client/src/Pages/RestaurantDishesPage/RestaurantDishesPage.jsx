@@ -17,6 +17,7 @@ const RestaurantDishesPage = ({ match,history }) => {
   useEffect(() => {
     dispatch(getRestaurantDishesList(restaurantId));
   }, [dispatch, restaurantId]);
+  console.log(dishes)
   return (
     <div className="dishes-page">
       <h1 className="dishes-title">Dishes</h1>
@@ -24,7 +25,7 @@ const RestaurantDishesPage = ({ match,history }) => {
         <div>
           
           {loading ? <Loader /> : error ? <Message> {error} </Message> : (
-            dishes.data.map((dish) => (
+            dishes.map((dish) => (
               <div key={dish._id} className='dish-list'>
                 <Dish dish={dish} history={history} match={match} />
               </div>
