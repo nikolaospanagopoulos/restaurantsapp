@@ -61,6 +61,34 @@
     width: 39px;
     
 }
+
+.item-price-info{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 3rem auto;
+    border: 1px solid tomato;
+    width: 20vw;
+    background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+}
+
+.toCheckout{
+    margin: 2rem auto;
+    display: block;
+    height: 50px;
+    background-image:linear-gradient(to bottom right, #ff3333, #ffff99);
+    border: none;
+    width: 150px;
+    cursor: pointer;
+    font-size: 1.2rem;
+   
+}
+.toCheckout:hover{
+    transform: scale(1.03);
+}
+
+.tocheckout-disabled{
+    display: none;
+}
 @media screen and (max-width: 823px){
     .go-back-link{
         font-size: 1.5rem;

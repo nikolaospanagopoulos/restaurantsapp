@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CART_ADD_ITEM } from '../../Constants/CartConstants/CartConstants'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../../Constants/CartConstants/CartConstants'
 
 //with getState we have access to whole state
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -13,11 +13,20 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
             image: data.data.image,
             price: data.data.price,
             available: data.data.available,
-            restaurant:data.data.restaurant,
+            restaurant: data.data.restaurant,
             qty
 
         }
     })
     //save to local storage
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+    dispatch({
+        type: CART_REMOVE_ITEM,
+        payload:id
+    })
+
+    localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems))
 }

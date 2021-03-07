@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
-import { addToCart } from "../../Actions/CartActions/CartActions";
+import {
+  addToCart,
+  removeFromCart,
+} from "../../Actions/CartActions/CartActions";
 import "./CartPage.css";
+
 const CartPage = ({ match, location, history }) => {
   const productId = match.params.id;
 
@@ -15,16 +19,50 @@ const CartPage = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const removeFromCartHandler = (id) => {};
+  
+
+  const checkoutHandler = () => {
+    history.push("/login?redirect=delivery");
+  };
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
   }, [dispatch, productId, qty]);
+
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id))
+  };
   return (
-    <div className='cart-item-page'>
+    <div className="cart-item-page">
       <div>
         <h1>Shopping Cart</h1>
+        <div className="item-price-info">
+          <div>
+            <h2>
+              Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+              items
+            </h2>
+            <h3>
+              €
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </h3>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            className={`${
+              cartItems.length > 0 ? "toCheckout" : "tocheckout-disabled"
+            }`}
+            onClick={checkoutHandler}
+          >
+            To Checkout
+          </button>
+        </div>
         {cartItems.length === 0 ? (
           <Message>
             Your Cart Is Empty{" "}
@@ -55,7 +93,8 @@ const CartPage = ({ match, location, history }) => {
                 <div className="cart-item-price">{item.price}€</div>
                 <div>
                   <div>
-                    <select className='select-qty'
+                    <select
+                      className="select-qty"
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
@@ -73,7 +112,7 @@ const CartPage = ({ match, location, history }) => {
                   <div className="cartItem-select-remove">
                     <button
                       type="button"
-                      onClick={removeFromCartHandler(item.product)}
+                      onClick={() => removeFromCartHandler(item.product)}
                     >
                       <i className="fas fa-trash"></i>
                     </button>
