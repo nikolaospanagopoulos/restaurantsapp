@@ -17,9 +17,9 @@ export const getDishes = asyncHandler(async (req, res, next) => {
     const advanedDishesResults = data.filter(dish =>  req.params.restaurantId == dish.restaurant._id )
     res.status(200).json(advanedDishesResults)
    } 
-  //else {
-  //   res.status(200).json(res.advancedResults)
-  // }
+  else {
+    res.status(200).json(res.advancedResults)
+  }
 
 });
 

@@ -5,10 +5,11 @@
     border: 1px solid black;
     color:black;
     margin: 0 auto;
-    width: 20vw;
+    width: 13vw;
     margin-top: 2rem;
     background-color: tomato;
     transition: 0.5s all;
+    font-size: 2.5rem;
 }
 
 .go-back-link:hover{
@@ -27,9 +28,10 @@
     align-items: center;
     flex-direction: row;
     background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
-    width: 30vw;
+    width: 35rem;
     margin: 0 auto;
     margin-bottom: 1rem;
+    
     
 }
 
@@ -92,7 +94,7 @@
 @media screen and (max-width: 823px){
     .go-back-link{
         font-size: 1.5rem;
-        width: 50vw;
+        max-width: 50vw;
         padding: 15px;
     }
     .cart-item{
@@ -103,5 +105,15 @@
     .cart-product-image{
         width: 15vw;
         height: 8vh;
+    }
+    .item-price-info{
+        width: 60vw;
+        padding: 10px;
+    }
+    .go-back-link{
+        width: 70vw;
+    }
+    .cart-item-page h1{
+        
     }
 }
