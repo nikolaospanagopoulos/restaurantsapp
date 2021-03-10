@@ -42,6 +42,7 @@ export const getRestaurant = asyncHandler(async (req, res, next) => {
 //access:admin,owner
 //create a restaurant
 export const createRestaurant = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   const restaurant = await Restaurant.create(req.body);
 
   res.status(201).json({

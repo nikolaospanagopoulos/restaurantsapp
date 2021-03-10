@@ -16,6 +16,8 @@ import { logger } from "./Middleware/logger.js";
 //import custom error middleware
 import { errorHandler } from "./Middleware/error.js";
 
+//import cookie parser to send jwt in cookie
+import cookieParser from 'cookie-parser'
 dotenv.config();
 
 const app = express();
@@ -29,6 +31,8 @@ app.use(logger);
 //use express body parser
 app.use(express.json());
 
+//use cookie parser
+app.use(cookieParser())
 app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
 app.use("/api/v1/auth",AuthRoutes)
