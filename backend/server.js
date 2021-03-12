@@ -13,12 +13,12 @@ import { connectDB } from "./Config/db.js";
 //import custom logging middleware
 import { logger } from "./Middleware/logger.js";
 
-//import custom error middleware
+//import custom error middleware 
 import { errorHandler } from "./Middleware/error.js";
 
 //import cookie parser to send jwt in cookie
 import cookieParser from 'cookie-parser'
-dotenv.config();
+dotenv.config('./');
 
 const app = express();
 
@@ -36,6 +36,7 @@ app.use(cookieParser())
 app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
 app.use("/api/v1/auth",AuthRoutes)
+
 
 
 //make uploads a static folder
