@@ -37,7 +37,7 @@ app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
 app.use("/api/v1/auth",AuthRoutes)
 
-
+ 
 
 //make uploads a static folder
 const __dirname = path.resolve()
@@ -52,9 +52,9 @@ const server = app.listen(PORT, () => {
   );
 });
 
-//handle unhandled rejections
+//handle unhandled rejections 
 process.on("unhandledRejection", (err, promise) => {
   console.log(`unhandeled rejection: ${err.message}`);
   //close server & exit process
-  server.close(() => process.exit(1));
+  server.close(() => process.exit(1)); 
 });

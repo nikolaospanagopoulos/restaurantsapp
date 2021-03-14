@@ -16,18 +16,18 @@ import { advancedResults } from "../../Middleware/advancedResults.js";
 import DishRoutes from "../DishRoutes/DishRoutes.js";
 
 
-//import protect middleware
-import {protect} from '../../Middleware/auth.js'
+//import protect and roles authorize middleware middleware
+import {protect,authorize} from '../../Middleware/auth.js'
 const router = express.Router();
 
 //reroute into other resource routes
 router.use("/:restaurantId/dishes", DishRoutes);
 router.route("/radius/:zipcode/:distance").get(getRestaurantsWithinRadius);
 
-router.route("/").get(advancedResults(Restaurant,'dishes'),getRestaurants).post(protect,createRestaurant);
+router.route("/").get(advancedResults(Restaurant,'dishes'),getRestaurants).post(protect,authorize('admin'),createRestaurant);
 router
   .route("/:id")
   .get(getRestaurant)
-  .put(protect,updateRestaurant)
-  .delete(protect,deleteRestaurant);
+  .put(protect,authorize('owner','admin'),updateRestaurant)
+  .delete(protect,authorize('admin'),deleteRestaurant);
 export default router;

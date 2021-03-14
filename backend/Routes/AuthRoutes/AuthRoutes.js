@@ -1,6 +1,6 @@
 import express from 'express'
 import { register, login, getMe } from '../../Controllers/authControllers/authControllers.js'
-
+//import protect and special roles middleware
 import {protect} from '../../Middleware/auth.js'
 
 const router = express.Router()
