@@ -15,7 +15,6 @@ import { geocoder } from "../../Utilis/geocoder.js";
 //access:all
 //get all restaurants
 export const getRestaurants = asyncHandler(async (req, res, next) => {
-  
   res.status(200).json(res.advancedResults);
 });
 
@@ -24,7 +23,9 @@ export const getRestaurants = asyncHandler(async (req, res, next) => {
 //access:all
 //get a restaurant
 export const getRestaurant = asyncHandler(async (req, res, next) => {
-  const restaurant = await Restaurant.findById(req.params.id).populate('dishes');
+  const restaurant = await Restaurant.findById(req.params.id).populate(
+    "dishes"
+  );
 
   if (!restaurant) {
     return next(
@@ -42,6 +43,7 @@ export const getRestaurant = asyncHandler(async (req, res, next) => {
 //access:admin,owner
 //create a restaurant
 export const createRestaurant = asyncHandler(async (req, res, next) => {
+  //add user to req.body
   req.body.user = req.user.id;
   const restaurant = await Restaurant.create(req.body);
 
@@ -56,19 +58,27 @@ export const createRestaurant = asyncHandler(async (req, res, next) => {
 //access:admin,owner
 //update a restaurant
 export const updateRestaurant = asyncHandler(async (req, res, next) => {
-  const restaurant = await Restaurant.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  let restaurant = await Restaurant.findById(req.params.id);
   if (!restaurant) {
     return next(
       new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
     );
   }
+
+  //make sure only the owner can update and the admin
+  if (restaurant.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User with id:${req.user.id} is not the owner of this restaurant or an admin`,
+        401
+      )
+    );
+  }
+
+  restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
   res.status(200).json({
     success: true,
     data: restaurant,
@@ -87,7 +97,18 @@ export const deleteRestaurant = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Restaurant not found with id of ${req.params.id}`, 404)
     );
   }
-  restaurant.remove()
+
+  //make sure only the owner can update and the admin
+  if (restaurant.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User with id:${req.user.id} is not the owner of this restaurant or an admin`,
+        401
+      )
+    );
+  }
+
+  restaurant.remove();
   res.status(200).json({
     success: true,
     data: {},
@@ -117,8 +138,8 @@ export const getRestaurantsWithinRadius = asyncHandler(
     const radius = distance / 6378;
     const restaurants = await Restaurant.find({
       location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
-    }).populate('dishes');
-    
+    }).populate("dishes");
+
     res.status(200).json({
       success: true,
       count: restaurants.length,
