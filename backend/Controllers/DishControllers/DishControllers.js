@@ -7,20 +7,16 @@ import { Restaurant } from "../../Models/RestaurantModel.js";
 //GET /api/v1/restaurants/:restaurantId/dishes
 //Public
 export const getDishes = asyncHandler(async (req, res, next) => {
-
-
   if (req.params.restaurantId) {
-    
+    const { data } = res.advancedResults;
 
-    const {data} = res.advancedResults
-    
-    const advanedDishesResults = data.filter(dish =>  req.params.restaurantId == dish.restaurant._id )
-    res.status(200).json(advanedDishesResults)
-   } 
-  else {
-    res.status(200).json(res.advancedResults)
+    const advanedDishesResults = data.filter(
+      (dish) => req.params.restaurantId == dish.restaurant._id
+    );
+    res.status(200).json(advanedDishesResults);
+  } else {
+    res.status(200).json(res.advancedResults);
   }
-
 });
 
 //get a dish
@@ -49,6 +45,7 @@ export const getDish = asyncHandler(async (req, res, next) => {
 export const addDish = asyncHandler(async (req, res, next) => {
   //we take the restaurant id from the params and put it in the body
   req.body.restaurant = req.params.restaurantId;
+  req.body.user = req.user.id;
 
   const restaurant = await Restaurant.findById(req.params.restaurantId);
 
@@ -61,6 +58,15 @@ export const addDish = asyncHandler(async (req, res, next) => {
     );
   }
 
+  //make sure only the owner can update and the admin
+  if (restaurant.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User with id:${req.user.id} is not the owner of this restaurant or an admin`,
+        401
+      )
+    );
+  }
   const dish = await Dish.create(req.body);
 
   res.status(201).json({
@@ -77,11 +83,19 @@ export const updateDish = asyncHandler(async (req, res, next) => {
   let dish = await Dish.findById(req.params.id);
 
   if (!dish) {
-    return next(
-      new ErrorResponse(`No dish with id of ${req.params.id}`, 404)
-    );
+    return next(new ErrorResponse(`No dish with id of ${req.params.id}`, 404));
   }
 
+
+  //make sure only the owner can update and the admin
+  if (dish.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User with id:${req.user.id} is not authorized to update this dish`,
+        401
+      )
+    );
+  }
   dish = await Dish.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -101,11 +115,18 @@ export const deleteDish = asyncHandler(async (req, res, next) => {
   const dish = await Dish.findById(req.params.id);
 
   if (!dish) {
-    return next(
-      new ErrorResponse(`No dish with id of ${req.params.id}`, 404)
-    );
+    return next(new ErrorResponse(`No dish with id of ${req.params.id}`, 404));
   }
 
+   //make sure only the owner can update and the admin
+   if (dish.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User with id:${req.user.id} is not authorized to delete this dish`,
+        401
+      )
+    );
+  }
   await dish.remove();
 
   res.status(200).json({

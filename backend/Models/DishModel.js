@@ -22,7 +22,7 @@ const DishSchema = new mongoose.Schema({
     type: Boolean,
     required: [true, "A dish must have a category"],
   },
-  vegeterian: {
+  vegetarian: {
     type: Boolean,
     required: [true, "A dish must have a category"],
   },
@@ -53,6 +53,11 @@ const DishSchema = new mongoose.Schema({
   restaurant: {
     type: mongoose.Schema.ObjectId,
     ref: "Restaurant",
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
     required: true,
   },
 });
