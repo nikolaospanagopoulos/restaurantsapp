@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import RestaurantRoutes from "./Routes/RestaurantRoutes/RestaurantRoutes.js";
 import DishRoutes from "./Routes/DishRoutes/DishRoutes.js";
 import AuthRoutes from "./Routes/AuthRoutes/AuthRoutes.js"
+import UserRoutes from './Routes/UserRoutes/UserRoutes.js'
 //import database connection function
 import { connectDB } from "./Config/db.js";
 
@@ -36,7 +37,7 @@ app.use(cookieParser())
 app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
 app.use("/api/v1/auth",AuthRoutes)
-
+app.use("/api/v1/users",UserRoutes)
  
 
 //make uploads a static folder
