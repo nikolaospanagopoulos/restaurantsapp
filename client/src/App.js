@@ -5,6 +5,7 @@ import RestaurantDetailsPage from './Pages/RestaurantDetailsPage/RestaurantDetai
 import RestaurantsGetLocation from './Pages/RestaurantsGetLocation/RestaurantsGetLocation'
 import RestaurantDishesPage from './Pages/RestaurantDishesPage/RestaurantDishesPage'
 import CartPage from './Pages/CartPage/CartPage'
+import LoginPage from './Pages/LoginPage/LoginPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router,Route } from "react-router-dom";
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Route component={RestaurantDetailsPage} path='/restaurants/:id' exact/>
         <Route  component={RestaurantDishesPage} path='/restaurants/:id/dishes'/>
         <Route  component={CartPage} path='/cart/:id?'/>
+        <Route  component={LoginPage} path='/login'/>
         <Route component={RestaurantsListPage} path='/' exact/>
        
     </Router>
