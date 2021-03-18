@@ -16,9 +16,9 @@ export const getRestaurantList = () => async (dispatch) => {
     dispatch({
       type: RESTAURANT_LIST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.error
     });
   }
 };

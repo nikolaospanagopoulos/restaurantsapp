@@ -12,15 +12,16 @@ const LoginPage = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { loading, error, success } = userLogin;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-    if (userInfo) {
+    if (success) {
+        console.log(success)
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+  }, [history, success, redirect]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
@@ -36,14 +37,14 @@ const LoginPage = ({ location, history }) => {
           <div>
             <form onSubmit={submitHandler}>
               <div>
-                <label>email</label>
+                <label>Your Email...</label>
                 <input
                   type="email"
                   placeholder="enter your email..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label password></label>
+                <label>Your Password...</label>
                 <input
                   type="password"
                   placeholder="enter your password..."
