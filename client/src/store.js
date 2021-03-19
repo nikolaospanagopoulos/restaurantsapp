@@ -8,12 +8,14 @@ import { restaurantDetailsReducer } from "./Reducers/RestaurantReducers/Restaura
 import { restaurantLocationReducer } from "./Reducers/RestaurantReducers/RestaurantGeolocationReducer";
 import { GetRestaurantDishesReducer } from "./Reducers/DishesReducers/GetRestaurantDishesReducer";
 import { loginReducer } from "./Reducers/UserReducers/LoginReducers";
+import { loginInfoReducer } from './Reducers/UserReducers/GetLogedInUserReducer'
 import { cartReducer } from "./Reducers/CartReducers/CartReducers";
 const reducer = combineReducers({
   restaurantList: RestaurantListReducer,
   restaurantDetails: restaurantDetailsReducer,
   restaurantLocation: restaurantLocationReducer,
   restaurantDishes: GetRestaurantDishesReducer,
+  loginInfo: loginInfoReducer,
   cart: cartReducer,
   userLogin: loginReducer,
 });

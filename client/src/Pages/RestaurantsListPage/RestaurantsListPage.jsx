@@ -7,14 +7,13 @@ import LocationForm from "../../Components/LocationForm/LocationForm";
 
 //import action
 import { getRestaurantList } from "../../Actions/RestaurantActions/RestaurantListActions";
-
+import { loginInfoAction } from "../../Actions/UserActions/LogedUserInfoActions";
 //import custom loading and message component
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
 
 //import custom restaurant component
 import Restaurant from "../../Components/Restaurant/Restaurant";
-
 
 const RestaurantsListPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -23,10 +22,15 @@ const RestaurantsListPage = ({ history }) => {
   const restaurantList = useSelector((state) => state.restaurantList);
   const { restaurants, loading, error } = restaurantList;
 
+  const loginInfo = useSelector((state) => state.loginInfo);
+  const { user } = loginInfo;
   useEffect(() => {
-    dispatch(getRestaurantList());
-  }, [dispatch]);
-console.log(restaurants.pagination)
+    if (!user) {
+      dispatch(loginInfoAction());
+      dispatch(getRestaurantList());
+    }
+  }, [dispatch, user]);
+  console.log(restaurants.pagination);
   return (
     <div className="restaurant-list">
       <div>
@@ -41,18 +45,11 @@ console.log(restaurants.pagination)
         <Message> {error} </Message>
       ) : (
         <div>
-          {/* {(data.data).map((restaurant) => (
+          {restaurants.data.map((restaurant) => (
             <div key={restaurant._id} className="restaurant-list-restaurants">
               <Restaurant restaurant={restaurant} />
             </div>
-          ))} */}
-              {
-                (restaurants.data).map(restaurant => (
-                  <div key={restaurant._id} className="restaurant-list-restaurants">
-                  <Restaurant restaurant={restaurant} />
-                </div>
-      ))
-              }
+          ))}
         </div>
       )}
     </div>

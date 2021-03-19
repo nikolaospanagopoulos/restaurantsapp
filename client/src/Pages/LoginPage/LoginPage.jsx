@@ -8,7 +8,7 @@ import Loader from "../../Components/Loading/Loader";
 const LoginPage = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [cookie, setCookie] = useState("");
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -16,11 +16,32 @@ const LoginPage = ({ location, history }) => {
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
+  function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+
+    // Loop through the array elements
+    for (var i = 0; i < cookieArr.length; i++) {
+      var cookiePair = cookieArr[i].split("=");
+
+      /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+      if (name === cookiePair[0].trim()) {
+        // Decode the cookie value and return
+        return setCookie(decodeURIComponent(cookiePair[1]));
+      }
+    }
+
+    // Return null if not found
+    return null;
+  }
+  //console.log(cookies)
   useEffect(() => {
-    if (userInfo) {
+    getCookie("token");
+    if (cookie.length > 0) {
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, redirect, cookie]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
@@ -43,7 +64,7 @@ const LoginPage = ({ location, history }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label password></label>
+                <label></label>
                 <input
                   type="password"
                   placeholder="enter your password..."

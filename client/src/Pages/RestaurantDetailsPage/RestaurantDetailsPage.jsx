@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRestaurantDetails } from "../../Actions/RestaurantActions/RestaurantDetailsActions";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
-import { Link } from "react-router-dom";
 import "./RestaurantDetailsPage.css";
 import { removeWord } from "../../Utilis/Regex";
 const RestaurantDetailsPage = ({ match, history }) => {
