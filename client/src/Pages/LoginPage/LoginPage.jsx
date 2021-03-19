@@ -12,7 +12,7 @@ const LoginPage = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { loading, error, success } = userLogin;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -37,11 +37,19 @@ const LoginPage = ({ location, history }) => {
   }
   //console.log(cookies)
   useEffect(() => {
+<<<<<<< HEAD
     getCookie("token");
     if (cookie.length > 0) {
       history.push(redirect);
     }
   }, [history, userInfo, redirect, cookie]);
+=======
+    if (success) {
+        console.log(success)
+      history.push(redirect);
+    }
+  }, [history, success, redirect]);
+>>>>>>> bc1dfcb9c692efb8b031056812e504100e3430b9
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
@@ -57,14 +65,18 @@ const LoginPage = ({ location, history }) => {
           <div>
             <form onSubmit={submitHandler}>
               <div>
-                <label>email</label>
+                <label>Your Email...</label>
                 <input
                   type="email"
                   placeholder="enter your email..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+<<<<<<< HEAD
                 <label></label>
+=======
+                <label>Your Password...</label>
+>>>>>>> bc1dfcb9c692efb8b031056812e504100e3430b9
                 <input
                   type="password"
                   placeholder="enter your password..."

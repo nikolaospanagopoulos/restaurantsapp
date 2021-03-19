@@ -13,6 +13,7 @@ export const getRestaurantDetails = (id) => async (dispatch) => {
 
     dispatch({ type: RESTAURANT_DETAILS_SUCCESS, payload: data.data });
   } catch (error) {
+    console.log(error.response)
     dispatch({
       type: RESTAURANT_DETAILS_FAIL,
       payload:
