@@ -4,7 +4,7 @@ import { login } from "../../Actions/UserActions/LoginActions";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../Components/Message/Message";
 import Loader from "../../Components/Loading/Loader";
-
+import "./LoginPage.css";
 const LoginPage = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ const LoginPage = ({ location, history }) => {
 
   useEffect(() => {
     if (success) {
-        console.log(success)
+      console.log(success);
       history.push(redirect);
     }
   }, [history, success, redirect]);
@@ -33,11 +33,12 @@ const LoginPage = ({ location, history }) => {
         <Message> {error} </Message>
       ) : (
         <div>
-          <div>
+          <div className="form-container">
             <form onSubmit={submitHandler}>
               <div>
                 <label>Your Email...</label>
                 <input
+                  className="input-login"
                   type="email"
                   placeholder="enter your email..."
                   value={email}
@@ -45,6 +46,7 @@ const LoginPage = ({ location, history }) => {
                 />
                 <label>Your Password...</label>
                 <input
+                  className="input-login"
                   type="password"
                   placeholder="enter your password..."
                   value={password}
@@ -55,10 +57,10 @@ const LoginPage = ({ location, history }) => {
             </form>
           </div>
           <div>
-            <div>
+            <div >
               <h3>
                 New Customer ?{" "}
-                <Link
+                <Link className='register-link'
                   to={redirect ? `/register?redirect=${redirect}` : "/register"}
                 >
                   Register

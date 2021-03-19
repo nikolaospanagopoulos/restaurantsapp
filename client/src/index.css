@@ -17,3 +17,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+  box-shadow: 0 0 0 30px tan inset !important;;
+ -webkit-box-shadow: 0 0 0 30px tan inset !important;
+}
+input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic", sans-serif;}
