@@ -8,7 +8,8 @@ import { restaurantDetailsReducer } from "./Reducers/RestaurantReducers/Restaura
 import { restaurantLocationReducer } from "./Reducers/RestaurantReducers/RestaurantGeolocationReducer";
 import { GetRestaurantDishesReducer } from "./Reducers/DishesReducers/GetRestaurantDishesReducer";
 import { loginReducer } from "./Reducers/UserReducers/LoginReducers";
-import { loginInfoReducer } from './Reducers/UserReducers/GetLogedInUserReducer'
+import { loginInfoReducer } from "./Reducers/UserReducers/GetLogedInUserReducer";
+import { registerReducer } from "./Reducers/UserReducers/RegisterReducers";
 import { cartReducer } from "./Reducers/CartReducers/CartReducers";
 const reducer = combineReducers({
   restaurantList: RestaurantListReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   loginInfo: loginInfoReducer,
   cart: cartReducer,
   userLogin: loginReducer,
+  userRegister: registerReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

@@ -28,3 +28,73 @@ input:-webkit-autofill:active
  -webkit-box-shadow: 0 0 0 30px tan inset !important;
 }
 input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic", sans-serif;}
+
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100vw;
+    height: 80vh;
+   
+}
+
+
+.form-container label{
+    color: white;
+    font-size: 22px;
+    font-family: "Yusei Magic", sans-serif;
+}
+
+.form-container button{
+    margin-top: 30px;
+    width: 5vw;
+    height: 4vh;
+    background-color: tan;
+    border-radius: 10px;
+    outline:none;
+    border: none;
+    font-family: "Yusei Magic", sans-serif;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+
+
+.input-login-register{
+    display: block;
+    height:30px;
+    outline:none;
+    border-radius: 10px;
+    width:20vw;
+    padding: 10px;
+    font-size: 20px;
+    background-color: tan;
+    color: black;
+}
+
+
+.register-link-container{
+    width: 100vw;
+    text-align: center;
+    position: relative;
+    bottom: 5vh;
+    color: white;
+    font-family: "Yusei Magic", sans-serif;
+}
+
+.register-link{
+    text-decoration: none;
+    background-image: linear-gradient(to bottom right,#ff3333,#ffff99);
+    padding: 10px;
+    color: black;
+    
+}
+
+@media screen and (max-width: 823px){
+    .input-login-register{
+        width: 60vw;
+    }
+    .form-container button{
+        width: 30vw;
+    }
+}

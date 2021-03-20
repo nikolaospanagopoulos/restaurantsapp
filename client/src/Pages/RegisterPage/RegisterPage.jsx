@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { login } from "../../Actions/UserActions/LoginActions";
+import { register } from "../../Actions/UserActions/RegisterActions";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../Components/Message/Message";
 import Loader from "../../Components/Loading/Loader";
-import { USER_LOGOUT } from "../../Constants/UserConstants/LoginConstants";
-const LoginPage = ({ location, history }) => {
+import { USER_REGISTER_RESET } from "../../Constants/UserConstants/RegisterConstants";
+const RegisterPage = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, success } = userLogin;
-
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, success } = userRegister;
 
   useEffect(() => {
     if (success) {
-      console.log(success);
-      history.push(redirect);
+      history.push("/");
     } else if (error) {
       setTimeout(() => {
-        dispatch({ type: USER_LOGOUT });
+        dispatch({ type: USER_REGISTER_RESET });
       }, 3000);
     }
-  }, [history, success, redirect, dispatch, error]);
+  }, [history, success, error, dispatch]);
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(register(email, password, name));
   };
   return (
     <div>
@@ -40,6 +38,14 @@ const LoginPage = ({ location, history }) => {
           <div className="form-container">
             <form onSubmit={submitHandler}>
               <div>
+                <label>Your Name...</label>
+                <input
+                  className="input-login-register"
+                  type="text"
+                  placeholder="enter your name..."
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
                 <label>Your Email...</label>
                 <input
                   className="input-login-register"
@@ -63,9 +69,9 @@ const LoginPage = ({ location, history }) => {
           <div>
             <div className="register-link-container">
               <h3>
-                New Customer ?{" "}
-                <Link className="register-link" to={"/register"}>
-                  Register
+                Already A Member ?{" "}
+                <Link className="register-link" to={"/login"}>
+                  Login
                 </Link>
               </h3>
             </div>
@@ -76,4 +82,4 @@ const LoginPage = ({ location, history }) => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
