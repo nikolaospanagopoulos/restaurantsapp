@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Actions/UserActions/logoutAction";
+import { UPDATE_PROFILE_RESET } from "../../Constants/UserConstants/UpdateUserDataConstants";
+
 import { loginInfoAction } from "../../Actions/UserActions/LogedUserInfoActions";
 const Ul = styled.ul`
   @import url("https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap");
@@ -86,13 +88,25 @@ const RightNav = ({ open, setOpen, history }) => {
     success: successLogin,
   } = userLogin;
 
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const {
+    success: successUpdate,
+    loading: loadingUpdate,
+    userInfo,
+  } = userUpdate;
+
   const userRegister = useSelector((state) => state.userRegister);
   const { success: successRegister } = userRegister;
   useEffect(() => {
-    if ((successLogin && !user) || (successRegister && !user)) {
+    if (
+      (successLogin && !user) ||
+      (successRegister && !user) ||
+      (successUpdate && user)
+    ) {
+      dispatch({ type: UPDATE_PROFILE_RESET });
       dispatch(loginInfoAction());
     }
-  }, [dispatch, successLogin, user, successRegister]); 
+  }, [dispatch, successLogin, user, successRegister, successUpdate]);
 
   useEffect(() => {
     dispatch(loginInfoAction());
@@ -153,7 +167,7 @@ const RightNav = ({ open, setOpen, history }) => {
                     Logout
                   </Link>
                 </li>
-                {user && user.data.isAdmin && (
+                {(user || userInfo) && user.data.isAdmin && (
                   <div>
                     <li className="logoutlink2">
                       <Link to="/admin/userlist">Users</Link>

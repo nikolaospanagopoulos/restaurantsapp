@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./RestaurantsListPage.css";
-import { USER_UPDATE_PROFILE_RESET } from "../../Constants/UserConstants/LogedInUserInfoConstants";
 //import form to find restaurants close to the zipcode provided
 import LocationForm from "../../Components/LocationForm/LocationForm";
 
 //import action
 import { getRestaurantList } from "../../Actions/RestaurantActions/RestaurantListActions";
-import { loginInfoAction } from "../../Actions/UserActions/LogedUserInfoActions";
 //import custom loading and message component
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
@@ -70,22 +68,22 @@ const RestaurantsListPage = ({ history }) => {
         </div>
       )}
       <div className="pagination">
-        {previousPage <= 2 && nextPage > 2 ? (
+        {!loading && previousPage <= 2 && nextPage > 2 ? (
           <div>
             <button onClick={() => pageClick(previousPage)}>
-              {previousPage}
+            Previous
             </button>
-            <button onClick={() => pageClick(nextPage)}>{nextPage}</button>
+            <button onClick={() => pageClick(nextPage)}>Next</button>
           </div>
-        ) : nextPage === 2 && previousPage < 2 ? (
+        ) : !loading && nextPage === 2 && previousPage < 2 ? (
           <div>
-            <button onClick={() => pageClick(nextPage)}>{nextPage}</button>
+            <button onClick={() => pageClick(nextPage)}>Next</button>
           </div>
         ) : (
-          !nextPage && (
+          !loading && !nextPage && (
             <div>
               <button onClick={() => pageClick(previousPage)}>
-                {previousPage}
+                Previous
               </button>
             </div>
           )

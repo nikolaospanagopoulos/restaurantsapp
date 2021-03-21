@@ -7,10 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: url(./Images/pexels-pixabay-426279.jpg);
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-repeat: no-repeat;
 
-  height: max-content;
   
 }
 
