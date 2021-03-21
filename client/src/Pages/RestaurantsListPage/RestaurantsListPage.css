@@ -32,6 +32,21 @@
     margin-top: 1.5rem;
 }
 
+
+
+.pagination{
+   
+   position: absolute;
+   right: 20vw;
+}
+
+.pagination button{
+    padding: 10px;
+    border: 0.5px solid black;
+    background-color: tan;
+    outline: none;
+    cursor: pointer;
+}
 @media screen and (max-width: 823px){
     .restaurant-list{
         text-align: center;

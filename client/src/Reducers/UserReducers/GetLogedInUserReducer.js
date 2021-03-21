@@ -3,7 +3,7 @@ import {USER_LOGOUT} from '../../Constants/UserConstants/LoginConstants'
   export const loginInfoReducer = (state = {}, action) => {
     switch (action.type) {
       case USER_LOGIN_INFO_REQUEST:
-        return { loading: true,...state };
+        return { loading: true, user:{...state}, success:false};
       case USER_LOGIN_INFO_SUCCESS:
         return { loading: false, success:true,user: action.payload };
       case USER_LOGIN_INFO_FAIL:

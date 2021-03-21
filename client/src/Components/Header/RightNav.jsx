@@ -1,9 +1,9 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {logout} from '../../Actions/UserActions/logoutAction'
-
+import { logout } from "../../Actions/UserActions/logoutAction";
+import { loginInfoAction } from "../../Actions/UserActions/LogedUserInfoActions";
 const Ul = styled.ul`
   @import url("https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap");
   list-style: none;
@@ -27,7 +27,7 @@ const Ul = styled.ul`
   .logoutlink {
     text-align: center;
     border-top: 0px;
-    background-image: linear-gradient(to top, #4dff4d, #66ffe0);
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink2 {
     text-align: center;
@@ -76,20 +76,43 @@ const Ul = styled.ul`
 const RightNav = ({ open, setOpen, history }) => {
   const [menuAppear, setMenuAppear] = useState(false);
   const loginInfo = useSelector((state) => state.loginInfo);
-  const { loading, success , user } = loginInfo;
-  const dispatch = useDispatch()
+  const { loading, success, user } = loginInfo;
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const {
+    loading: loadingLogin,
+    error: errorLogin,
+    success: successLogin,
+  } = userLogin;
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { success: successRegister } = userRegister;
+  useEffect(() => {
+    if ((successLogin && !user) || (successRegister && !user)) {
+      dispatch(loginInfoAction());
+    }
+  }, [dispatch, successLogin, user, successRegister]); 
+
+  useEffect(() => {
+    dispatch(loginInfoAction());
+  }, [dispatch]);
   const handleClick = () => {
     setOpen(false);
   };
   const logoutHandler = () => {
-    dispatch(logout())
     function eraseCookie(name) {
-      document.cookie = name + '=; Max-Age=0'
+      document.cookie = name + "=; Max-Age=0";
     }
-    eraseCookie('token')
+    eraseCookie("token");
+
+    window.location.href = "/";
+
+    dispatch(logout());
   };
+
   return (
-    <Ul 
+    <Ul
       open={open}
       onClick={handleClick}
       onMouseEnter={() => setMenuAppear(false)}

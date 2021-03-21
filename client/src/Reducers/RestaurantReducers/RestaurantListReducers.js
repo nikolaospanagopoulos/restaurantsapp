@@ -4,7 +4,7 @@ import {
   RESTAURANT_LIST_SUCCESS,
 } from "../../Constants/RestaurantConstants/RestaurantListConstants";
 
-export const RestaurantListReducer = (state = { restaurants:{data:[]}}, action) => {
+export const RestaurantListReducer = (state = { restaurants:{data:[],pagination:{next:Number,previous:Number}}}, action) => {
   switch (action.type) {
     case RESTAURANT_LIST_REQUEST:
       return { loading: true, restaurants: {} };

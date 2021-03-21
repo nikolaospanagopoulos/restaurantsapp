@@ -5,11 +5,11 @@ import {
   RESTAURANT_LIST_SUCCESS,
 } from "../../Constants/RestaurantConstants/RestaurantListConstants";
 
-export const getRestaurantList = () => async (dispatch) => {
+export const getRestaurantList = (page=1) => async (dispatch) => {
   try {
     dispatch({ type: RESTAURANT_LIST_REQUEST });
 
-    const { data } = await axios.get("/api/v1/restaurants");
+    const { data } = await axios.get(`/api/v1/restaurants?limit=4&page=${page}`);
 
     dispatch({ type: RESTAURANT_LIST_SUCCESS, payload: data });
   } catch (error) {

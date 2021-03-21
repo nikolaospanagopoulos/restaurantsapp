@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./RestaurantsListPage.css";
-
+import { USER_UPDATE_PROFILE_RESET } from "../../Constants/UserConstants/LogedInUserInfoConstants";
 //import form to find restaurants close to the zipcode provided
 import LocationForm from "../../Components/LocationForm/LocationForm";
 
@@ -22,15 +22,32 @@ const RestaurantsListPage = ({ history }) => {
   const restaurantList = useSelector((state) => state.restaurantList);
   const { restaurants, loading, error } = restaurantList;
 
-  const loginInfo = useSelector((state) => state.loginInfo);
-  const { user } = loginInfo;
+  const [nextPage, setNextPage] = useState(Number);
+  const [previousPage, setPreviousPage] = useState(Number);
   useEffect(() => {
-    if (!user) {
-      dispatch(loginInfoAction());
-      dispatch(getRestaurantList());
+    dispatch(getRestaurantList());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (restaurants.pagination) {
+      if (restaurants.pagination.next) {
+        setNextPage(restaurants.pagination.next.page);
+      } else if (!restaurants.pagination.next) {
+        setNextPage(null);
+      }
+
+      if (restaurants.pagination.prev) {
+        setPreviousPage(restaurants.pagination.prev.page);
+      }
     }
-  }, [dispatch, user]);
-  console.log(restaurants.pagination);
+  }, [restaurants.pagination, loading]);
+
+  const pageClick = (pageNum) => {
+    dispatch(getRestaurantList(pageNum));
+  };
+
+  console.log(nextPage);
+  console.log(restaurants);
   return (
     <div className="restaurant-list">
       <div>
@@ -52,8 +69,30 @@ const RestaurantsListPage = ({ history }) => {
           ))}
         </div>
       )}
+      <div className="pagination">
+        {previousPage <= 2 && nextPage > 2 ? (
+          <div>
+            <button onClick={() => pageClick(previousPage)}>
+              {previousPage}
+            </button>
+            <button onClick={() => pageClick(nextPage)}>{nextPage}</button>
+          </div>
+        ) : nextPage === 2 && previousPage < 2 ? (
+          <div>
+            <button onClick={() => pageClick(nextPage)}>{nextPage}</button>
+          </div>
+        ) : (
+          !nextPage && (
+            <div>
+              <button onClick={() => pageClick(previousPage)}>
+                {previousPage}
+              </button>
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 };
-//good work
+
 export default RestaurantsListPage;
