@@ -14,6 +14,6 @@ const router = express.Router();
 router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/me").get(protect, getMe);
-router.route("updatepassword").put(protect, updatePassword);
+router.route("/updatepassword").put(protect, updatePassword);
 router.route("/updatedetails").put(protect, updateUserDetails);
 export default router;

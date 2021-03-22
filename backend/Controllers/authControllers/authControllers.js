@@ -49,6 +49,22 @@ export const login = asyncHandler(async (req, res, next) => {
 
     
 })
+// @desc      Update password
+// @route     PUT /api/v1/auth/updatepassword
+// @access    Private
+export const updatePassword = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('+password');
+  
+    // Check current password
+    if (!(await user.matchPassword(req.body.currentPassword))) {
+      return next(new ErrorResponse('Password is incorrect', 401));
+    }
+  
+    user.password = req.body.newPassword;
+    await user.save();
+  
+    sendTokenResponse(user, 200, res);
+  });
 
 //get token from model create cookie and send
 const sendTokenResponse = (user, statusCode, res) => {
@@ -103,25 +119,3 @@ export const updateUserDetails = asyncHandler(async (req, res, next) => {
     })
 })
 
-//update password
-//Private
-//PUT/api/v1/auth/updatepassword
-
-export const updatePassword = asyncHandler(async (req, res, next) => {
-    const user = await User.findById(req.user.id).select('+password')
-
-    //check current password
-    if(!(await user.matchPassword(req.body.currentPassword))){
-        return next(new ErrorResponse('Password is incorrect',401))
-    }
-
-    user.password = req.body.newPassword
-    await user.save()
-
-    sendTokenResponse(user,200,res)
-
-    res.status(200).json({
-        success: true,
-        data:user
-    })
-})

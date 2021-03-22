@@ -97,16 +97,30 @@ const RightNav = ({ open, setOpen, history }) => {
 
   const userRegister = useSelector((state) => state.userRegister);
   const { success: successRegister } = userRegister;
+
+  const passwordUpdate = useSelector((state) => state.passwordUpdate);
+  const {
+    success: successPassword,
+    loading: loadingPassword,
+    passwordData,
+  } = passwordUpdate;
   useEffect(() => {
     if (
       (successLogin && !user) ||
       (successRegister && !user) ||
-      (successUpdate && user)
+      (successUpdate && successPassword)
     ) {
       dispatch({ type: UPDATE_PROFILE_RESET });
       dispatch(loginInfoAction());
     }
-  }, [dispatch, successLogin, user, successRegister, successUpdate]);
+  }, [
+    dispatch,
+    successLogin,
+    user,
+    successRegister,
+    successUpdate,
+    successPassword,
+  ]);
 
   useEffect(() => {
     dispatch(loginInfoAction());

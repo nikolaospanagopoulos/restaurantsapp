@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'A user must have a password'],
-        minlength: [6, 'A password should be more than 6 characters long'],
+        // minlength: [6, 'A password should be more than 6 characters long'],
         select: false
     },
     isAdmin: {
@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema({
 
 //encrypt user password
 userSchema.pre('save', async function (next) {
+    if(!this.isModified('password')){
+        return next()
+    }
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
 })
@@ -62,10 +65,11 @@ userSchema.methods.getSignedJwtToken = function () {
         expiresIn: process.env.JWT_EXPIRE
     })
 }
-//match user password
+// Match user entered password to hashed password in database
 userSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password)
-}
+    return await bcrypt.compare(enteredPassword, this.password);
+  };
+  
 const User = mongoose.model('User', userSchema)
 
 export { User }
