@@ -33,7 +33,7 @@ export const updateUserPasswordReducer = (state = {}, action) => {
     case UPDATE_PASSWORD_FAIL:
       return { loading: false, error: action.payload };
       case UPDATE_PASSWORD_RESET:
-      return { };
+      return {};
     default:
       return state;
   }

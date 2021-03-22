@@ -8,14 +8,10 @@ import {
   updateProfile,
   updatePassword,
 } from "../../Actions/UserActions/updateUserProfileActions";
-import { UPDATE_PROFILE_RESET } from "../../Constants/UserConstants/UpdateUserDataConstants";
+
 const ProfilePage = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.loginInfo);
@@ -34,7 +30,7 @@ const ProfilePage = ({ history }) => {
     if (!success) {
       history.push("/login");
     } else {
-      if (!success || !user || successUpdate || successPassword) {
+      if (!success || !user || successUpdate ) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(loginInfoAction());
       } else {
@@ -48,14 +44,8 @@ const ProfilePage = ({ history }) => {
     e.preventDefault();
     dispatch(updateProfile(name, email));
     history.push("/");
-    if (password === confirmPassword && newPassword.length > 1) {
-      dispatch(updatePassword(password, newPassword));
-
-      // }else{
-      //    setMessage('Passwords do not match')
-      // }
-    }
   };
+
   return (
     <div>
       {loading ? (
@@ -80,30 +70,17 @@ const ProfilePage = ({ history }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <label>Password...</label>
-              <input
-                type="password"
-                className="input-login-register"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <label>Confirm Password...</label>
-              <input
-                type="password"
-                className="input-login-register"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <label>New Password...</label>
-              <input
-                type="password"
-                className="input-login-register"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
             </div>
-
+            <div className='button-div'>
             <button type="submit">Submit</button>
+            <button
+              onClick={() => history.push("/passwordchange")}
+              className="passwordchange-button"
+            >
+              Change Your Password
+            </button>
+            </div>
+           
           </form>
         </div>
       )}

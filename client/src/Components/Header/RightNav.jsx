@@ -108,7 +108,7 @@ const RightNav = ({ open, setOpen, history }) => {
     if (
       (successLogin && !user) ||
       (successRegister && !user) ||
-      (successUpdate && successPassword)
+      (successUpdate )
     ) {
       dispatch({ type: UPDATE_PROFILE_RESET });
       dispatch(loginInfoAction());

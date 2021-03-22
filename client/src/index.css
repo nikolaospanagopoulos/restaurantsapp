@@ -53,6 +53,7 @@ input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic"
     background-color: tan;
     border-radius: 10px;
     outline:none;
+    cursor: pointer;
     border: none;
     font-family: "Yusei Magic", sans-serif;
 }
@@ -90,6 +91,12 @@ input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic"
     
 }
 
+/* profile and password change pages */
+.button-div{
+    display: flex;
+    justify-content: space-between;
+   
+}
 @media screen and (max-width: 823px){
     .input-login-register{
         width: 60vw;
