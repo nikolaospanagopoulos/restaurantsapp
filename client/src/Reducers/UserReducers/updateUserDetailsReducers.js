@@ -17,8 +17,8 @@ export const updateUserDetailsReducer = (state = {}, action) => {
       return { loading: false, success: true, userInfo: action.payload };
     case UPDATE_PROFILE_FAIL:
       return { loading: false, error: action.payload };
-      case UPDATE_PROFILE_RESET:
-      return { };
+    case UPDATE_PROFILE_RESET:
+      return {};
     default:
       return state;
   }
@@ -32,7 +32,7 @@ export const updateUserPasswordReducer = (state = {}, action) => {
       return { loading: false, success: true, passwordData: action.payload };
     case UPDATE_PASSWORD_FAIL:
       return { loading: false, error: action.payload };
-      case UPDATE_PASSWORD_RESET:
+    case UPDATE_PASSWORD_RESET:
       return {};
     default:
       return state;

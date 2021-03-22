@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "../../Actions/UserActions/updateUserProfileActions";
 import Message from "../../Components/Message/Message";
 import Loader from "../../Components/Loading/Loader";
-import {UPDATE_PASSWORD_RESET} from '../../Constants/UserConstants/UpdateUserDataConstants'
-const PasswordChangePage = ({history}) => {
+import { UPDATE_PASSWORD_RESET } from "../../Constants/UserConstants/UpdateUserDataConstants";
+const PasswordChangePage = ({ history }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -15,39 +15,38 @@ const PasswordChangePage = ({history}) => {
   const passwordUpdate = useSelector((state) => state.passwordUpdate);
   const { loading, success, error } = passwordUpdate;
   useEffect(() => {
-      if(success){
-       
-        history.push('/')
-        dispatch({type:UPDATE_PASSWORD_RESET})
-      }
-  },[success,history]);
+    if (success) {
+      history.push("/");
+      dispatch({ type: UPDATE_PASSWORD_RESET });
+    } else if(error) {
+      setTimeout(() => {
+        dispatch({ type: UPDATE_PASSWORD_RESET });
+      }, 4000);
+    }
+  }, [success, history, dispatch,error]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-    
       setMessage("Passwords do not match");
-      setTimeout(()=> {
-          dispatch({type:UPDATE_PASSWORD_RESET})
-         
+      setTimeout(() => {
+        setMessage(null)
+        setConfirmPassword('')
+        setPassword('')
+        setNewPassword('')
+      }, 3000);
+    } else {
+      dispatch(updatePassword(password, newPassword));
 
-
-      },2000)
-
-    }else{
-        dispatch(updatePassword(password, newPassword));
-       
-          dispatch({type:UPDATE_PASSWORD_RESET})
-        
+      dispatch({ type: UPDATE_PASSWORD_RESET });
     }
   };
   return (
     <div>
-        {message && <Message> {message} </Message>}
-      {loading ? (
+      {error ? <Message> {error} </Message> : message ? (
+        <Message> {message} </Message>
+      ) : loading ? (
         <Loader />
-      ) : error ? (
-        <Message> {error} </Message>
       ) : (
         <div className="form-container">
           <form onSubmit={submitHandler}>
