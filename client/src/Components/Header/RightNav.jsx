@@ -82,16 +82,13 @@ const RightNav = ({ open, setOpen, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const {
-    loading: loadingLogin,
-    error: errorLogin,
+  const {  
     success: successLogin,
   } = userLogin;
 
   const userUpdate = useSelector((state) => state.userUpdate);
   const {
     success: successUpdate,
-    loading: loadingUpdate,
     userInfo,
   } = userUpdate;
 
@@ -101,8 +98,6 @@ const RightNav = ({ open, setOpen, history }) => {
   const passwordUpdate = useSelector((state) => state.passwordUpdate);
   const {
     success: successPassword,
-    loading: loadingPassword,
-    passwordData,
   } = passwordUpdate;
   useEffect(() => {
     if (

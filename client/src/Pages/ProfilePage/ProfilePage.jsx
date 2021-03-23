@@ -4,10 +4,7 @@ import Message from "../../Components/Message/Message";
 import Loader from "../../Components/Loading/Loader";
 import { loginInfoAction } from "../../Actions/UserActions/LogedUserInfoActions";
 import { USER_UPDATE_PROFILE_RESET } from "../../Constants/UserConstants/LogedInUserInfoConstants";
-import {
-  updateProfile,
-  updatePassword,
-} from "../../Actions/UserActions/updateUserProfileActions";
+import { updateProfile } from "../../Actions/UserActions/updateUserProfileActions";
 
 const ProfilePage = ({ history }) => {
   const [name, setName] = useState("");
@@ -23,14 +20,13 @@ const ProfilePage = ({ history }) => {
   const passwordUpdate = useSelector((state) => state.passwordUpdate);
   const {
     success: successPassword,
-    loading: loadingPassword,
     passwordData,
   } = passwordUpdate;
   useEffect(() => {
     if (!success) {
       history.push("/login");
     } else {
-      if (!success || !user || successUpdate ) {
+      if (!success || !user || successUpdate) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(loginInfoAction());
       } else {
@@ -49,6 +45,8 @@ const ProfilePage = ({ history }) => {
   return (
     <div>
       {loading ? (
+        <Loader />
+      ) : loadingUpdate ? (
         <Loader />
       ) : error ? (
         <Message> {error} </Message>
@@ -71,16 +69,15 @@ const ProfilePage = ({ history }) => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className='button-div'>
-            <button type="submit">Submit</button>
-            <button
-              onClick={() => history.push("/passwordchange")}
-              className="passwordchange-button"
-            >
-              Change Your Password
-            </button>
+            <div className="button-div">
+              <button type="submit">Submit</button>
+              <button
+                onClick={() => history.push("/passwordchange")}
+                className="passwordchange-button"
+              >
+                Change Your Password
+              </button>
             </div>
-           
           </form>
         </div>
       )}

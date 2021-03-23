@@ -18,22 +18,22 @@ const PasswordChangePage = ({ history }) => {
     if (success) {
       history.push("/");
       dispatch({ type: UPDATE_PASSWORD_RESET });
-    } else if(error) {
+    } else if (error) {
       setTimeout(() => {
         dispatch({ type: UPDATE_PASSWORD_RESET });
       }, 4000);
     }
-  }, [success, history, dispatch,error]);
+  }, [success, history, dispatch, error]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
       setTimeout(() => {
-        setMessage(null)
-        setConfirmPassword('')
-        setPassword('')
-        setNewPassword('')
+        setMessage(null);
+        setConfirmPassword("");
+        setPassword("");
+        setNewPassword("");
       }, 3000);
     } else {
       dispatch(updatePassword(password, newPassword));
@@ -43,7 +43,9 @@ const PasswordChangePage = ({ history }) => {
   };
   return (
     <div>
-      {error ? <Message> {error} </Message> : message ? (
+      {error ? (
+        <Message> {error} </Message>
+      ) : message ? (
         <Message> {message} </Message>
       ) : loading ? (
         <Loader />
