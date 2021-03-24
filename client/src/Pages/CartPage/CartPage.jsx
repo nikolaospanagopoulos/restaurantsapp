@@ -22,7 +22,7 @@ const CartPage = ({ match, location, history }) => {
   
 
   const checkoutHandler = () => {
-    history.push("/login?redirect=delivery");
+    history.push("/delivery");
   };
   useEffect(() => {
     if (productId) {

@@ -10,8 +10,8 @@ import { GetRestaurantDishesReducer } from "./Reducers/DishesReducers/GetRestaur
 import { loginReducer } from "./Reducers/UserReducers/LoginReducers";
 import { loginInfoReducer } from "./Reducers/UserReducers/GetLogedInUserReducer";
 import { registerReducer } from "./Reducers/UserReducers/RegisterReducers";
-import {updateUserDetailsReducer} from './Reducers/UserReducers/updateUserDetailsReducers'
-import {updateUserPasswordReducer} from './Reducers/UserReducers/updateUserDetailsReducers'
+import { updateUserDetailsReducer } from "./Reducers/UserReducers/updateUserDetailsReducers";
+import { updateUserPasswordReducer } from "./Reducers/UserReducers/updateUserDetailsReducers";
 import { cartReducer } from "./Reducers/CartReducers/CartReducers";
 const reducer = combineReducers({
   restaurantList: RestaurantListReducer,
@@ -22,16 +22,23 @@ const reducer = combineReducers({
   cart: cartReducer,
   userLogin: loginReducer,
   userRegister: registerReducer,
-  userUpdate:updateUserDetailsReducer,
-  passwordUpdate:updateUserPasswordReducer
+  userUpdate: updateUserDetailsReducer,
+  passwordUpdate: updateUserPasswordReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
+const deliveryAddressFromStorage = localStorage.getItem("deliveryAddress")
+  ? JSON.parse(localStorage.getItem("deliveryAddress"))
+  : {};
+
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    deliveryAddress: deliveryAddressFromStorage,
+  },
 };
 
 //we use thunk for asynchronous requests
