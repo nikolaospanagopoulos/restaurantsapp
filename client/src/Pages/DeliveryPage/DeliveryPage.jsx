@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../Actions/CartActions/SaveDeliveryAddressAction";
+import CheckoutSteps from "../../Components/CheckoutSteps/CheckoutSteps";
 import "./DeliveryPage.css";
 
 const DeliveryPage = ({ history }) => {
@@ -16,6 +17,7 @@ const DeliveryPage = ({ history }) => {
   const loginInfo = useSelector((state) => state.loginInfo);
   const { success } = loginInfo;
 
+  
   useEffect(() => {
     if (!success) {
       history.push("/login");
@@ -34,7 +36,11 @@ const DeliveryPage = ({ history }) => {
   };
   return (
     <div>
-      <h1>Delivery Info</h1>
+      <h1>Delivery</h1>
+      <div className='checkout-steps'>
+      <CheckoutSteps step1 step2/>
+      </div>
+     
       <div className="form-container">
         <form onSubmit={submitHandler}>
           <label>Your Address</label>

@@ -34,17 +34,17 @@ const Ul = styled.ul`
   .logoutlink2 {
     text-align: center;
     border-top: 0px;
-    background-image: linear-gradient(to top, #66ffe0, #4dff4d);
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink3 {
     text-align: center;
     border-top: 0px;
-    background-image: linear-gradient(to top, #4dff4d, #66ffe0);
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink4 {
     text-align: center;
     border-top: 0px;
-    background-image: linear-gradient(to top, #66ffe0, #4dff4d);
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink a {
     text-decoration: none;

@@ -1,0 +1,32 @@
+.checkoutlinks-container{
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.active-link{
+    color: black;
+    border: 1px solid tomato;
+    padding:10px;
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
+    text-decoration: none;
+    
+}
+
+.disabled-link{
+    color: black;
+    border: 1px solid tomato;
+    padding:10px;
+    background-color: tan;
+    text-decoration: none;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 823px){
+    .active-link{
+        padding: 5px;
+    }
+    .disabled-link{
+        padding: 5px;
+    }
+}
