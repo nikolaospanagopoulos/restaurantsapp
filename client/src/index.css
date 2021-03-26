@@ -96,6 +96,13 @@ input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic"
     justify-content: space-between;
    
 }
+
+
+.delivery-payment-order-titles{
+    font-family: "Yusei Magic", sans-serif;
+    text-align: center;
+    color: white;
+}
 @media screen and (max-width: 823px){
     .input-login-register{
         width: 60vw;

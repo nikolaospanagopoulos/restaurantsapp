@@ -36,7 +36,7 @@ const DeliveryPage = ({ history }) => {
   };
   return (
     <div>
-      <h1>Delivery</h1>
+      <h1 className='delivery-payment-order-titles'>Delivery</h1>
       <div className='checkout-steps'>
       <CheckoutSteps step1 step2/>
       </div>
@@ -63,7 +63,7 @@ const DeliveryPage = ({ history }) => {
           />
           <label>Your Postal Code</label>
           <input
-            type="text"
+            type="text" 
             placeholder="Your Postal Code..."
             className="input-login-register"
             value={postalCode}

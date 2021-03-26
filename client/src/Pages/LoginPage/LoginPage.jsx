@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link ,useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { login } from "../../Actions/UserActions/LoginActions";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../Components/Message/Message";
@@ -15,17 +15,17 @@ const LoginPage = ({ location, history }) => {
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  const previousPage = useHistory()
+  const previousPage = useHistory();
   useEffect(() => {
     if (success) {
       console.log(success);
-      previousPage.goBack()
+      previousPage.goBack();
     } else if (error) {
       setTimeout(() => {
         dispatch({ type: USER_LOGOUT });
       }, 3000);
     }
-  }, [history, success, redirect, dispatch, error]);
+  }, [history, success, redirect, dispatch, error, previousPage]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
