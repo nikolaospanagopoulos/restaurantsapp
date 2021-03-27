@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+.order-info-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5vh;
+    color: white;
+    
+}
+.order-info-page{
+    text-align: center;
+    width: 100vw;
+   
+}
+
+.order-items-info-container{
+  
+    text-align: center;
+ 
+   
+}
+.order-info-card{
+    height: 15vh;
+    display: flex;
+    width:30vw;
+    margin: 0 auto;
+   justify-items: center;
+    flex-direction: row;
+    background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+    margin-bottom: 1rem;
+}
+
+.order-info-card a {
+    margin: auto;
+}
+
+.order-info-card h5{
+    margin:  auto;
+}
+.order-info-card img{
+    height: 15vh;
+}

@@ -17,7 +17,6 @@ const DeliveryPage = ({ history }) => {
   const loginInfo = useSelector((state) => state.loginInfo);
   const { success } = loginInfo;
 
-  
   useEffect(() => {
     if (!success) {
       history.push("/login");
@@ -36,11 +35,11 @@ const DeliveryPage = ({ history }) => {
   };
   return (
     <div>
-      <h1 className='delivery-payment-order-titles'>Delivery</h1>
-      <div className='checkout-steps'>
-      <CheckoutSteps step1 step2/>
+      <h1 className="delivery-payment-order-titles">Delivery</h1>
+      <div className="checkout-steps">
+        <CheckoutSteps step1 step2 />
       </div>
-     
+
       <div className="form-container">
         <form onSubmit={submitHandler}>
           <label>Your Address</label>
@@ -63,7 +62,7 @@ const DeliveryPage = ({ history }) => {
           />
           <label>Your Postal Code</label>
           <input
-            type="text" 
+            type="text"
             placeholder="Your Postal Code..."
             className="input-login-register"
             value={postalCode}
