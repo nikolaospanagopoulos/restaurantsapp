@@ -1,41 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-.order-info-container{
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 5vh;
-    color: white;
-    
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+.order-info-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5vh;
 }
-.order-info-page{
-    text-align: center;
-    width: 100vw;
-   
+.order-info-page {
+  text-align: center;
+  width: 100vw;
 }
 
-.order-items-info-container{
-  
-    text-align: center;
- 
-   
+.order-info-container div {
+  background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+  width: 30vw;
+  color: black;
+  transform: skew(25deg);
+  border: 1px solid black;
+  box-shadow: 15px 10px rgba(0, 0, 0, 0.5);
 }
-.order-info-card{
-    height: 15vh;
-    display: flex;
-    width:30vw;
-    margin: 0 auto;
-   justify-items: center;
-    flex-direction: row;
+.order-items-info-container {
+  text-align: center;
+}
+.order-info-card {
+  height: 15vh;
+  display: flex;
+  width: 30vw;
+  margin: 0 auto;
+  justify-items: center;
+  flex-direction: row;
+  background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+  margin-bottom: 1rem;
+}
+.sum-container {
+    position: absolute;
     background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
-    margin-bottom: 1rem;
+    width: 22vw;
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.5);
+    left: 5vw;
+    border: 1px solid black;
+    padding: 10px;
+    bottom: 30vh;
 }
 
+.sum-container button{
+    background-color:tan;
+    border: 1px solid black;
+    cursor: pointer;
+    height: 45px;
+    width: 130px;
+    font-size: 15px;
+    outline: none;
+}
 .order-info-card a {
-    margin: auto;
+  margin: auto;
 }
 
-.order-info-card h5{
-    margin:  auto;
+.order-info-card h5 {
+  margin: auto;
 }
-.order-info-card img{
-    height: 15vh;
+.order-info-card img {
+  height: 15vh;
+}
+@media screen and (max-width: 823px){
+    .order-info-card{
+        width: 100vw;
+    }
+    .order-info-container div {
+        width: 80vw;
+        transform: skew(0deg);
+    }
+    .sum-container {
+        position: static;
+        width: 80vw;
+        margin: 0 auto;
+    }
 }

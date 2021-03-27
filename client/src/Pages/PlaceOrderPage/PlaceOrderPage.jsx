@@ -19,7 +19,7 @@ const PlaceOrderPage = () => {
   cart.totalPrice = Number(cart.itemsPrice) + Number(cart.taxPrice);
   const placeOrderHandler = () => {};
   return (
-    <div className='order-info-page'>
+    <div className="order-info-page">
       <h1 className="delivery-payment-order-titles">Place Order</h1>
       <div className="checkout-steps">
         <CheckoutSteps step1 step2 step3 step4 />
@@ -39,8 +39,8 @@ const PlaceOrderPage = () => {
           {cart.paymentMethod}
         </div>
       </div>
-      <h2 >Order Items</h2>
-      <div >
+      <h2 className="delivery-payment-order-titles">Order Items</h2>
+      <div>
         {cart.cartItems.length === 0 ? (
           <Message>Your Cart Is Empty</Message>
         ) : (
@@ -48,38 +48,33 @@ const PlaceOrderPage = () => {
             {cart.cartItems.map((item, index) => {
               return (
                 <div key={index} className="order-items-info-container">
-                  <div className='order-info-card'>
+                  <div className="order-info-card">
                     <img src={item.image} alt={item.name} />
                     <Link
                       to={`/restaurants/${item.restaurant._id}/dishes`}
                       className="dish-restaurant-link"
                     >
                       <h5>{item.name} </h5>
-                     
                     </Link>
-                     <h5>
+                    <h5>
                       {item.qty}x{item.price} = €{item.qty * item.price}
                     </h5>
                   </div>
-                  <div>
-                  
-                  </div>
-                 
+                  <div></div>
                 </div>
               );
             })}
           </div>
         )}
       </div>
-      <div>
+      <div className="sum-container">
         <div>
           <h2>Your Sum</h2>
 
-          <h4>Price: {cart.itemsPrice}</h4>
-          <h4>Tax: {cart.taxPrice}</h4>
-          <h4>Total: {cart.totalPrice}</h4>
-        </div>
-        <div>
+          <h4>Price: {cart.itemsPrice}€</h4>
+          <h4>Tax: {cart.taxPrice}€</h4>
+          <h4>Total: {cart.totalPrice}€</h4>
+
           <button
             onClick={() => placeOrderHandler}
             disabled={cart.cartItems === 0}
