@@ -12,6 +12,7 @@ import PasswordChangePage from './Pages/PasswordChangePage/PasswordChange'
 import DeliveryPage from './Pages/DeliveryPage/DeliveryPage'
 import PaymentMethodPage from './Pages/PaymentMethodPage/PaymentMethodPage'
 import PlaceOrderPage from './Pages/PlaceOrderPage/PlaceOrderPage'
+import OrderPage from './Pages/OrderPage/OrderPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router,Route } from "react-router-dom";
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route  component={DeliveryPage} path='/delivery'/>
         <Route  component={PaymentMethodPage} path='/payment'/>
         <Route  component={PlaceOrderPage} path='/placeorder'/>
+        <Route  component={OrderPage} path='/order/:id'/>
         <Route component={RestaurantsListPage} path='/' exact/>
        
     </Router>

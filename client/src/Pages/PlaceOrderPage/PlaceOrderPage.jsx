@@ -5,7 +5,7 @@ import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
 import { createOrderAction } from "../../Actions/OrderActions/CreateOrderActions";
 import "./PlaceOrderPage.css";
-const PlaceOrderPage = ({history}) => {
+const PlaceOrderPage = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const addDecimals = (num) => {
@@ -19,14 +19,14 @@ const PlaceOrderPage = ({history}) => {
   cart.taxPrice = addDecimals(Number((0.05 * cart.itemsPrice).toFixed(2)));
   cart.totalPrice = Number(cart.itemsPrice) + Number(cart.taxPrice);
 
-  const orderCreate = useSelector(state => state.orderCreate)
-  const {loading,success,error,order} = orderCreate
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
 
-  useEffect(()=> {
-    if(success){
-      history.push(`/order/${order._id}`)
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
     }
-  },[history,success])
+  }, [history, success]);
   const placeOrderHandler = () => {
     dispatch(
       createOrderAction({
@@ -88,11 +88,8 @@ const PlaceOrderPage = ({history}) => {
           </div>
         )}
       </div>
-      <div>
-          {error && <Message> {error} </Message>}
-        </div>
+      <div>{error && <Message> {error} </Message>}</div>
       <div className="sum-container">
-        
         <div>
           <h2>Your Sum</h2>
 

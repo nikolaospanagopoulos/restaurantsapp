@@ -2,6 +2,8 @@ import { asyncHandler } from "../../Middleware/async.js";
 import { Order } from "../../Models/OrderModel.js";
 import { ErrorResponse } from "../../Utilis/errorResponse.js";
 
+//post /api/v1/orders
+//protected
 export const addOrderItems = asyncHandler(async (req, res, next) => {
   const {
     orderItems,
@@ -29,5 +31,21 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
     const createdOrder = await order.save();
 
     res.status(201).json(createdOrder);
+  }
+});
+
+//get order by id
+//get api/v1/orders/:orderId
+//protected
+export const getOrderById = asyncHandler(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    return next(new ErrorResponse(`order not found`, 404));
   }
 });
