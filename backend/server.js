@@ -40,7 +40,10 @@ app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
 app.use("/api/v1/auth",AuthRoutes)
 app.use("/api/v1/users",UserRoutes)
- app.use("/api/v1/orders",OrderRoutes)
+app.use("/api/v1/orders",OrderRoutes)
+app.get('/api/v1/config/paypal',(req,res) => 
+res.send(process.env.PAYPAL_CLIENT_ID)
+)
 
 //make uploads a static folder
 const __dirname = path.resolve()
