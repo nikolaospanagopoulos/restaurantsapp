@@ -8,6 +8,7 @@ import RestaurantRoutes from "./Routes/RestaurantRoutes/RestaurantRoutes.js";
 import DishRoutes from "./Routes/DishRoutes/DishRoutes.js";
 import AuthRoutes from "./Routes/AuthRoutes/AuthRoutes.js"
 import UserRoutes from './Routes/UserRoutes/UserRoutes.js'
+import OrderRoutes from './Routes/OrderRoutes/OrderRoutes.js'
 //import database connection function
 import { connectDB } from "./Config/db.js";
 
@@ -19,6 +20,7 @@ import { errorHandler } from "./Middleware/error.js";
 
 //import cookie parser to send jwt in cookie
 import cookieParser from 'cookie-parser'
+import { addOrderItems } from "./Controllers/orderControllers/orderControllers.js";
 dotenv.config('./');
 
 const app = express();
@@ -38,7 +40,7 @@ app.use("/api/v1/restaurants", RestaurantRoutes);
 app.use("/api/v1/dishes", DishRoutes);
 app.use("/api/v1/auth",AuthRoutes)
 app.use("/api/v1/users",UserRoutes)
- 
+ app.use("/api/v1/orders",OrderRoutes)
 
 //make uploads a static folder
 const __dirname = path.resolve()

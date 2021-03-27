@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../../Components/CheckoutSteps/CheckoutSteps";
 import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
+import { createOrderAction } from "../../Actions/OrderActions/CreateOrderActions";
 import "./PlaceOrderPage.css";
-const PlaceOrderPage = () => {
+const PlaceOrderPage = ({history}) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const addDecimals = (num) => {
@@ -17,7 +18,27 @@ const PlaceOrderPage = () => {
   );
   cart.taxPrice = addDecimals(Number((0.05 * cart.itemsPrice).toFixed(2)));
   cart.totalPrice = Number(cart.itemsPrice) + Number(cart.taxPrice);
-  const placeOrderHandler = () => {};
+
+  const orderCreate = useSelector(state => state.orderCreate)
+  const {loading,success,error,order} = orderCreate
+
+  useEffect(()=> {
+    if(success){
+      history.push(`/order/${order._id}`)
+    }
+  },[history,success])
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrderAction({
+        orderItems: cart.cartItems,
+        deliveryAddress: cart.deliveryAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        totalPrice: cart.totalPrice,
+        taxPrice: cart.taxPrice,
+      })
+    );
+  };
   return (
     <div className="order-info-page">
       <h1 className="delivery-payment-order-titles">Place Order</h1>
@@ -67,7 +88,11 @@ const PlaceOrderPage = () => {
           </div>
         )}
       </div>
+      <div>
+          {error && <Message> {error} </Message>}
+        </div>
       <div className="sum-container">
+        
         <div>
           <h2>Your Sum</h2>
 
@@ -76,7 +101,7 @@ const PlaceOrderPage = () => {
           <h4>Total: {cart.totalPrice}€</h4>
 
           <button
-            onClick={() => placeOrderHandler}
+            onClick={() => placeOrderHandler()}
             disabled={cart.cartItems === 0}
           >
             Place Order
