@@ -12,6 +12,8 @@ import PasswordChangePage from './Pages/PasswordChangePage/PasswordChange'
 import DeliveryPage from './Pages/DeliveryPage/DeliveryPage'
 import PaymentMethodPage from './Pages/PaymentMethodPage/PaymentMethodPage'
 import PlaceOrderPage from './Pages/PlaceOrderPage/PlaceOrderPage'
+import OwnedRestaurants from './Pages/OwnedRestaurants/OwnedRestaurants'
+import RestaurantDishesList from './Pages/RestaurantDishesList/RestaurantsDishesList'
 import OrderPage from './Pages/OrderPage/OrderPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router,Route } from "react-router-dom";
@@ -23,7 +25,7 @@ const App = () => {
         
         <Route component={RestaurantsGetLocation} path='/restaurants/location/:zipcode/:distance' />
         <Route component={RestaurantDetailsPage} path='/restaurants/:id' exact/>
-        <Route  component={RestaurantDishesPage} path='/restaurants/:id/dishes'/>
+        <Route  component={RestaurantDishesPage} path='/restaurants/:id/dishes' exact/>
         <Route  component={CartPage} path='/cart/:id?'/>
         <Route  component={LoginPage} path='/login'/>
         <Route  component={RegisterPage} path='/register'/>
@@ -33,6 +35,9 @@ const App = () => {
         <Route  component={PaymentMethodPage} path='/payment'/>
         <Route  component={PlaceOrderPage} path='/placeorder'/>
         <Route  component={OrderPage} path='/order/:id'/>
+        <Route  component={OwnedRestaurants} path='/owner/restaurants/:id'/>
+        <Route  component={RestaurantDishesList} path='/restaurants/:restaurantId/dishes/list' />
+
         <Route component={RestaurantsListPage} path='/' exact/>
        
     </Router>

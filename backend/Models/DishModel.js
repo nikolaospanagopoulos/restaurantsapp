@@ -20,15 +20,15 @@ const DishSchema = new mongoose.Schema({
   },
   vegan: {
     type: Boolean,
-    required: [true, "A dish must have a category"],
+   
   },
   vegetarian: {
     type: Boolean,
-    required: [true, "A dish must have a category"],
+    
   },
   traditional: {
     type: Boolean,
-    required: [true, "A dish must have a category"],
+    
   },
   chinese: {
     type: Boolean,

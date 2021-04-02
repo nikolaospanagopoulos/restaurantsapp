@@ -39,6 +39,7 @@ const Ul = styled.ul`
   .logoutlink3 {
     text-align: center;
     border-top: 0px;
+   
     background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink4 {
@@ -80,7 +81,7 @@ const RightNav = ({ open, setOpen, history }) => {
   const loginInfo = useSelector((state) => state.loginInfo);
   const { loading, success, user } = loginInfo;
   const dispatch = useDispatch();
-
+console.log(user)
   const userLogin = useSelector((state) => state.userLogin);
   const {  
     success: successLogin,
@@ -159,7 +160,7 @@ const RightNav = ({ open, setOpen, history }) => {
         <Link to="/about">About</Link>
       </li>
       {user ? (
-        <div>
+        <div style={{zIndex:'5000'}}>
           <div
             onMouseEnter={() => setMenuAppear(!menuAppear)}
             onMouseLeave={() => setMenuAppear(false)}
@@ -176,7 +177,7 @@ const RightNav = ({ open, setOpen, history }) => {
                     Logout
                   </Link>
                 </li>
-                {(user || userInfo) && user.data.isAdmin && (
+                {(user || userInfo) && user.data.isAdmin ? (
                   <div>
                     <li className="logoutlink2">
                       <Link to="/admin/userlist">Users</Link>
@@ -188,7 +189,16 @@ const RightNav = ({ open, setOpen, history }) => {
                       <Link to="/admin/orderlist">Order List</Link>
                     </li>
                   </div>
-                )}
+                ): (user || userInfo) && user.data.role === 'owner' && !user.data.isAdmin ? (
+                  <div>
+                  <li className="logoutlink3">
+                    <Link to={`/owner/restaurants/${user.data._id}`}>My Restaurants</Link>
+                  </li>
+                  <li className="logoutlink4">
+                    <Link to="/admin/orderlist">Order List</Link>
+                  </li>
+                </div>
+                ):''}
               </div>
             )}
           </div>
