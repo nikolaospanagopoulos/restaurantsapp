@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRestaurantDishesList } from "../../Actions/DishesActions/GetRestaurantDishesActions";
-import { getRestaurantDetails } from "../../Actions/RestaurantActions/RestaurantDetailsActions";
 import { deleteDish } from "../../Actions/DishesActions/DishDeleteActions";
+import { createDish } from "../../Actions/DishesActions/DishCreateActions";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
-import {DISH_DELETE_RESET} from '../../Constants/DishesConstants/DishDeleteConstants'
+import { DISH_DELETE_RESET } from "../../Constants/DishesConstants/DishDeleteConstants";
+import { DISH_CREATE_RESET } from "../../Constants/DishesConstants/DishCreateConstants";
 import { Link } from "react-router-dom";
 import "./RestaurantDishesList.css";
 const RestaurantDishesList = ({ match, history }) => {
@@ -16,6 +17,13 @@ const RestaurantDishesList = ({ match, history }) => {
   const restaurantDishes = useSelector((state) => state.restaurantDishes);
   const { dishes, error, loading } = restaurantDishes;
 
+  const dishCreate = useSelector((state) => state.dishCreate);
+  const {
+    dish: createdDish,
+    error: errorCreate,
+    loading: loadingCreate,
+    success: successCreate,
+  } = dishCreate;
   const dishDelete = useSelector((state) => state.dishDelete);
   const {
     loading: loadingDelete,
@@ -23,19 +31,35 @@ const RestaurantDishesList = ({ match, history }) => {
     error: errorDelete,
   } = dishDelete;
   useEffect(() => {
-    if(errorDelete){
-      setTimeout(() => {
-        dispatch({type:DISH_DELETE_RESET})
-      },2500)
+    dispatch({ type: DISH_CREATE_RESET });
+    if (successCreate) {
+      history.push(`/dishes/${createdDish.data._id}/edit`);
+    } else {
+      dispatch(getRestaurantDishesList(restaurantId));
     }
-    dispatch(getRestaurantDishesList(restaurantId));
-  }, [dispatch, restaurantId, successDelete,errorDelete]);
+    if (errorDelete) {
+      setTimeout(() => {
+        dispatch({ type: DISH_DELETE_RESET });
+      }, 2500);
+    }
+  }, [
+    dispatch,
+    restaurantId,
+    successDelete,
+    errorDelete,
+    successCreate,
+    history,
+    createdDish,
+  ]);
   const deleteHandler = (id) => {
     window.confirm("are you sure?");
     dispatch(deleteDish(id));
   };
 
-  const createHandler = (dish) => {};
+  const createHandler = () => {
+    dispatch(createDish(restaurantId));
+  };
+
   return (
     <div className="users-title">
       <h1>Tours</h1>
@@ -47,7 +71,8 @@ const RestaurantDishesList = ({ match, history }) => {
       </div>
       {loadingDelete && <Loader />}
       {errorDelete && <Message> {errorDelete} </Message>}
-
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message> {errorCreate} </Message>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -60,6 +85,7 @@ const RestaurantDishesList = ({ match, history }) => {
               <th>NAME</th>
               <th>PRICE</th>
               <th>CATEGORY</th>
+              <th>AVAILABLE</th>
               <th></th>
             </tr>
           </thead>
@@ -69,8 +95,15 @@ const RestaurantDishesList = ({ match, history }) => {
                 <td> {dish._id} </td>
                 <td> {dish.name} </td>
                 <td>{dish.price}</td>
-                <td> {dish.category}</td>
-
+                <td>
+                  {" "}
+                  {dish.vegan
+                    ? "vegan"
+                    : dish.vegetarian
+                    ? "vegetarian"
+                    : "normal"}
+                </td>
+                <td> {dish.available}</td>
                 <td>
                   {" "}
                   <Link to={`/dish/${dish._id}/edit`}>

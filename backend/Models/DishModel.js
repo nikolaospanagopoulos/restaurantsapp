@@ -20,11 +20,11 @@ const DishSchema = new mongoose.Schema({
   },
   vegan: {
     type: Boolean,
-   
+    required:true
   },
   vegetarian: {
     type: Boolean,
-    
+    required:true
   },
   traditional: {
     type: Boolean,
