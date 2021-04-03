@@ -106,7 +106,7 @@ const RestaurantDishesList = ({ match, history }) => {
                 <td> {dish.available}</td>
                 <td>
                   {" "}
-                  <Link to={`/dish/${dish._id}/edit`}>
+                  <Link to={`/dishes/${dish._id}/edit`}>
                     <i className="fas fa-edit"></i>
                   </Link>
                   <button onClick={() => deleteHandler(dish._id)}>

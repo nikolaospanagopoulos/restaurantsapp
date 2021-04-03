@@ -94,7 +94,19 @@ input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic"
    
 }
 
+.dish-edit-update-button{
+    position: absolute;
+    top: 80%;
+}
 
+.input-checkbox{
+    display: inline;
+}
+
+.checkbox-container{
+    display: flex;
+    flex-direction: column;
+}
 .delivery-payment-order-titles{
     font-family: "Yusei Magic", sans-serif;
     text-align: center;
