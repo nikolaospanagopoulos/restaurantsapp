@@ -194,9 +194,6 @@ console.log(user)
                   <li className="logoutlink3">
                     <Link to={`/owner/restaurants/${user.data._id}`}>My Restaurants</Link>
                   </li>
-                  <li className="logoutlink4">
-                    <Link to="/admin/orderlist">Order List</Link>
-                  </li>
                 </div>
                 ):''}
               </div>

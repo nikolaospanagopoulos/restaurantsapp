@@ -2,6 +2,7 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_CREATE_RESET
 } from "../../Constants/OrderConstants/CreateOrderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -23,6 +24,8 @@ export const orderCreateReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+      case ORDER_CREATE_RESET:
+      return {};
     default:
       return state;
   }

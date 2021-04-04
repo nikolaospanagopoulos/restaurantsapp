@@ -7,6 +7,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    
     orderItems: [
       {
         name: { type: String, required: true },
@@ -18,6 +19,12 @@ const orderSchema = new mongoose.Schema(
           required: true,
           ref: "Dish",
         },
+        restaurant:{
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "Restaurant",
+        },
+        
       },
     ],
     deliveryAddress: {

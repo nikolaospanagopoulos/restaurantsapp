@@ -4,7 +4,7 @@ import {
   DISH_DETAILS_SUCCESS,
 } from "../../Constants/DishesConstants/DishDetailsConstants";
 
-export const dishDetailsReducer = (state = { dish: {data:{}} }, action) => {
+export const dishDetailsReducer = (state = { dish: {data:{orderItems:[]}} }, action) => {
   switch (action.type) {
     case DISH_DETAILS_REQUEST:
       return { loading: true, ...state };

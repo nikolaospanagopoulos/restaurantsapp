@@ -35,8 +35,23 @@ const RestaurantDishesPage = ({ match, history }) => {
           {!restaurantLoading &&
             !loadingLoginInfo &&
             user &&
-            restaurant.user === user.data._id && <button onClick={() => history.push(`/restaurants/${restaurantId}/dishes/list`)}>edit</button>}
-
+            restaurant.user === user.data._id && (
+              <button
+                onClick={() =>
+                  history.push(`/restaurants/${restaurantId}/dishes/list`)
+                }
+              >
+                edit
+              </button>
+            )}
+          {!restaurantLoading &&
+            !loadingLoginInfo &&
+            user &&
+            restaurant.user === user.data._id && (
+              <button onClick={() => history.push(`/orders/${restaurantId}`)}>
+                Orders
+              </button>
+            )}
           {loading ? (
             <Loader />
           ) : error ? (

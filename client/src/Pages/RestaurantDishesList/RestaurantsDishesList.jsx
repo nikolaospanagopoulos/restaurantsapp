@@ -53,11 +53,10 @@ const RestaurantDishesList = ({ match, history }) => {
   ]);
   const deleteHandler = (id) => {
     const answer = window.confirm("are you sure?");
-    if(answer){
+    if (answer) {
       dispatch(deleteDish(id));
-    }
-    else{
-      return
+    } else {
+      return;
     }
   };
 

@@ -40,7 +40,8 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
 export const getOrderById = asyncHandler(async (req, res, next) => {
   const order = await Order.findById(req.params.id).populate(
     "user",
-    "name email"
+    "name email",
+    
   );
 
   if (order) {
@@ -72,3 +73,20 @@ export const updateOrderToPaid = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`order not found`, 404));
   }
 });
+
+
+//get orders
+//get api/v1/orders
+//private owner admin
+export const getOrders = asyncHandler(async(req,res,next) => {
+  const orders = res.advancedResults
+  res.status(200).json(res.advancedResults)
+})
+
+//get my orders
+//get api/v1/orders/myorders
+//private
+export const getMyOrders = asyncHandler(async(req,res,next) => {
+  const orders = await Order.find({user:req.user._id})
+  res.status(200).json(orders)
+})
