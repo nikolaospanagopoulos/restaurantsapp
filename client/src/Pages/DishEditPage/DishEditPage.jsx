@@ -33,6 +33,14 @@ const DishEditPage = ({ match }) => {
   } = dishUpdate;
   const previousPage = useHistory();
   useEffect(() => {
+    if (errorUpdate) {
+      dispatch({
+        type: UPDATE_DISH_RESET,
+      });
+      setTimeout(() => {
+        previousPage.goBack();
+      }, 4500);
+    }
     if (successUpdate) {
       dispatch({
         type: UPDATE_DISH_RESET,
@@ -179,10 +187,9 @@ const DishEditPage = ({ match }) => {
                 />
               </div>
               <button type="submit" className="dish-edit-update-button">
-              Update
-            </button>
+                Update
+              </button>
             </form>
-           
           </div>
         )}
       </div>
