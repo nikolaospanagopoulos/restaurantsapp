@@ -6,6 +6,7 @@ import Loader from "../../Components/Loading/Loader";
 import { updateDish } from "../../Actions/DishesActions/DishUpdateActions";
 import Message from "../../Components/Message/Message";
 import { UPDATE_DISH_RESET } from "../../Constants/DishesConstants/DishUpdateConstants";
+import axios from "axios";
 const DishEditPage = ({ match }) => {
   const [price, setPrice] = useState(0);
   const [name, setName] = useState("");
@@ -19,6 +20,7 @@ const DishEditPage = ({ match }) => {
   const [italian, setItalian] = useState(false);
   const [available, setAvailable] = useState(false);
   const [image, setImage] = useState("");
+  const [uploading, setUploading] = useState(false);
   const dishId = match.params.dishId;
   const dispatch = useDispatch();
 
@@ -89,6 +91,27 @@ const DishEditPage = ({ match }) => {
       })
     );
   };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post("/api/v1/uploads", formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
   return (
     <div>
       <button onClick={() => previousPage.goBack()}>Back</button>
@@ -134,7 +157,21 @@ const DishEditPage = ({ match }) => {
                 onChange={(e) => setAvailable(e.target.value)}
                 className="input-login-register"
               />
-
+              <label>Image</label>
+              <input
+                type="text"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                className="input-login-register"
+              />
+              <label>Choose a file</label>
+              <input
+                type="file"
+                name=""
+                id="image-file"
+                onChange={uploadFileHandler}
+              />
+              {uploading && <Loader />}
               <div className="checkbox-container">
                 <label>Vegan</label>
                 <input

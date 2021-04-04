@@ -52,8 +52,13 @@ const RestaurantDishesList = ({ match, history }) => {
     createdDish,
   ]);
   const deleteHandler = (id) => {
-    window.confirm("are you sure?");
-    dispatch(deleteDish(id));
+    const answer = window.confirm("are you sure?");
+    if(answer){
+      dispatch(deleteDish(id));
+    }
+    else{
+      return
+    }
   };
 
   const createHandler = () => {
