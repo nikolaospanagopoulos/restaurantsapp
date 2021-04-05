@@ -4,10 +4,10 @@ import {
   USER_LIST_FAIL,
 } from "../../Constants/UserConstants/GetUserListConstants";
 
-export const getUsersReducer = (state = { users: [] }, action) => {
+export const getUsersReducer = (state = { users: {data:[],pagination:{next:Number,previous:Number}} }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
-      return { loading: true };
+      return { loading: true,users:{} };
     case USER_LIST_SUCCESS:
       return { loading: false, users: action.payload };
     case USER_LIST_FAIL:

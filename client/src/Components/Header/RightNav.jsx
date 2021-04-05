@@ -29,15 +29,18 @@ const Ul = styled.ul`
   .logoutlink {
     text-align: center;
     border-top: 0px;
+    width:100px;
     background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink2 {
     text-align: center;
     border-top: 0px;
-    background-image: linear-gradient(to top, #ff3333, #ffff99);
+    width:100px;
+    background-image: linear-gradient(to top, #ffff99,#ff3333);
   }
   .logoutlink3 {
     text-align: center;
+    width:100px;
     border-top: 0px;
    
     background-image: linear-gradient(to top, #ff3333, #ffff99);
@@ -45,15 +48,17 @@ const Ul = styled.ul`
   .logoutlink4 {
     text-align: center;
     border-top: 0px;
-    background-image: linear-gradient(to top, #ff3333, #ffff99);
+    width:100px;
+    background-image: linear-gradient(to top, #ffff99,#ff3333);
   }
   .logoutlink a {
     text-decoration: none;
     color: black;
   }
   .special-links {
-    position: relative;
-    bottom: 1rem;
+    position: absolute;
+    top:7vh;
+    right:0px;
   }
   @media (max-width: 768px) {
     border: 1px solid black;
@@ -81,7 +86,6 @@ const RightNav = ({ open, setOpen, history }) => {
   const loginInfo = useSelector((state) => state.loginInfo);
   const { loading, success, user } = loginInfo;
   const dispatch = useDispatch();
-console.log(user)
   const userLogin = useSelector((state) => state.userLogin);
   const {  
     success: successLogin,

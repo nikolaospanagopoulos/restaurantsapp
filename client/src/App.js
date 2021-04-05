@@ -17,6 +17,7 @@ import RestaurantDishesList from './Pages/RestaurantDishesList/RestaurantsDishes
 import OrderPage from './Pages/OrderPage/OrderPage'
 import DishEditPage from './Pages/DishEditPage/DishEditPage'
 import OrderListPage from './Pages/OrderListPage/OrderListPage'
+import UserListPage from './Pages/UserListPage/UserListPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router,Route } from "react-router-dom";
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
         <Route  component={OrderListPage} path='/orders/:id?'/>
         <Route  component={PaymentMethodPage} path='/payment'/>
         <Route  component={PlaceOrderPage} path='/placeorder'/>
+        <Route  component={UserListPage} path='/admin/userlist'/>
         <Route  component={OrderPage} path='/order/:id'/>
         <Route  component={OwnedRestaurants} path='/owner/restaurants/:id'/>
         <Route  component={RestaurantDishesList} path='/restaurants/:restaurantId/dishes/list' />

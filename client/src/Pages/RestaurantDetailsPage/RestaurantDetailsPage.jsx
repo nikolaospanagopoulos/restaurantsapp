@@ -32,26 +32,26 @@ const RestaurantDetailsPage = ({ match, history }) => {
         ) : (
           <div>
             <div>
-              <h2> {restaurant.name} </h2>
+              <h2 className="restaurant-page-title"> {restaurant.name} </h2>
               <button className="order-button" onClick={jumpToDishPage}>
                 {" "}
                 Order Now{" "}
               </button>
             </div>
 
-            <div className="restaurant-images grid-item">
-              <img src={restaurant.photo} alt="dishes" />
-              <img src={restaurant.photo2} alt="dishes" />
-            </div>
             <div className="restaurant-details-card">
-              <h4> {restaurant.description} </h4>
+              <div className="restaurant-images grid-item">
+                <img src={restaurant.photo} alt="dishes" />
+                <img src={restaurant.photo2} alt="dishes" />
+              </div>
+              <h4>Description</h4> <p> {restaurant.description} </p>
               <h4>Email: {restaurant.email}</h4>
               <h4>Phone Number: {restaurant.phone}</h4>
               <h4>Website: {restaurant.website}</h4>
               <h5>
-                {" "}
                 {restaurant.location.street} {restaurant.location.streetNumber}{" "}
-                {restaurant.location.city && removeWord(restaurant.location.city)}{" "}
+                {restaurant.location.city &&
+                  removeWord(restaurant.location.city)}{" "}
               </h5>
             </div>
           </div>

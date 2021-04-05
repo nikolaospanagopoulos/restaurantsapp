@@ -9,6 +9,7 @@ import { ORDER_PAY_RESET } from "../../Constants/OrderConstants/OrderPayConstant
 import "./OrderPage.css";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
+import {CART_RESET} from '../../Constants/CartConstants/CartConstants'
 const OrderPage = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const OrderPage = ({ match }) => {
     console.log(paymentResult)
     console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult));
+    dispatch({type:CART_RESET})
   };
   if (!loading) {
     const addDecimals = (num) => {

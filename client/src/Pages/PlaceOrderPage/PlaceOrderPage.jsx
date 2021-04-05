@@ -5,6 +5,7 @@ import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
 import { createOrderAction } from "../../Actions/OrderActions/CreateOrderActions";
 import {ORDER_CREATE_RESET} from '../../Constants/OrderConstants/CreateOrderConstants'
+import {resetCart} from '../../Actions/CartActions/CartActions'
 import "./PlaceOrderPage.css";
 const PlaceOrderPage = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -25,6 +26,7 @@ const PlaceOrderPage = ({ history }) => {
 
   useEffect(() => {
     if (success) {
+      
       dispatch({type:ORDER_CREATE_RESET})
       history.push(`/order/${order._id}`);
     }
