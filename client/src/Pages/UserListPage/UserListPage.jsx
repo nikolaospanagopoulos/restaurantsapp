@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserListAction } from "../../Actions/UserActions/GetUserListActions";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteUserAction } from "../../Actions/UserActions/DeleteUserActions";
 import Loader from "../../Components/Loading/Loader";
 import { Link } from "react-router-dom";
 import Message from "../../Components/Message/Message";
@@ -14,13 +15,16 @@ const UserListPage = ({ history }) => {
   const { user, loading: loadingUser } = loginInfo;
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
+
+  const userDelete = useSelector((state) => state.userDelete);
+  const { loading: loadingDelete, error: errorDelete,success:successDelete } = userDelete;
   useEffect(() => {
     if (!user || !user.data.isAdmin) {
       history.push("/");
     } else {
       dispatch(getUserListAction());
     }
-  }, [dispatch, user, history]);
+  }, [dispatch, user, history,successDelete]);
 
   useEffect(() => {
     if (users.pagination) {
@@ -40,13 +44,23 @@ const UserListPage = ({ history }) => {
   const pageClick = (pageNum) => {
     dispatch(getUserListAction(pageNum));
   };
-  const deleteHandler = () => {};
+  const deleteHandler = (id) => {
+    const question = window.confirm('Are you sure ?')
+    if(question){
+      dispatch(deleteUserAction(id))
+    }else{
+      return
+    }
+    
+  };
   return (
     <div>
       {error ? (
         <Message> {error} </Message>
       ) : loading ? (
         <Loader />
+      ) : errorDelete ? (
+        <Message> {errorDelete} </Message>
       ) : (
         <table className="dishes-table">
           <thead>
@@ -74,7 +88,7 @@ const UserListPage = ({ history }) => {
 
                 <td>
                   {" "}
-                  <Link to={`/dishes/${user._id}/edit`}>
+                  <Link to={`/admin/users/${user._id}/edit`}>
                     <i className="fas fa-edit"></i>
                   </Link>
                   <button onClick={() => deleteHandler(user._id)}>
