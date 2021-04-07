@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDishDetails } from "../../Actions/DishesActions/DishDetailsActions";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Loader from "../../Components/Loading/Loader";
 import { updateDish } from "../../Actions/DishesActions/DishUpdateActions";
 import Message from "../../Components/Message/Message";
@@ -66,11 +66,10 @@ const DishEditPage = ({ match }) => {
         setImage(dish.data.image);
       }
     }
-  }, [dispatch, dishId, dish, successUpdate]);
+  }, [dispatch, dishId, dish, successUpdate, errorUpdate, previousPage]);
 
-  {
-    !loading && console.log(dish.data.name);
-  }
+  !loading && console.log(dish.data.name);
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(

@@ -3,7 +3,6 @@ import axios from "axios";
 import {
   UPDATE_DISH_REQUEST,
   UPDATE_DISH_SUCCESS,
-  UPDATE_DISH_RESET,
   UPDATE_DISH_FAIL,
 } from "../../Constants/DishesConstants/DishUpdateConstants";
 

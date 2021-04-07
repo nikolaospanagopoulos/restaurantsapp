@@ -24,6 +24,7 @@ import { getOrdersReducer } from "./Reducers/OrderReducers/OrderListReducer";
 import { getUsersReducer } from "./Reducers/UserReducers/GetUsersListReducer";
 import { deleteUserReducer } from "./Reducers/UserReducers/UserDeleteReducers";
 import { getUserReducer } from "./Reducers/UserReducers/GetUserReducer";
+import { updateUserReducer } from "./Reducers/UserReducers/UserUpdateReducer";
 const reducer = combineReducers({
   restaurantList: RestaurantListReducer,
   restaurantDetails: restaurantDetailsReducer,
@@ -46,6 +47,7 @@ const reducer = combineReducers({
   userList: getUsersReducer,
   userDelete: deleteUserReducer,
   userDetails: getUserReducer,
+  userUpdateById: updateUserReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

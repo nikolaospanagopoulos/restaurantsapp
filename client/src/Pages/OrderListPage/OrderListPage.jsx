@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderList } from "../../Actions/OrderActions/GetOrderListActions";
 import Loader from "../../Components/Loading/Loader";
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const OrderListPage = ({ match }) => {
   const restaurantId = match.params.id;
   const dispatch = useDispatch();
-  const [data, setData] = useState([]);
+  
   const orderList = useSelector((state) => state.orderList);
   const { orders, loading, error } = orderList;
   useEffect(() => {

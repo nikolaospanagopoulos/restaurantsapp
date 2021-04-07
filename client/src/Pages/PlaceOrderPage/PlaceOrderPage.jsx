@@ -4,8 +4,8 @@ import CheckoutSteps from "../../Components/CheckoutSteps/CheckoutSteps";
 import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
 import { createOrderAction } from "../../Actions/OrderActions/CreateOrderActions";
-import {ORDER_CREATE_RESET} from '../../Constants/OrderConstants/CreateOrderConstants'
-import {resetCart} from '../../Actions/CartActions/CartActions'
+import { ORDER_CREATE_RESET } from "../../Constants/OrderConstants/CreateOrderConstants";
+// import { resetCart } from "../../Actions/CartActions/CartActions";
 import "./PlaceOrderPage.css";
 const PlaceOrderPage = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -22,15 +22,14 @@ const PlaceOrderPage = ({ history }) => {
   cart.totalPrice = Number(cart.itemsPrice) + Number(cart.taxPrice);
 
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, success, error, order } = orderCreate;
+  const { success, error, order } = orderCreate;
 
   useEffect(() => {
     if (success) {
-      
-      dispatch({type:ORDER_CREATE_RESET})
+      dispatch({ type: ORDER_CREATE_RESET });
       history.push(`/order/${order._id}`);
     }
-  }, [history, success,order]);
+  }, [history, success, order, dispatch]);
   const placeOrderHandler = () => {
     dispatch(
       createOrderAction({

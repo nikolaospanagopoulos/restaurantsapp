@@ -1,78 +1,103 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserAction } from "../../Actions/UserActions/GetUserAction";
-import { useHistory } from "react-router-dom";
-import Loader from "../../Components/Loading/Loader";
-import Message from "../../Components/Message/Message";
+import {updateUserAction} from '../../Actions/UserActions/UpdateUserActions'
+import {useHistory} from 'react-router-dom'
+import {USER_UPDATE_RESET} from '../../Constants/UserConstants/UserUpdateConstants'
+import Loader from '../../Components/Loading/Loader'
+import Message from '../../Components/Message/Message'
 const UserEditPage = ({ match }) => {
-  const previousPage = useHistory();
+  const previousPage = useHistory()
   const userId = match.params.userId;
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
-  const { user, success, error, loading } = userDetails;
+  const { user,  error, loading } = userDetails;
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const userUpdateById = useSelector((state) => state.userUpdateById);
+  const {  success:successUpdate, error:errorUpdate, loading:loadingUpdate } = userUpdateById;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [role,setRole] = useState('')
+
   useEffect(() => {
-    if(!user.data.name || user.data._id !== userId){
-      dispatch(getUserAction(userId));
+    if(successUpdate){
+      dispatch({type:USER_UPDATE_RESET})
+      previousPage.goBack()
     }else{
-      setName(user.data.name)
-      setEmail(user.data.email)
-      setIsAdmin(user.data.isAdmin)
-     
+      if(!user.data.name || user.data._id !== userId){
+        dispatch(getUserAction(userId));
+      }else{
+        setName(user.data.name)
+        setEmail(user.data.email)
+        setRole(user.data.role)
+        
+      }
     }
+
    
-  }, [userId, dispatch,user]);
-  console.log(user)
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
+  }, [userId, dispatch,user,successUpdate,previousPage]);
+
+  const submitHandler = (e) => { 
+    e.preventDefault()
+    dispatch(updateUserAction({
+      _id:userId,
+      name,
+      email,
+      role
+    }))
+  }
   return (
     <div>
       <div>
         <button onClick={() => previousPage.goBack()}> Back </button>
       </div>
       {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message> {error} </Message>
-      ) : (
-        <div>
-          <div className="form-container">
-            <form onSubmit={submitHandler}>
-              <div>
-                <label>Name...</label>
-                <input
-                  className="input-login-register"
-                  type="text"
-                  placeholder="enter your name..."
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <label>Email...</label>
-                <input
-                  className="input-login-register"
-                  type="email"
-                  placeholder="enter your email..."
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <label>Is Admin...</label>
-                <input
-                  className="input-login-register"
-                  type="checkbox"
-                  checked={isAdmin}
-                  onChange={(e) => setIsAdmin(e.target.checked)}
-                />
-              </div>
-              <button type="submit">Update</button>
-            </form>
-          </div>
-          <div></div>
+      <Loader />
+    ) : loadingUpdate ?
+    <Loader/>
+    : error ? (
+      <Message> {error} </Message>
+    ) : errorUpdate ? 
+    <Message> {errorUpdate} </Message> 
+    : (
+      <div>
+        <div className="form-container">
+          <form onSubmit={submitHandler}>
+            <div>
+              <label>Your Name...</label>
+              <input
+                className="input-login-register"
+                type="text"
+                placeholder="enter your name..."
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <label>Your Email...</label>
+              <input
+                className="input-login-register"
+                type="email"
+                placeholder="enter your email..."
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label>Role...</label>
+              <input
+                className="input-login-register"
+                type="text"
+                placeholder="enter your email..."
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                
+              />
+            </div>
+            <button type="submit">Update</button>
+          </form>
         </div>
-      )}
+        <div>
+     
+        </div>
+      </div>
+    )}
     </div>
   );
 };

@@ -9,7 +9,7 @@ export const getRestaurantList = (page=1,owner) => async (dispatch) => {
   try {
     dispatch({ type: RESTAURANT_LIST_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/restaurants?limit=4&page=${page}&${owner!= undefined ? `user=${owner}` : '' }`);
+    const { data } = await axios.get(`/api/v1/restaurants?limit=4&page=${page}&${owner!== undefined ? `user=${owner}` : '' }`);
 
     dispatch({ type: RESTAURANT_LIST_SUCCESS, payload: data });
   } catch (error) {

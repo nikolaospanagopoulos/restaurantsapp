@@ -14,7 +14,7 @@ const RestaurantDishesPage = ({ match, history }) => {
   const { dishes, error, loading } = restaurantDishes;
 
   const loginInfo = useSelector((state) => state.loginInfo);
-  const { loading: loadingLoginInfo, success, user } = loginInfo;
+  const { loading: loadingLoginInfo,  user } = loginInfo;
 
   const restaurantDetails = useSelector((state) => state.restaurantDetails);
   const { restaurant, loading: restaurantLoading } = restaurantDetails;

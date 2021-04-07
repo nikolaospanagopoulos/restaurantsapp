@@ -29,14 +29,10 @@ const userSchema = new mongoose.Schema({
         // minlength: [6, 'A password should be more than 6 characters long'],
         select: false
     },
-    isAdmin: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
+ 
     role: {
         type: String,
-        enum: ['user', 'owner', 'admin'],
+        enum: ['user', 'owner','admin'],
         default: 'user'
     },
     resetPasswordToken: {

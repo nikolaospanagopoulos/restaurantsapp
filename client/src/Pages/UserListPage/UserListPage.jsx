@@ -3,6 +3,7 @@ import { getUserListAction } from "../../Actions/UserActions/GetUserListActions"
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUserAction } from "../../Actions/UserActions/DeleteUserActions";
 import Loader from "../../Components/Loading/Loader";
+import { USER_LIST_RESET } from "../../Constants/UserConstants/GetUserListConstants";
 import { Link } from "react-router-dom";
 import Message from "../../Components/Message/Message";
 import "./UserListPage.css";
@@ -17,14 +18,19 @@ const UserListPage = ({ history }) => {
   const { loading, error, users } = userList;
 
   const userDelete = useSelector((state) => state.userDelete);
-  const { loading: loadingDelete, error: errorDelete,success:successDelete } = userDelete;
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = userDelete;
   useEffect(() => {
-    if (!user || !user.data.isAdmin) {
+    if (!user || !user.data.role === "admin") {
       history.push("/");
     } else {
+      dispatch({ type: USER_LIST_RESET });
       dispatch(getUserListAction());
     }
-  }, [dispatch, user, history,successDelete]);
+  }, [dispatch, user, history, successDelete]);
 
   useEffect(() => {
     if (users.pagination) {
@@ -45,19 +51,22 @@ const UserListPage = ({ history }) => {
     dispatch(getUserListAction(pageNum));
   };
   const deleteHandler = (id) => {
-    const question = window.confirm('Are you sure ?')
-    if(question){
-      dispatch(deleteUserAction(id))
-    }else{
-      return
+    const question = window.confirm("Are you sure ?");
+    if (question) {
+      dispatch(deleteUserAction(id));
+    } else {
+      return;
     }
-    
   };
   return (
     <div>
       {error ? (
         <Message> {error} </Message>
       ) : loading ? (
+        <Loader />
+      ) : loadingDelete ? (
+        <Loader />
+      ) : loadingUser ? (
         <Loader />
       ) : errorDelete ? (
         <Message> {errorDelete} </Message>

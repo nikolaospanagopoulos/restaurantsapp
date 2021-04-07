@@ -138,7 +138,7 @@ const RightNav = ({ open, setOpen, history }) => {
 
     dispatch(logout());
   };
-
+console.log(user)
   return (
     <Ul
       open={open}
@@ -181,7 +181,7 @@ const RightNav = ({ open, setOpen, history }) => {
                     Logout
                   </Link>
                 </li>
-                {(user || userInfo) && user.data.isAdmin ? (
+                {(user || userInfo) && user.data.role === 'admin'? (
                   <div>
                     <li className="logoutlink2">
                       <Link to="/admin/userlist">Users</Link>
@@ -193,7 +193,7 @@ const RightNav = ({ open, setOpen, history }) => {
                       <Link to="/admin/orderlist">Order List</Link>
                     </li>
                   </div>
-                ): (user || userInfo) && user.data.role === 'owner' && !user.data.isAdmin ? (
+                ): (user || userInfo) && user.data.role === 'owner' ? (
                   <div>
                   <li className="logoutlink3">
                     <Link to={`/owner/restaurants/${user.data._id}`}>My Restaurants</Link>

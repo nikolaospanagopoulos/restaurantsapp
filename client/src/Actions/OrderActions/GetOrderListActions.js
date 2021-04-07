@@ -2,7 +2,6 @@ import {
   GET_ORDERS_REQUEST,
   GET_ORDERS_SUCCESS,
   GET_ORDERS_FAIL,
-  GET_ORDERS_RESET,
 } from "../../Constants/OrderConstants/GetAllOrdersConstants";
 import axios from "axios";
 
