@@ -78,7 +78,7 @@ const PlaceOrderPage = ({ history }) => {
                       to={`/restaurants/${item.restaurant._id}/dishes`}
                       className="dish-restaurant-link"
                     >
-                      <h5>{item.name} </h5>
+                      <h4>{item.name} </h4>
                     </Link>
                     <h5>
                       {item.qty}x{item.price} = €{item.qty * item.price}

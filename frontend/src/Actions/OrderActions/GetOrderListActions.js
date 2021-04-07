@@ -8,7 +8,7 @@ import axios from "axios";
 export const getOrderList = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_ORDERS_REQUEST });
-    const { data } = await axios.get(`/api/v1/orders?orderItems.restaurant=${id}`);
+    const { data } = await axios.get(`/api/v1/orders?${id ? `orderItems.restaurant=${id}`: ''}`);
     dispatch({ type: GET_ORDERS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

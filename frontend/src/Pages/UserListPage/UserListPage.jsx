@@ -120,14 +120,20 @@ const UserListPage = ({ history }) => {
           <div>
             <button onClick={() => pageClick(nextPage)}>Next</button>
           </div>
-        ) : (
+        ) : !loading && !previousPage ? (
+          <div>
+
+          </div>
+        ) :
+        (
           !loading &&
           !nextPage && (
             <div>
               <button onClick={() => pageClick(previousPage)}>Previous</button>
             </div>
-          )
-        )}
+          ) 
+        )
+        }
       </div>
     </div>
   );

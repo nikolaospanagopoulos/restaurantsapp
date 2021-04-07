@@ -114,12 +114,7 @@ const OrderPage = ({ match }) => {
                 <div key={index} className="order-items-info-container">
                   <div className="order-info-card">
                     <img src={item.image} alt={item.name} />
-                    {/* <Link
-                      to={`/restaurants/${item.restaurant._id}/dishes`}
-                      className="dish-restaurant-link"
-                    >
-                      <h5>{item.name} </h5>
-                    </Link> */}
+                    <h5>{item.name} </h5>
                     <h5>
                       {item.qty}x{item.price} = €{item.qty * item.price}
                     </h5>

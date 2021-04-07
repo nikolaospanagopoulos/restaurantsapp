@@ -38,18 +38,12 @@ const Ul = styled.ul`
     width:100px;
     background-image: linear-gradient(to top, #ffff99,#ff3333);
   }
-  .logoutlink3 {
-    text-align: center;
-    width:100px;
-    border-top: 0px;
-   
-    background-image: linear-gradient(to top, #ff3333, #ffff99);
-  }
+
   .logoutlink4 {
     text-align: center;
     border-top: 0px;
     width:100px;
-    background-image: linear-gradient(to top, #ffff99,#ff3333);
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink a {
     text-decoration: none;
@@ -152,9 +146,6 @@ console.log(user)
         <Link to="/tours">Restaurants</Link>
       </li>
       <li>
-        <Link to="/dishes">Dishes</Link>
-      </li>
-      <li>
         <Link to="/cart">Cart</Link>
       </li>
       <li>
@@ -185,9 +176,6 @@ console.log(user)
                   <div>
                     <li className="logoutlink2">
                       <Link to="/admin/userlist">Users</Link>
-                    </li>
-                    <li className="logoutlink3">
-                      <Link to="/admin/tourlist">Product List</Link>
                     </li>
                     <li className="logoutlink4">
                       <Link to="/admin/orderlist">Order List</Link>
