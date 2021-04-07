@@ -51,7 +51,7 @@ const Ul = styled.ul`
   }
   .special-links {
     position: absolute;
-    top:7vh;
+    top:4.7rem;
     right:0px;
   }
   @media (max-width: 768px) {
