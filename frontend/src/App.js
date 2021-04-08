@@ -20,7 +20,8 @@ import OrderListPage from './Pages/OrderListPage/OrderListPage'
 import UserListPage from './Pages/UserListPage/UserListPage'
 import UserEditPage from './Pages/UserEditPage/UserEditPage'
 import AdminOrderList from './Pages/AdminOrderList/AdminOrderList'
-//import react-router-dom for routing
+import RestaurantsPage from './Pages/RestaurantsPage/RestaurantsPage'
+//import react-router-dom for routing 
 import { BrowserRouter as Router,Route } from "react-router-dom";
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         <Route  component={DeliveryPage} path='/delivery'/>
         <Route  component={OrderListPage} path='/orders/:id?'/>
         <Route  component={PaymentMethodPage} path='/payment'/>
+        <Route  component={RestaurantsPage} path='/restaurants' exact/>
         <Route  component={PlaceOrderPage} path='/placeorder'/>
         <Route  component={UserListPage} path='/admin/userlist'/>
         <Route  component={AdminOrderList} path='/admin/orderlist'/>

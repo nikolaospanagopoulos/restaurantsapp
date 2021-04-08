@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from '../../Components/Pagination/Pagination'
 import "./RestaurantsListPage.css";
 //import form to find restaurants close to the zipcode provided
 import LocationForm from "../../Components/LocationForm/LocationForm";
@@ -65,30 +66,14 @@ const RestaurantsListPage = ({ history }) => {
               <Restaurant restaurant={restaurant} />
             </div>
           ))}
+          <div className='restaurants-pagination-container'>
+          <Pagination loading={loading} previousPage={previousPage} nextPage={nextPage} pageClick={pageClick}/>
+      </div>
+          
         </div>
       )}
-      <div className="pagination">
-        {!loading && previousPage <= 2 && nextPage > 2 ? (
-          <div>
-            <button onClick={() => pageClick(previousPage)}>
-            Previous
-            </button>
-            <button onClick={() => pageClick(nextPage)}>Next</button>
-          </div>
-        ) : !loading && nextPage === 2 && previousPage < 2 ? (
-          <div>
-            <button onClick={() => pageClick(nextPage)}>Next</button>
-          </div>
-        ) : (
-          !loading && !nextPage && (
-            <div>
-              <button onClick={() => pageClick(previousPage)}>
-                Previous
-              </button>
-            </div>
-          )
-        )}
-      </div>
+      
+      
     </div>
   );
 };

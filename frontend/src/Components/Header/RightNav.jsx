@@ -143,7 +143,7 @@ console.log(user)
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/tours">Restaurants</Link>
+        <Link to="/restaurants">Restaurants</Link>
       </li>
       <li>
         <Link to="/cart">Cart</Link>
@@ -173,7 +173,7 @@ console.log(user)
                   </Link>
                 </li>
                 {(user || userInfo) && user.data.role === 'admin'? (
-                  <div>
+                  <div >
                     <li className="logoutlink2">
                       <Link to="/admin/userlist">Users</Link>
                     </li>
@@ -182,8 +182,8 @@ console.log(user)
                     </li>
                   </div>
                 ): (user || userInfo) && user.data.role === 'owner' ? (
-                  <div>
-                  <li className="logoutlink3">
+                  <div className="special-links">
+                  <li className="logoutlink">
                     <Link to={`/owner/restaurants/${user.data._id}`}>My Restaurants</Link>
                   </li>
                 </div>

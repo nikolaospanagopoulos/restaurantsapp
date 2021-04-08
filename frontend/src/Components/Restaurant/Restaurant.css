@@ -3,6 +3,7 @@
 .restaurant-card {
   border: 1px solid tan;
   width: 30vw;
+  min-width: 500px;
   text-align: center;
   border-radius: 10px;
   padding: 8px;

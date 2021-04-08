@@ -1,0 +1,13 @@
+.sorting-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin:5vh
+}
+
+.sorting-buttons button{
+    padding: 10px;
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+}

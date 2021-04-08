@@ -98,6 +98,10 @@ const RestaurantSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    vegetarian: {
+      type: Boolean,
+      default: false,
+    },
     fusion: {
       type: Boolean,
       default: false,
