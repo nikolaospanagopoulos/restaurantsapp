@@ -1,6 +1,8 @@
 import { ErrorResponse } from '../../Utilis/errorResponse.js'
 import { asyncHandler } from '../../Middleware/async.js'
 import { User } from '../../Models/UserModel.js'
+import sgEmail from '@sendgrid/mail'
+
 
 
 //register user
@@ -16,8 +18,17 @@ export const register = asyncHandler(async (req, res, next) => {
         password,
         role
     })
-
+    console.log(user.email)
     sendTokenResponse(user,200,res)
+    const message = {
+        to:user.email,
+        from:'nikos4222@outlook.com.gr',
+        subject:'Welcome to our application',
+        text:'we look forward to hearing from you!!',
+
+    }
+     await sgEmail.send(message)
+   
 })
 
 //auth user
@@ -119,3 +130,23 @@ export const updateUserDetails = asyncHandler(async (req, res, next) => {
     })
 })
 
+//forgot password
+//Private
+//GET /api/v1/auth/me
+
+export const forgotPassword = asyncHandler(async (req, res, next) => {
+    const user = await User.findOne({email:req.body.email})
+
+    if(!user){
+        return next(new ErrorResponse('There is not user with that email',404))
+    }
+
+    //get reset token
+    const resetToken = user.getResetPasswordToken()
+    await user.save({validateBeforeSave:false})
+    console.log(resetToken)
+    res.status(200).json({
+        success: true,
+        data:user
+    })
+})
