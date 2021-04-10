@@ -18,16 +18,30 @@ export const register = asyncHandler(async (req, res, next) => {
         password,
         role
     })
+    
+    
     console.log(user.email)
-    sendTokenResponse(user,200,res)
-    const message = {
-        to:user.email,
-        from:'nikos4222@outlook.com.gr',
-        subject:'Welcome to our application',
-        text:'we look forward to hearing from you!!',
-
+    try {
+       
+        sgEmail.setApiKey(process.env.SENDGRID_API_KEY)
+        const message = {
+            to:email,
+            from:'nikos4222@outlook.com.gr',
+            subject:'Welcome to our application',
+            text:'We are very glad to welcome you into our family. We offer the best prices and the most amazing quality. There are restaurants here that offer you whatever it is you desire. Click here https://greekrestaurantsapp.herokuapp.com/ ',
+    
+        }
+        await sgEmail.send(message)
+        sendTokenResponse(user, 200, res)
+      
+    } catch (error) {
+        console.log(error)
     }
-     await sgEmail.send(message)
+   
+    
+     
+    
+      
    
 })
 
