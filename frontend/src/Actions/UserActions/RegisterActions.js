@@ -30,8 +30,7 @@ export const register = (email, password, name) => async (dispatch) => {
     dispatch({
       type: USER_REGISTER_FAIL,
       payload: error.response.data.error
-        ? error.response.data.error
-        : error.data.error,
+        
     });
   }
 };
