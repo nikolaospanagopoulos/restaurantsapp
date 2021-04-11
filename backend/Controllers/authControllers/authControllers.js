@@ -28,7 +28,7 @@ export const register = asyncHandler(async (req, res, next) => {
             to:email,
             from:'nikos4222@outlook.com.gr',
             subject:'Welcome to our application',
-            text:'We are very glad to welcome you into our family. We offer the best prices and the most amazing quality. There are restaurants here that offer you whatever it is you desire. Click here https://greekrestaurantsapp.herokuapp.com/ ',
+            text:` Dear ${name} we are very glad to welcome you into our family. We offer the best prices and the most amazing quality. There are restaurants here that offer you whatever it is you desire. Click here https://greekrestaurantsapp.herokuapp.com/ `,
     
         }
         await sgEmail.send(message)
