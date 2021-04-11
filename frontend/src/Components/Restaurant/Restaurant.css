@@ -44,6 +44,8 @@
 
 @media screen and (max-width: 823px){
     .restaurant-card{
-        width: 60vw;
+        min-width: unset;
+        width: 80vw;
+        
     }
 }

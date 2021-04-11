@@ -46,7 +46,7 @@ export const getRestaurantListByType = (type) => async (dispatch) => {
   try {
     dispatch({ type: RESTAURANT_LIST_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/restaurants?${type}=true`);
+    const { data } = await axios.get(`/api/v1/restaurants?${!type ? '' : `${type}=true`}`);
 
     dispatch({ type: RESTAURANT_LIST_SUCCESS, payload: data });
   } catch (error) {

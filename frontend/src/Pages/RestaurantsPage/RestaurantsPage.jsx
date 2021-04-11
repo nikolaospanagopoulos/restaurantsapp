@@ -5,7 +5,6 @@ import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
 import './RestaurantsPage.css'
 import {
-  getRestaurantList,
   getRestaurantListByType,
 } from "../../Actions/RestaurantActions/RestaurantListActions";
 const RestaurantsPage = () => {
@@ -13,7 +12,7 @@ const RestaurantsPage = () => {
   const { restaurants, loading, error } = restaurantList;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRestaurantList());
+    dispatch(getRestaurantListByType(null));
   }, [dispatch]);
   console.log(restaurants);
 

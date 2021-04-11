@@ -39,6 +39,7 @@
     flex-direction: row;
     position: relative;
     left: 73vw;
+    width: fit-content;
 }
 
 .restaurants-pagination-container button{
@@ -75,5 +76,8 @@
         margin-top: 45vh;
         margin-bottom: 0;
     }
-
+    .restaurants-pagination-container{
+        left: 22vw;
+        bottom: 20vh;
+    }
 }
