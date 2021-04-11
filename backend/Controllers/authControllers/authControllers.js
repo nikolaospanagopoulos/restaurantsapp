@@ -19,8 +19,8 @@ export const register = asyncHandler(async (req, res, next) => {
         role
     })
     
-    
-    console.log(user.email)
+    sendTokenResponse(user, 200, res)
+ 
     try {
        
         sgEmail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -32,8 +32,8 @@ export const register = asyncHandler(async (req, res, next) => {
     
         }
         
-        sendTokenResponse(user, 200, res)
-        sgEmail.send(message)
+        
+       await  sgEmail.send(message)
        
       
     } catch (error) {
