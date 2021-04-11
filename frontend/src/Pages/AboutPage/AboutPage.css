@@ -1,0 +1,22 @@
+.about-page {
+  text-align: center;
+}
+.about-page a {
+  text-decoration: none;
+  color: blue;
+}
+.about-page h1 {
+  text-transform: capitalize;
+}
+.about-page h3 {
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 823px) {
+  .about-page {
+    width: 90vw;
+  }
+  .about-page a {
+    word-break: break-all;
+  }
+}

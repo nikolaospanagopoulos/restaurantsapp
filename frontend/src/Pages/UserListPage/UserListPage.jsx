@@ -6,6 +6,7 @@ import Loader from "../../Components/Loading/Loader";
 import { USER_LIST_RESET } from "../../Constants/UserConstants/GetUserListConstants";
 import { Link } from "react-router-dom";
 import Message from "../../Components/Message/Message";
+import Pagination from '../../Components/Pagination/Pagination'
 import "./UserListPage.css";
 const UserListPage = ({ history }) => {
   const [nextPage, setNextPage] = useState(Number);
@@ -110,7 +111,7 @@ const UserListPage = ({ history }) => {
           </tbody>
         </table>
       )}
-      
+      <Pagination previousPage={previousPage} nextPage={nextPage} pageClick={pageClick} loading={loading}/>
     </div>
   );
 };
