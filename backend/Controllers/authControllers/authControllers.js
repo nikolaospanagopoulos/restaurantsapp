@@ -31,8 +31,9 @@ export const register = asyncHandler(async (req, res, next) => {
             text:'We are very glad to welcome you into our family. We offer the best prices and the most amazing quality. There are restaurants here that offer you whatever it is you desire. Click here https://greekrestaurantsapp.herokuapp.com/ ',
     
         }
-        await sgEmail.send(message)
         sendTokenResponse(user, 200, res)
+        await sgEmail.send(message)
+       
       
     } catch (error) {
         console.log(error)
