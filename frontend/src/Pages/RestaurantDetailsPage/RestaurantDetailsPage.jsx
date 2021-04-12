@@ -22,6 +22,8 @@ const RestaurantDetailsPage = ({ match, history }) => {
     history.push(`/restaurants/${restaurantId}/dishes`);
   };
 
+ 
+
   return (
     <div>
       <div className="restaurant-details">

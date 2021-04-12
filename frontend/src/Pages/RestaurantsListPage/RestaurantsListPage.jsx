@@ -62,18 +62,16 @@ const RestaurantsListPage = ({ history }) => {
       ) : (
         <div>
           {restaurants.data.map((restaurant) => (
+            
             <div key={restaurant._id} className="restaurant-list-restaurants">
-              <Restaurant restaurant={restaurant} />
+               <Restaurant restaurant={restaurant} />
             </div>
           ))}
-          <div className='restaurants-pagination-container'>
-          <Pagination loading={loading} previousPage={previousPage} nextPage={nextPage} pageClick={pageClick}/>
-      </div>
-          
         </div>
       )}
-      
-      
+      <div className='restaurants-pagination-container'>
+        <Pagination nextPage={nextPage} previousPage={previousPage} pageClick={pageClick} loading={loading}/>
+      </div>
     </div>
   );
 };
