@@ -28,16 +28,16 @@ const RestaurantDetailsPage = ({ match, history }) => {
   } = postReview;
 
   const dispatch = useDispatch();
-console.log(restaurant)
+  console.log(restaurant);
   useEffect(() => {
     if (successReview) {
-      alert('review Submitted')
-      setComment('')
-      setRating(0)
-      dispatch({ type:ADD_REVIEW_RESET})
+      alert("review Submitted");
+      setComment("");
+      setRating(0);
+      dispatch({ type: ADD_REVIEW_RESET });
     }
     dispatch(getRestaurantDetails(restaurantId));
-  }, [dispatch, match, restaurantId,successReview]);
+  }, [dispatch, match, restaurantId, successReview]);
 
   const jumpToDishPage = (e) => {
     e.preventDefault();
@@ -45,10 +45,13 @@ console.log(restaurant)
   };
 
   const reviewHandler = (e) => {
-    e.preventDefault()
-    dispatch(addReviewAction(restaurantId, {
-      rating,comment
-    }))
+    e.preventDefault();
+    dispatch(
+      addReviewAction(restaurantId, {
+        rating,
+        comment,
+      })
+    );
   };
 
   return (
@@ -100,8 +103,8 @@ console.log(restaurant)
                   ))}
                   <div>
                     <div>
-                          <h2>Write A customer Review</h2>
-                          {errorReview && <Message> {errorReview} </Message>}
+                      <h2>Write A customer Review</h2>
+                      {errorReview && <Message> {errorReview} </Message>}
                       {user ? (
                         <form onSubmit={reviewHandler}>
                           <label>Rating</label>
@@ -113,13 +116,18 @@ console.log(restaurant)
                             <option value="">Select...</option>
                             <option value="1">1 poor</option>
                             <option value="2">2 fair</option>
-                            <option value='3'>3 good</option>
+                            <option value="3">3 good</option>
                             <option value="4">4 very good</option>
                             <option value="5">5 excellent</option>
-                              </select>
-                              <label>Comment</label>
-                              <textarea value={comment} cols="30" rows="10" onChange={e => setComment(e.target.value)}></textarea>
-                              <button type='submit'>Submit</button>
+                          </select>
+                          <label>Comment</label>
+                          <textarea
+                            value={comment}
+                            cols="30"
+                            rows="10"
+                            onChange={(e) => setComment(e.target.value)}
+                          ></textarea>
+                          <button type="submit">Submit</button>
                         </form>
                       ) : (
                         <Message>

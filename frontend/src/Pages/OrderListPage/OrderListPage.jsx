@@ -1,10 +1,10 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderList } from "../../Actions/OrderActions/GetOrderListActions";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
-import Pagination from '../../Components/Pagination/Pagination'
+import Pagination from "../../Components/Pagination/Pagination";
 const OrderListPage = ({ match }) => {
   const restaurantId = match.params.id;
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const OrderListPage = ({ match }) => {
   const [previousPage, setPreviousPage] = useState(Number);
   const orderList = useSelector((state) => state.orderList);
   const { orders, loading, error } = orderList;
-  
+
   useEffect(() => {
     dispatch(getOrderList(restaurantId));
   }, [dispatch, restaurantId]);
@@ -89,10 +89,14 @@ const OrderListPage = ({ match }) => {
                 </tr>
               ))}
             </tbody>
-              </table>
-              <Pagination nextPage={nextPage} previousPage={previousPage} click={pageClick} loading={loading}/>
-            </div>
-           
+          </table>
+          <Pagination
+            nextPage={nextPage}
+            previousPage={previousPage}
+            click={pageClick}
+            loading={loading}
+          />
+        </div>
       )}
     </div>
   );

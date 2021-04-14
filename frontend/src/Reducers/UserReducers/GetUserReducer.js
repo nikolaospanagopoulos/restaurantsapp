@@ -4,7 +4,7 @@ import {
   GET_USER_FAIL,
 } from "../../Constants/UserConstants/GetUserConstants";
 
-export const getUserReducer = (state = { user: {data:{}}}, action) => {
+export const getUserReducer = (state = { user: { data: {} } }, action) => {
   switch (action.type) {
     case GET_USER_REQUEST:
       return { loading: true, ...state };
@@ -15,4 +15,4 @@ export const getUserReducer = (state = { user: {data:{}}}, action) => {
     default:
       return state;
   }
-}; 
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Pagination from '../../Components/Pagination/Pagination'
+import Pagination from "../../Components/Pagination/Pagination";
 import "./RestaurantsListPage.css";
 //import form to find restaurants close to the zipcode provided
 import LocationForm from "../../Components/LocationForm/LocationForm";
@@ -62,15 +62,19 @@ const RestaurantsListPage = ({ history }) => {
       ) : (
         <div>
           {restaurants.data.map((restaurant) => (
-            
             <div key={restaurant._id} className="restaurant-list-restaurants">
-               <Restaurant restaurant={restaurant} />
+              <Restaurant restaurant={restaurant} />
             </div>
           ))}
         </div>
       )}
-      <div className='restaurants-pagination-container'>
-        <Pagination nextPage={nextPage} previousPage={previousPage} pageClick={pageClick} loading={loading}/>
+      <div className="restaurants-pagination-container">
+        <Pagination
+          nextPage={nextPage}
+          previousPage={previousPage}
+          pageClick={pageClick}
+          loading={loading}
+        />
       </div>
     </div>
   );
