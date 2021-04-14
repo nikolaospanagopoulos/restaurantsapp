@@ -10,10 +10,12 @@ import {
   updateOrderToPaid,
   getOrders,
   getMyOrders,
+  updateOrderToDelivered
 } from "../../Controllers/orderControllers/orderControllers.js";
 const router = express.Router();
 
 router.route("/").post(protect, addOrderItems).get(protect,authorize('admin','owner'),advancedResults(Order),getOrders);
 router.route("/:id").get(protect, getOrderById);
 router.route("/:id/pay").put(protect, updateOrderToPaid);
+router.route("/:id/deliver").put(protect,authorize('owner','admin'), updateOrderToPaid);
 export default router;

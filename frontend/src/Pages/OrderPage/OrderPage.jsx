@@ -5,10 +5,12 @@ import Message from "../../Components/Message/Message";
 import { getOrderDetailsAction } from "../../Actions/OrderActions/OrderDetailsActions";
 import { payOrder } from "../../Actions/OrderActions/OrderPayActions";
 import { ORDER_PAY_RESET } from "../../Constants/OrderConstants/OrderPayConstants";
+import { ORDER_DELIVER_RESET } from "../../Constants/OrderConstants/OrderDeliveredConstants";
+import { deliverOrder } from "../../Actions/OrderActions/DeliverOrderAction";
 import "./OrderPage.css";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
-import {CART_RESET} from '../../Constants/CartConstants/CartConstants'
+import { CART_RESET } from "../../Constants/CartConstants/CartConstants";
 const OrderPage = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
@@ -19,7 +21,12 @@ const OrderPage = ({ match }) => {
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
+  const orderDelivery = useSelector((state) => state.orderDelivery);
+  const { loading: loadingDelivery, success: successDelivery } = orderDelivery;
 
+
+  const loginInfo = useSelector((state) => state.loginInfo);
+  const { loading:loadingUser, success:successUser, user } = loginInfo;
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/v1/config/paypal");
@@ -32,8 +39,9 @@ const OrderPage = ({ match }) => {
       };
       document.body.appendChild(script);
     };
-    if (!order || order._id !== orderId || successPay) {
+    if (!order || order._id !== orderId || successPay || successDelivery) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetailsAction(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -42,12 +50,12 @@ const OrderPage = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successPay,successDelivery]);
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult)
-    console.log(paymentResult)
+    console.log(paymentResult);
+    console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
-    dispatch({type:CART_RESET})
+    dispatch({ type: CART_RESET });
   };
   if (!loading) {
     const addDecimals = (num) => {
@@ -58,7 +66,10 @@ const OrderPage = ({ match }) => {
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
   }
-
+console.log(order)
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order))
+  }
   return loading ? (
     <Loader />
   ) : error ? (
@@ -87,7 +98,7 @@ const OrderPage = ({ match }) => {
       ) : (
         <Message> Not Paid </Message>
       )}
-      {order.isDelivered ? (
+      {order.isDelivered && order.isPaid ? (
         <Message color="green">
           {" "}
           order was delivered at {order.deliveredAt}{" "}
@@ -126,7 +137,7 @@ const OrderPage = ({ match }) => {
           </div>
         )}
       </div>
-
+      {loadingPay && <Loader />}
       <div className="sum-container">
         <div>
           <h2>Your Sum</h2>
@@ -135,10 +146,11 @@ const OrderPage = ({ match }) => {
           <h4>Tax: {order.taxPrice}€</h4>
           <h4>Total: {order.totalPrice}€</h4>
         </div>
-        <div>
+            <div>
+           
           {!order.isPaid && (
             <div>
-              {loadingPay && <Loader />}
+              
               {!sdkReady ? (
                 <Loader />
               ) : (
@@ -148,7 +160,12 @@ const OrderPage = ({ match }) => {
                 />
               )}
             </div>
-          )}
+              )}
+              {user.data.role === 'admin' && order.isPaid && !order.isDelivered && (
+                <div>
+                  <button type='button' onClick={deliverHandler}>Deliver</button>
+                </div>
+              )}
         </div>
       </div>
     </div>

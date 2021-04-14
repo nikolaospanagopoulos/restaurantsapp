@@ -64,7 +64,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res, next) => {
       id: req.body.id,
       status: req.body.status,
       update_time: req.body.update_time,
-      email_address: req.body.payer.email_address,
+      email_address: req.body.payer.email,
     };
     const updateOrder = await order.save();
 
@@ -90,3 +90,21 @@ export const getMyOrders = asyncHandler(async(req,res,next) => {
   const orders = await Order.find({user:req.user._id})
   res.status(200).json(orders)
 })
+
+//update order to paid
+//put api/v1/orders/:id/deliver
+//owner admin
+export const updateOrderToDelivered = asyncHandler(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.DeliveredAt = Date.now();
+    
+    const updateOrder = await order.save();
+
+    res.json(updateOrder);
+  } else {
+    return next(new ErrorResponse(`order not found`, 404));
+  }
+});
