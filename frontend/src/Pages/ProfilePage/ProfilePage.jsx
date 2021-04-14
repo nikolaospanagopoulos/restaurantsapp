@@ -6,7 +6,7 @@ import { loginInfoAction } from "../../Actions/UserActions/LogedUserInfoActions"
 import { USER_UPDATE_PROFILE_RESET } from "../../Constants/UserConstants/LogedInUserInfoConstants";
 import { updateProfile } from "../../Actions/UserActions/updateUserProfileActions";
 import { createRestaurant } from "../../Actions/RestaurantActions/RestaurantCreateActions";
-import {RESTAURANT_CREATE_RESET} from '../../Constants/RestaurantConstants/RestaurantCreateConstants'
+import { RESTAURANT_CREATE_RESET } from "../../Constants/RestaurantConstants/RestaurantCreateConstants";
 const ProfilePage = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,15 +22,19 @@ const ProfilePage = ({ history }) => {
   const { success: successPassword, passwordData } = passwordUpdate;
 
   const createdRestaurant = useSelector((state) => state.createdRestaurant);
-  const { restaurant, error:errorCreate, loading:loadingCreate,success:successCreate } = createdRestaurant;
+  const {
+    restaurant,
+    error: errorCreate,
+    loading: loadingCreate,
+    success: successCreate,
+  } = createdRestaurant;
   useEffect(() => {
     if (!success) {
       history.push("/login");
-    }else if(successCreate){
-      dispatch({type:RESTAURANT_CREATE_RESET})
-      history.push(`/restaurants/${restaurant.data._id}`)
-    } 
-    else {
+    } else if (successCreate) {
+      dispatch({ type: RESTAURANT_CREATE_RESET });
+      history.push(`/restaurants/${restaurant.data._id}`);
+    } else {
       if (!success || !user || successUpdate) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(loginInfoAction());
@@ -39,17 +43,25 @@ const ProfilePage = ({ history }) => {
         setEmail(user.data.email);
       }
     }
-  }, [dispatch, history, success, user, successUpdate, successPassword,successCreate,restaurant]);
+  }, [
+    dispatch,
+    history,
+    success,
+    user,
+    successUpdate,
+    successPassword,
+    successCreate,
+    restaurant,
+  ]);
   console.log(restaurant);
   const updateSubmit = (e) => {
     e.preventDefault();
     dispatch(updateProfile(name, email));
     history.push("/");
   };
-const createSubmit = () => {
-  dispatch(createRestaurant())
-  
-}
+  const createSubmit = () => {
+    dispatch(createRestaurant());
+  };
   return (
     <div>
       {loading ? (
@@ -57,9 +69,10 @@ const createSubmit = () => {
       ) : loadingUpdate ? (
         <Loader />
       ) : loadingCreate ? (
-        <Loader/>
-      ) : errorCreate ? <Loader/>
-      : error ? (
+        <Loader />
+      ) : errorCreate ? (
+        <Loader />
+      ) : error ? (
         <Message> {error} </Message>
       ) : (
         <div className="form-container">
@@ -88,15 +101,15 @@ const createSubmit = () => {
               >
                 Change Your Password
               </button>
-              {(user ) && (user.data.role === 'owner' || user.data.role === 'admin') && (
-                <button
-                onClick={() => createSubmit()}
-                className="passwordchange-button"
-              >
-                Create A Restaurant
-              </button>
-              )}
-              
+              {user &&
+                (user.data.role === "owner" || user.data.role === "admin") && (
+                  <button
+                    onClick={() => createSubmit()}
+                    className="passwordchange-button"
+                  >
+                    Create A Restaurant
+                  </button>
+                )}
             </div>
           </form>
         </div>

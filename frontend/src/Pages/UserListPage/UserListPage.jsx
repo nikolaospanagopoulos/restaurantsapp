@@ -30,8 +30,6 @@ const UserListPage = ({ history }) => {
     }
   }, [dispatch, user, history, successDelete]);
 
-
-
   const deleteHandler = (id) => {
     const question = window.confirm("Are you sure ?");
     if (question) {

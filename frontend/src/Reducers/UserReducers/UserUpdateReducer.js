@@ -5,12 +5,12 @@ import {
   USER_UPDATE_RESET,
 } from "../../Constants/UserConstants/UserUpdateConstants";
 
-export const updateUserReducer = (state = {user:{}}, action) => {
+export const updateUserReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_UPDATE_REQUEST:
-      return { loading: true,...state };
+      return { loading: true, ...state };
     case USER_UPDATE_SUCCESS:
-      return { loading: false, success: true, user:action.payload };
+      return { loading: false, success: true, user: action.payload };
     case USER_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     case USER_UPDATE_RESET:
