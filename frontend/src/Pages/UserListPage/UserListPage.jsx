@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { getUserListAction } from "../../Actions/UserActions/GetUserListActions";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUserAction } from "../../Actions/UserActions/DeleteUserActions";
@@ -6,11 +6,8 @@ import Loader from "../../Components/Loading/Loader";
 import { USER_LIST_RESET } from "../../Constants/UserConstants/GetUserListConstants";
 import { Link } from "react-router-dom";
 import Message from "../../Components/Message/Message";
-import Pagination from '../../Components/Pagination/Pagination'
 import "./UserListPage.css";
 const UserListPage = ({ history }) => {
-  const [nextPage, setNextPage] = useState(Number);
-  const [previousPage, setPreviousPage] = useState(Number);
   const dispatch = useDispatch();
 
   const loginInfo = useSelector((state) => state.loginInfo);
@@ -33,24 +30,8 @@ const UserListPage = ({ history }) => {
     }
   }, [dispatch, user, history, successDelete]);
 
-  useEffect(() => {
-    if (users.pagination) {
-      if (users.pagination.next) {
-        setNextPage(users.pagination.next.page);
-      } else if (!users.pagination.next) {
-        setNextPage(null);
-      }
 
-      if (users.pagination.prev) {
-        setPreviousPage(users.pagination.prev.page);
-      }
-    }
-  }, [users.pagination]);
-  console.log(users);
 
-  const pageClick = (pageNum) => {
-    dispatch(getUserListAction(pageNum));
-  };
   const deleteHandler = (id) => {
     const question = window.confirm("Are you sure ?");
     if (question) {
@@ -111,7 +92,6 @@ const UserListPage = ({ history }) => {
           </tbody>
         </table>
       )}
-      <Pagination previousPage={previousPage} nextPage={nextPage} pageClick={pageClick} loading={loading}/>
     </div>
   );
 };

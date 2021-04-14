@@ -5,10 +5,10 @@ import {
 } from "../../Constants/OrderConstants/GetAllOrdersConstants";
 import axios from "axios";
 
-export const getOrderList = (id) => async (dispatch) => {
+export const getOrderList = (page,id) => async (dispatch) => {
   try {
     dispatch({ type: GET_ORDERS_REQUEST });
-    const { data } = await axios.get(`/api/v1/orders?${id ? `orderItems.restaurant=${id}`: ''}`);
+    const { data } = await axios.get(`/api/v1/orders?${id ? `orderItems.restaurant=${id}`: ''}&limit=15&page=${page}`);
     dispatch({ type: GET_ORDERS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

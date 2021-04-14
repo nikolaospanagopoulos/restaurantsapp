@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderList } from "../../Actions/OrderActions/GetOrderListActions";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
+import Pagination from "../../Components/Pagination/Pagination";
 import { Link } from "react-router-dom";
 const AdminOrderList = ({ match }) => {
   const restaurantId = match.params.id;
   const dispatch = useDispatch();
-  
+  const [nextPage, setNextPage] = useState(Number);
+  const [previousPage, setPreviousPage] = useState(Number);
   const orderList = useSelector((state) => state.orderList);
   const { orders, loading, error } = orderList;
   useEffect(() => {
@@ -18,7 +20,23 @@ const AdminOrderList = ({ match }) => {
     const data = orders.data;
     console.log(data);
   }
-console.log(orders)
+
+  useEffect(() => {
+    if (orders.pagination) {
+      if (orders.pagination.next) {
+        setNextPage(orders.pagination.next.page);
+      } else if (!orders.pagination.next) {
+        setNextPage(null);
+      }
+
+      if (orders.pagination.prev) {
+        setPreviousPage(orders.pagination.prev.page);
+      }
+    }
+  }, [orders.pagination]);
+  const pageClick = (pageNum) => {
+    dispatch(getOrderList(pageNum));
+  };
   return (
     <div>
       {loading ? (
@@ -45,19 +63,29 @@ console.log(orders)
                     <Link to={`/order/${order._id}`}>{order._id}</Link>{" "}
                   </td>
                   <td>
-                    {order.isPaid ? 'Paid': order.isPaid && order.isDelivered ? 'completed' : 'Not Paid'}
+                    {order.isPaid
+                      ? "Paid"
+                      : order.isPaid && order.isDelivered
+                      ? "completed"
+                      : "Not Paid"}
                   </td>
-                  <td>
-                    {order.totalPrice}
-                  </td>
+                  <td>{order.totalPrice}</td>
                   <td>
                     {order.deliveryAddress.city} {order.deliveryAddress.address}
                   </td>
-                 
                 </tr>
               ))}
             </tbody>
-          </table>
+              </table>
+              <div className='orderlist-pagination-container'>
+              <Pagination
+            previousPage={previousPage}
+            nextPage={nextPage}
+            loading={loading}
+            pageClick={pageClick}
+          />
+              </div>
+        
         </div>
       )}
     </div>

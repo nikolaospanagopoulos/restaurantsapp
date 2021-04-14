@@ -6,9 +6,7 @@ import {
 } from "../../Constants/OrderConstants/GetAllOrdersConstants";
 
 export const getOrdersReducer = (
-  state = { orders: { data:[]} },
-  action
-) => {
+  state = { orders:{data:[],pagination:{next:Number,previous:Number}}}, action) => {
   switch (action.type) {
     case GET_ORDERS_REQUEST:
       return { loading: true, orders: {} };

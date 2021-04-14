@@ -5,7 +5,7 @@ import {
   USER_LIST_RESET
 } from "../../Constants/UserConstants/GetUserListConstants";
 
-export const getUsersReducer = (state = { users: {data:[],pagination:{next:Number,previous:Number}} }, action) => {
+export const getUsersReducer = (state = { users: {data:[],pagination:{next:Number,previous:Number},count:Number} }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return { loading: true,users:{} };

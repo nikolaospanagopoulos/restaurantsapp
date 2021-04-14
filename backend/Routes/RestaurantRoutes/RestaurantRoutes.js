@@ -6,6 +6,7 @@ import {
   getRestaurants,
   updateRestaurant,
   getRestaurantsWithinRadius,
+  postARestaurantReview
 } from "../../Controllers/RestaurantControllers/RestaurantControllers.js";
 
 //import advanced results middleware
@@ -27,6 +28,7 @@ router
   .route("/")
   .get(advancedResults(Restaurant, "dishes"), getRestaurants)
   .post(protect, authorize("admin", "owner"), createRestaurant);
+router.route('/:id/reviews').post(protect,postARestaurantReview)
 router
   .route("/:id")
   .get(getRestaurant)

@@ -13,16 +13,16 @@ import { reviewSchema } from './ReviewSchema.js'
 
 const RestaurantSchema = new mongoose.Schema(
   {
-    
+
     name: {
       type: String,
       required: [true, "a restaurant must have a name"],
       trim: true,
-      maxlength: [50, "Restaurant name cannot be more than 50 characters"], 
+      maxlength: [50, "Restaurant name cannot be more than 50 characters"],
     },
     slug: String,
     description: {
-      type: String, 
+      type: String,
       required: [true, "Please add a description"],
       maxlength: [600, "description cannot be more than 600 characters"],
     },
@@ -48,7 +48,7 @@ const RestaurantSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      
+
     },
     location: {
       //GeoJson Point
@@ -138,10 +138,10 @@ RestaurantSchema.pre("save", async function (next) {
     city: loc[0].city,
     zipcode: loc[0].zipcode,
     country: loc[0].countryCode,
+
   };
   console.log(loc);
-  //we dont need input address because we have formatted one55236
-  this.address = undefined;
+
   next();
 });
 
@@ -160,7 +160,7 @@ RestaurantSchema.virtual("dishes", {
   localField: "_id",
   foreignField: "restaurant",
   justOne: false,
-}); 
+});
 
 const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
 

@@ -147,3 +147,36 @@ export const getRestaurantsWithinRadius = asyncHandler(
     });
   }
 );
+
+//api/v1/restaurants/:id/reviews
+//Create a review
+//access:private
+//delete a restaurant
+export const postARestaurantReview = asyncHandler(async (req, res, next) => {
+  const { rating, comment } = req.body
+  const restaurant = await Restaurant.findById(req.params.id);
+  console.log(restaurant.address)
+  if (restaurant) {
+   const alreadyReviewed = restaurant.reviews.find(r => r.user.toString() === req.user.toString())
+   console.log(restaurant.reviews)
+    if (alreadyReviewed) {
+      res.status(400)
+      new ErrorResponse(`You have already posted a review`, 400)
+    }
+  }
+
+  const review = {
+    name: req.user.name,
+    rating: Number(rating),
+    comment,
+    user:req.user._id
+  }
+  console.log(review)
+  restaurant.reviews.push(review)
+  restaurant.numReviews = restaurant.reviews.length
+  
+  
+  await restaurant.save()
+  res.status(201).json({message:'reviewAdded'})
+
+})

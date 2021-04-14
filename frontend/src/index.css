@@ -106,6 +106,19 @@ input:-webkit-autofill::first-line {font-size: 16px;  font-family: "Yusei Magic"
     text-align: center;
     color: white;
 }
+
+
+/*admin orders page and owner orders page*/
+.orderlist-pagination-container div{
+    text-align: center;
+}
+.orderlist-pagination-container button{
+    text-align: center;
+     
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
+    width: 100px;
+}
+
 @media screen and (max-width: 823px){
     .input-login-register{
         width: 60vw;
