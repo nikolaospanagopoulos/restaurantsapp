@@ -19,9 +19,7 @@ const RestaurantDishesPage = ({ match, history }) => {
   const restaurantDetails = useSelector((state) => state.restaurantDetails);
   const { restaurant, loading: restaurantLoading } = restaurantDetails;
 
-  console.log(restaurant);
   const dispatch = useDispatch();
-  console.log(user);
   useEffect(() => {
     dispatch(getRestaurantDishesList(restaurantId));
     dispatch(getRestaurantDetails(restaurantId));
@@ -31,7 +29,7 @@ const RestaurantDishesPage = ({ match, history }) => {
     <div className="dishes-page">
       <h1 className="dishes-title">Dishes</h1>
       <div>
-        <div>
+        <div className='dishes-edit-buttons'>
           {!restaurantLoading &&
             !loadingLoginInfo &&
             user &&

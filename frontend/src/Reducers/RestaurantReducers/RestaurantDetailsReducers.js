@@ -4,7 +4,7 @@ import {
   RESTAURANT_DETAILS_SUCCESS,
 } from "../../Constants/RestaurantConstants/RestaurantDetailsConstants";
 
-export const restaurantDetailsReducer =(state = { restaurant: {reviews:[],location:{},dishes:[]} }, action)=> {
+export const restaurantDetailsReducer =(state = { restaurant: {reviews:[],location:{},dishes:[],data:[]} }, action)=> {
   switch (action.type) {
     case RESTAURANT_DETAILS_REQUEST:
       return { loading: true, ...state};

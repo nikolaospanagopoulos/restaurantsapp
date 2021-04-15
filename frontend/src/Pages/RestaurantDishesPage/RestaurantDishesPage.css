@@ -3,9 +3,22 @@
 .dish-list{
     text-align: center;
 }
-
+.dishes-page{
+    text-align: center;
+}
 .dishes-title{
     font-family: "Yusei Magic", sans-serif;
     text-align: center;
-    color: white;
+    color: black;
+}
+
+.dishes-edit-buttons{
+    display: block;
+    margin: 0 auto;
+}
+
+.dishes-edit-buttons button{
+  
+    background-image: linear-gradient(to top, #ff3333, #ffff99);
+    width: 100px;
 }
