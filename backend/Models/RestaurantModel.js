@@ -127,7 +127,7 @@ RestaurantSchema.pre("save", function (next) {
 });
 
 //geocode and create location fields
-RestaurantSchema.pre("save", async function (next) {
+RestaurantSchema.pre('save', async function (next) {
   const loc = await geocoder.geocode(this.address);
   this.location = {
     type: "Point",
@@ -144,7 +144,23 @@ RestaurantSchema.pre("save", async function (next) {
 
   next();
 });
+RestaurantSchema.pre('updateOne', async function (next) {
+  const loc = await geocoder.geocode(this.address);
+  this.location = {
+    type: "Point",
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress,
+    street: loc[0].streetName,
+    streetNumber: this.address.split(" ")[0],
+    city: loc[0].city,
+    zipcode: loc[0].zipcode,
+    country: loc[0].countryCode,
 
+  };
+  console.log(loc);
+
+  next();
+});
 //cascade delete of everything in the restaurant when restaurant is deleted
 RestaurantSchema.pre("remove", async function (next) {
   console.log(

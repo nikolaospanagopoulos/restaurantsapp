@@ -79,6 +79,8 @@ export const updateRestaurant = asyncHandler(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  await restaurant.save()
   res.status(200).json({
     success: true,
     data: restaurant,

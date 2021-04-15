@@ -69,7 +69,7 @@ const {success ,loading,restaurant,error} = restaurantDetails
     const submitHandler = (e) => {
       e.preventDefault();
       dispatch(
-        updatedRestaurant({
+        updaterRestaurantAction({
           _id: restaurantId,
           name,
           vegan,
@@ -100,13 +100,35 @@ const {success ,loading,restaurant,error} = restaurantDetails
         };
         const { data } = await axios.post("/api/v1/uploads", formData, config);
         setPhoto(data);
-        setPhoto2(data);
+        
         setUploading(false);
       } catch (error) {
         console.error(error);
         setUploading(false);
       }
-    };
+  };
+  
+  const uploadFileHandler2 = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post("/api/v1/uploads", formData, config);
+      setPhoto2(data);
+      
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
     return (
       <div>
         <button onClick={() => previousPage.goBack()}>Back</button>
@@ -144,7 +166,13 @@ const {success ,loading,restaurant,error} = restaurantDetails
                   onChange={(e) => setEmail(e.target.value)}
                   className="input-login-register"
                 />
-  
+   <label>Website</label>
+                <input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  className="input-login-register"
+                />
                 <label>Address</label>
                 <input
                   type="text"
@@ -157,6 +185,20 @@ const {success ,loading,restaurant,error} = restaurantDetails
                   type="text"
                   value={photo}
                   onChange={(e) => setPhoto(e.target.value)}
+                  className="input-login-register"
+                />
+                <label>Choose a file</label>
+                <input
+                  type="file"
+                  name=""
+                  id="image-file"
+                  onChange={uploadFileHandler}
+                    />
+                     <label>Photo2</label>
+                <input
+                  type="text"
+                  value={photo}
+                  onChange={(e) => setPhoto2(e.target.value)}
                   className="input-login-register"
                 />
                 <label>Choose a file</label>
