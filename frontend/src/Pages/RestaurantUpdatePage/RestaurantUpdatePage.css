@@ -1,0 +1,16 @@
+.restaurant-form{
+    display: flex;
+    justify-content: space-evenly;
+}
+.restaurant-form div{
+    margin: 0 5vw;
+    width:25vw;
+}
+.file-label-input{
+    padding: 10px;
+    display: inline-block;
+}
+
+.file-input{
+    margin: 15px;
+}

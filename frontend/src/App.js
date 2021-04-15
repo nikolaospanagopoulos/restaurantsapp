@@ -23,6 +23,7 @@ import AdminOrderList from "./Pages/AdminOrderList/AdminOrderList";
 import RestaurantsPage from "./Pages/RestaurantsPage/RestaurantsPage";
 import AboutPage from "./Pages/AboutPage/AboutPage";
 import RestaurantUpdatePage from './Pages/RestaurantUpdatePage/RestaurantUpdatePage'
+import AdminRestaurantListPage from './Pages/AdminRestaurantList/AdminRestaurantListPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router, Route } from "react-router-dom";
 const App = () => {
@@ -52,6 +53,7 @@ const App = () => {
       <Route component={RestaurantsPage} path="/restaurants" exact />
       <Route component={PlaceOrderPage} path="/placeorder" />
       <Route component={UserListPage} path="/admin/userlist" />
+      <Route component={AdminRestaurantListPage} path="/admin/restaurantlist" />
       <Route component={AdminOrderList} path="/admin/orderlist" />
       <Route component={OrderPage} path="/order/:id" />
       <Route component={OwnedRestaurants} path="/owner/restaurants/:id" />

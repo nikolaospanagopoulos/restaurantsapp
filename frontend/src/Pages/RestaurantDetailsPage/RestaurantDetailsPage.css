@@ -9,12 +9,12 @@
 }
 
 .restaurant-page-title{
-  color: white;
+  color: black;
   font-size: 1.8rem;
 }
 .restaurant-details h2 {
-  color: white;
-  -webkit-text-stroke: 0.5px black;
+  color: black;
+ 
 }
 .restaurant-images img {
   width: 25vw;
@@ -64,6 +64,23 @@
 .order-button:hover{
   background-image: linear-gradient(to bottom right, #ffff99, #ff3333);
   color: white;
+}
+
+.review-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+}
+.review-container select{
+  background-image: linear-gradient(to bottom right, #ffff99, #ff3333);
+}
+.review-container label{
+  display: block;
+  font-size: 1.8rem;
+}
+.review-container button{
+  background-image: linear-gradient(to bottom right, #ffff99, #ff3333);
 }
 @media screen and (max-width: 823px){
     .restaurant-images{

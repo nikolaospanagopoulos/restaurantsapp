@@ -76,7 +76,7 @@ const RestaurantDetailsPage = ({ match, history }) => {
                 <img src={restaurant.photo} alt="dishes" />
                 <img src={restaurant.photo2} alt="dishes" />
               </div>
-              <h4>Description</h4> <p> {restaurant.description} </p>
+              <h4>Description</h4> <h4> {restaurant.description} </h4>
               <h4>Email: {restaurant.email}</h4>
               <h4>Phone Number: {restaurant.phone}</h4>
               <h4>Website: {restaurant.website}</h4>
@@ -102,31 +102,36 @@ const RestaurantDetailsPage = ({ match, history }) => {
                     </div>
                   ))}
                   <div>
-                    <div>
-                      <h2>Write A customer Review</h2>
+                    <h2>Write A customer Review</h2>
+                    <div className="review-container">
                       {errorReview && <Message> {errorReview} </Message>}
                       {user ? (
                         <form onSubmit={reviewHandler}>
-                          <label>Rating</label>
-                          <select
-                            type="select"
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
-                          >
-                            <option value="">Select...</option>
-                            <option value="1">1 poor</option>
-                            <option value="2">2 fair</option>
-                            <option value="3">3 good</option>
-                            <option value="4">4 very good</option>
-                            <option value="5">5 excellent</option>
-                          </select>
-                          <label>Comment</label>
-                          <textarea
-                            value={comment}
-                            cols="30"
-                            rows="10"
-                            onChange={(e) => setComment(e.target.value)}
-                          ></textarea>
+                              <div>
+                                <label >Rate Us!</label>
+                            <select
+                              type="select"
+                              value={rating}
+                              onChange={(e) => setRating(e.target.value)}
+                            >
+                              <option value="">Select...</option>
+                              <option value="1">1 poor</option>
+                              <option value="2">2 fair</option>
+                              <option value="3">3 good</option>
+                              <option value="4">4 very good</option>
+                              <option value="5">5 excellent</option>
+                            </select>
+                          </div>
+                              <div>
+                              <label >Leave A Comment</label>
+                            <textarea
+                              value={comment}
+                              cols="30"
+                              rows="10"
+                              onChange={(e) => setComment(e.target.value)}
+                            ></textarea>
+                          </div>
+
                           <button type="submit">Submit</button>
                         </form>
                       ) : (

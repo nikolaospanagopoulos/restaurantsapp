@@ -1,113 +1,122 @@
-import React,{useState,useEffect} from 'react';
-import {RESTAURANT_UPDATE_RESET} from '../../Constants/RestaurantConstants/RestaurantUpdateConstants'
-import {useDispatch,useSelector} from 'react-redux'
-import {getRestaurantDetails} from '../../Actions/RestaurantActions/RestaurantDetailsActions'
-import {useHistory} from 'react-router-dom'
-import {updaterRestaurantAction} from '../../Actions/RestaurantActions/RestaurantUpdateActions'
-import Loader from '../../Components/Loading/Loader'
-import Message from '../../Components/Message/Message'
-import axios from 'axios'
-const RestaurantUpdatePage = ({match}) => {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [website, setWebsite] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
-    const [photo, setPhoto] = useState("");
-    const [photo2, setPhoto2] = useState("");
-    const [vegan, setVegan] = useState(false);
-    const [vegetarian, setVegetarian] = useState(false);
-    const [traditional, setTraditional] = useState(false);
-    const [uploading, setUploading] = useState(false);
-    const restaurantId = match.params.restaurantId;
-    const dispatch = useDispatch();
-  
-const updatedRestaurant = useSelector(state=>state.updatedRestaurant)
-const {success:successUpdate,loading:loadingUpdate,error:errorUpdate} = updatedRestaurant
+import React, { useState, useEffect } from "react";
+import { RESTAURANT_UPDATE_RESET } from "../../Constants/RestaurantConstants/RestaurantUpdateConstants";
+import { useDispatch, useSelector } from "react-redux";
+import { getRestaurantDetails } from "../../Actions/RestaurantActions/RestaurantDetailsActions";
+import { useHistory } from "react-router-dom";
+import { updaterRestaurantAction } from "../../Actions/RestaurantActions/RestaurantUpdateActions";
+import Loader from "../../Components/Loading/Loader";
+import Message from "../../Components/Message/Message";
+import "./RestaurantUpdatePage.css";
+import axios from "axios";
+const RestaurantUpdatePage = ({ match }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [photo2, setPhoto2] = useState("");
+  const [vegan, setVegan] = useState(false);
+  const [vegetarian, setVegetarian] = useState(false);
+  const [traditional, setTraditional] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const restaurantId = match.params.restaurantId;
+  const dispatch = useDispatch();
 
-const restaurantDetails = useSelector(state=>state.restaurantDetails)
-const {success ,loading,restaurant,error} = restaurantDetails
-    const previousPage = useHistory();
-    useEffect(() => {
-      if (errorUpdate) {
-        dispatch({
-          type: RESTAURANT_UPDATE_RESET,
-        });
-        setTimeout(() => {
-          previousPage.goBack();
-        }, 4500);
-      }
-      if (successUpdate) {
-        dispatch({
-          type: RESTAURANT_UPDATE_RESET,
-        });
+  const updatedRestaurant = useSelector((state) => state.updatedRestaurant);
+  const {
+    success: successUpdate,
+    loading: loadingUpdate,
+    error: errorUpdate,
+  } = updatedRestaurant;
+
+  const restaurantDetails = useSelector((state) => state.restaurantDetails);
+  const { success, loading, restaurant, error } = restaurantDetails;
+  const previousPage = useHistory();
+  useEffect(() => {
+    if (errorUpdate) {
+      dispatch({
+        type: RESTAURANT_UPDATE_RESET,
+      });
+      setTimeout(() => {
         previousPage.goBack();
+      }, 4500);
+    }
+    if (successUpdate) {
+      dispatch({
+        type: RESTAURANT_UPDATE_RESET,
+      });
+      previousPage.goBack();
+    } else {
+      if (!restaurant.name || restaurant._id !== restaurantId) {
+        dispatch(getRestaurantDetails(restaurantId));
+        console.log(restaurant);
       } else {
-        if (!restaurant.name || restaurant._id !== restaurantId) {
-          dispatch(getRestaurantDetails(restaurantId));
-          console.log(restaurant)
-        } else {
-
-          setName(restaurant.name);
-          setDescription(restaurant.description);
-          setVegan(restaurant.vegan);
-          setVegetarian(restaurant.vegetarian);
-          setTraditional(restaurant.traditional);
-          setWebsite(restaurant.website)
-          setPhone(restaurant.phone)
-          setEmail(restaurant.email)
-          setPhoto(restaurant.photo)
-          setPhoto2(restaurant.photo2)
-          setAddress(restaurant.address)
-        }
+        setName(restaurant.name);
+        setDescription(restaurant.description);
+        setVegan(restaurant.vegan);
+        setVegetarian(restaurant.vegetarian);
+        setTraditional(restaurant.traditional);
+        setWebsite(restaurant.website);
+        setPhone(restaurant.phone);
+        setEmail(restaurant.email);
+        setPhoto(restaurant.photo);
+        setPhoto2(restaurant.photo2);
+        setAddress(restaurant.address);
       }
-    }, [dispatch, restaurantId,restaurant, successUpdate, errorUpdate, previousPage]);
-  
+    }
+  }, [
+    dispatch,
+    restaurantId,
+    restaurant,
+    successUpdate,
+    errorUpdate,
+    previousPage,
+  ]);
 
-  
-    const submitHandler = (e) => {
-      e.preventDefault();
-      dispatch(
-        updaterRestaurantAction({
-          _id: restaurantId,
-          name,
-          vegan,
-          vegetarian,
-          description,
-          traditional,
-          website,
-          photo,
-          photo2,
-          phone,
-          email,
-          address
-        })
-      );
-    };
-  console.log(restaurant)
-    const uploadFileHandler = async (e) => {
-      const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append("image", file);
-      setUploading(true);
-  
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        };
-        const { data } = await axios.post("/api/v1/uploads", formData, config);
-        setPhoto(data);
-        
-        setUploading(false);
-      } catch (error) {
-        console.error(error);
-        setUploading(false);
-      }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      updaterRestaurantAction({
+        _id: restaurantId,
+        name,
+        vegan,
+        vegetarian,
+        description,
+        traditional,
+        website,
+        photo,
+        photo2,
+        phone,
+        email,
+        address,
+      })
+    );
   };
-  
+  console.log(restaurant);
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post("/api/v1/uploads", formData, config);
+      setPhoto(data);
+
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
+
   const uploadFileHandler2 = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -122,29 +131,30 @@ const {success ,loading,restaurant,error} = restaurantDetails
       };
       const { data } = await axios.post("/api/v1/uploads", formData, config);
       setPhoto2(data);
-      
+
       setUploading(false);
     } catch (error) {
       console.error(error);
       setUploading(false);
     }
   };
-    return (
+  return (
+    <div>
+      <button onClick={() => previousPage.goBack()}>Back</button>
       <div>
-        <button onClick={() => previousPage.goBack()}>Back</button>
-        <div>
-          <h1>Update Dish</h1>
-        </div>
-        {loadingUpdate && <Loader />}
-        {errorUpdate && <Message> {errorUpdate} </Message>}
-        <div>
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <Message> {error} </Message>
-          ) : (
-            <div className="form-container">
-              <form onSubmit={submitHandler}>
+        <h1>Update Dish</h1>
+      </div>
+      {loadingUpdate && <Loader />}
+      {errorUpdate && <Message> {errorUpdate} </Message>}
+      <div>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message> {error} </Message>
+        ) : (
+          <div className="form-container">
+            <form onSubmit={submitHandler} className="restaurant-form">
+              <div>
                 <label>Name</label>
                 <input
                   type="text"
@@ -166,7 +176,7 @@ const {success ,loading,restaurant,error} = restaurantDetails
                   onChange={(e) => setEmail(e.target.value)}
                   className="input-login-register"
                 />
-   <label>Website</label>
+                <label>Website</label>
                 <input
                   type="text"
                   value={website}
@@ -180,6 +190,8 @@ const {success ,loading,restaurant,error} = restaurantDetails
                   onChange={(e) => setAddress(e.target.value)}
                   className="input-login-register"
                 />
+              </div>
+              <div>
                 <label>Photo1</label>
                 <input
                   type="text"
@@ -187,21 +199,23 @@ const {success ,loading,restaurant,error} = restaurantDetails
                   onChange={(e) => setPhoto(e.target.value)}
                   className="input-login-register"
                 />
-                <label>Choose a file</label>
+                <label className="file-label-input">Choose a file</label>
                 <input
                   type="file"
                   name=""
                   id="image-file"
                   onChange={uploadFileHandler}
+                  className="file-input"
                     />
-                     <label>Photo2</label>
+                    <br></br>
+                <label>Photo2</label>
                 <input
                   type="text"
                   value={photo}
                   onChange={(e) => setPhoto2(e.target.value)}
                   className="input-login-register"
                 />
-                <label>Choose a file</label>
+                <label className="file-label-input">Choose a file</label>
                 <input
                   type="file"
                   name=""
@@ -231,18 +245,18 @@ const {success ,loading,restaurant,error} = restaurantDetails
                     onChange={(e) => setTraditional(e.target.checked)}
                     className="input-checkbox"
                   />
-             
                 </div>
-                <button type="submit" className="dish-edit-update-button">
-                  Update
-                </button>
-              </form>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
+              </div>
 
- 
+              <button type="submit" className="dish-edit-update-button">
+                Update
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default RestaurantUpdatePage;

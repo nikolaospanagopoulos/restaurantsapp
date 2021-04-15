@@ -180,6 +180,9 @@ console.log(user)
                     <li className="logoutlink4">
                       <Link to="/admin/orderlist">Order List</Link>
                     </li>
+                    <li className="logoutlink2">
+                      <Link to="/admin/restaurantlist">Restaurants</Link>
+                    </li>
                   </div>
                 ): (user || userInfo) && user.data.role === 'owner' ? (
                   <div className="special-links">
