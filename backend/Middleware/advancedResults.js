@@ -13,7 +13,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   //add the $ symbol before the gt|gte|lt|lte|in operators so that they can work in the query
 
   queryStr = queryStr.replace(
-    /\b(gt|gte|lt|lte|in)\b/g,
+    /\b(gt|gte|lt|lte|in)\b/g, 
     (match) => `$${match}`
   );
   //find resource

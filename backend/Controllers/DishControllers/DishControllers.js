@@ -9,7 +9,7 @@ import { Restaurant } from "../../Models/RestaurantModel.js";
 export const getDishes = asyncHandler(async (req, res, next) => {
   if (req.params.restaurantId) {
     const { data } = res.advancedResults;
-
+ 
     const advanedDishesResults = data.filter(
       (dish) => req.params.restaurantId == dish.restaurant._id
     );

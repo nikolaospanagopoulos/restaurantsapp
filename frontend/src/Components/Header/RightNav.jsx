@@ -91,6 +91,8 @@ const RightNav = ({ open, setOpen, history }) => {
 
   const passwordUpdate = useSelector((state) => state.passwordUpdate);
   const { success: successPassword } = passwordUpdate;
+
+  console.log(user)
   useEffect(() => {
     if (
       (successLogin && !user) ||

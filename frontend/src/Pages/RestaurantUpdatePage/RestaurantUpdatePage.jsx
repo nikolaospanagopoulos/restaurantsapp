@@ -145,7 +145,7 @@ const RestaurantUpdatePage = ({ match }) => {
     <div>
       <button onClick={() => previousPage.goBack()}>Back</button>
       <div>
-        <h1>Update Dish</h1>
+        <h1 className='restaurant-update-title'>Update Restaurant</h1>
       </div>
       {loadingUpdate && <Loader />}
       {errorUpdate && <Message> {errorUpdate} </Message>}

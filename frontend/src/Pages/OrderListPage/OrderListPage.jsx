@@ -14,27 +14,14 @@ const OrderListPage = ({ match }) => {
   const { orders, loading, error } = orderList;
 
   useEffect(() => {
-    dispatch(getOrderList(restaurantId));
+    dispatch(getOrderList(1,restaurantId));
   }, [dispatch, restaurantId]);
 
   if (!loading) {
     const data = orders.data;
     console.log(data);
   }
-  useEffect(() => {
-    if (orders.pagination) {
-      if (orders.pagination.next) {
-        setNextPage(orders.pagination.next.page);
-      } else if (!orders.pagination.next) {
-        setNextPage(null);
-      }
 
-      if (orders.pagination.prev) {
-        setPreviousPage(orders.pagination.prev.page);
-      }
-    }
-  }, [orders.pagination]);
-  console.log(orders);
 
   const pageClick = (pageNum) => {
     dispatch(getOrderList(pageNum));
@@ -90,12 +77,7 @@ const OrderListPage = ({ match }) => {
               ))}
             </tbody>
           </table>
-          <Pagination
-            nextPage={nextPage}
-            previousPage={previousPage}
-            click={pageClick}
-            loading={loading}
-          />
+  
         </div>
       )}
     </div>

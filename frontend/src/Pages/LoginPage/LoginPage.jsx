@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { login } from "../../Actions/UserActions/LoginActions";
 import { useDispatch, useSelector } from "react-redux";
+import {logout} from '../../Actions/UserActions/logoutAction'
 import Message from "../../Components/Message/Message";
 import Loader from "../../Components/Loading/Loader";
 import { USER_LOGOUT } from "../../Constants/UserConstants/LoginConstants";
@@ -22,7 +23,7 @@ const LoginPage = ({ location, history }) => {
       previousPage.goBack();
     } else if (error) {
       setTimeout(() => {
-        dispatch({ type: USER_LOGOUT });
+        dispatch(logout())
       }, 3000);
     }
   }, [history, success, redirect, dispatch, error, previousPage]);
