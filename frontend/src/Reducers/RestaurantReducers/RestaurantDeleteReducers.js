@@ -1,5 +1,5 @@
 import { RESTAURANT_DELETE_FAIL, RESTAURANT_DELETE_REQUEST, RESTAURANT_DELETE_RESET, RESTAURANT_DELETE_SUCCESS } from '../../Constants/RestaurantConstants/RestaurantDeleteConstants'
-import { RESTAURANT_LIST_SUCCESS } from '../../Constants/RestaurantConstants/RestaurantListConstants'
+
 
 export const deleteRestaurantReducer = (state = {}, action) => {
     switch (action.type) {

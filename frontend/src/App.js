@@ -24,6 +24,7 @@ import RestaurantsPage from "./Pages/RestaurantsPage/RestaurantsPage";
 import AboutPage from "./Pages/AboutPage/AboutPage";
 import RestaurantUpdatePage from './Pages/RestaurantUpdatePage/RestaurantUpdatePage'
 import AdminRestaurantListPage from './Pages/AdminRestaurantList/AdminRestaurantListPage'
+import OwnerRestaurantListPage from './Pages/OwnerRestaurantList/OwnerRestaurantListPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router, Route } from "react-router-dom";
 const App = () => {
@@ -54,17 +55,19 @@ const App = () => {
       <Route component={PlaceOrderPage} path="/placeorder" />
       <Route component={UserListPage} path="/admin/userlist" />
       <Route component={AdminRestaurantListPage} path="/admin/restaurantlist" />
+      <Route component={OwnerRestaurantListPage} path="/owner/restaurantlist/:id"/>
       <Route component={AdminOrderList} path="/admin/orderlist" />
       <Route component={OrderPage} path="/order/:id" />
       <Route component={OwnedRestaurants} path="/owner/restaurants/:id" />
-      <Route component={RestaurantUpdatePage} path="/restaurants/:restaurantId/edit" />
+
       <Route
         component={RestaurantDishesList}
         path="/restaurants/:restaurantId/dishes/list"
       />
-      <Route component={DishEditPage} path="/dishes/:dishId/edit" />
+      <Route component={DishEditPage} path="/dishes/:dishId/edit" exact/>
       <Route component={UserEditPage} path="/admin/users/:userId/edit" />
       <Route component={RestaurantsListPage} path="/" exact />
+      <Route component={RestaurantUpdatePage} path="/restaurants/:restaurantId/edit" exact/>
     </Router>
   );
 };

@@ -29,20 +29,20 @@ const Ul = styled.ul`
   .logoutlink {
     text-align: center;
     border-top: 0px;
-    width:100px;
+    width: 100px;
     background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink2 {
     text-align: center;
     border-top: 0px;
-    width:100px;
-    background-image: linear-gradient(to top, #ffff99,#ff3333);
+    width: 100px;
+    background-image: linear-gradient(to top, #ffff99, #ff3333);
   }
 
   .logoutlink4 {
     text-align: center;
     border-top: 0px;
-    width:100px;
+    width: 100px;
     background-image: linear-gradient(to top, #ff3333, #ffff99);
   }
   .logoutlink a {
@@ -51,8 +51,8 @@ const Ul = styled.ul`
   }
   .special-links {
     position: absolute;
-    top:4.7rem;
-    right:0px;
+    top: 4.7rem;
+    right: 0px;
   }
   @media (max-width: 768px) {
     border: 1px solid black;
@@ -81,28 +81,21 @@ const RightNav = ({ open, setOpen, history }) => {
   const { loading, success, user } = loginInfo;
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const {  
-    success: successLogin,
-  } = userLogin;
+  const { success: successLogin } = userLogin;
 
   const userUpdate = useSelector((state) => state.userUpdate);
-  const {
-    success: successUpdate,
-    userInfo,
-  } = userUpdate;
+  const { success: successUpdate, userInfo } = userUpdate;
 
   const userRegister = useSelector((state) => state.userRegister);
   const { success: successRegister } = userRegister;
 
   const passwordUpdate = useSelector((state) => state.passwordUpdate);
-  const {
-    success: successPassword,
-  } = passwordUpdate;
+  const { success: successPassword } = passwordUpdate;
   useEffect(() => {
     if (
       (successLogin && !user) ||
       (successRegister && !user) ||
-      (successUpdate )
+      successUpdate
     ) {
       dispatch({ type: UPDATE_PROFILE_RESET });
       dispatch(loginInfoAction());
@@ -132,7 +125,7 @@ const RightNav = ({ open, setOpen, history }) => {
 
     dispatch(logout());
   };
-console.log(user)
+
   return (
     <Ul
       open={open}
@@ -155,7 +148,7 @@ console.log(user)
         <Link to="/about">About</Link>
       </li>
       {user ? (
-        <div style={{zIndex:'5000'}}>
+        <div style={{ zIndex: "5000" }}>
           <div
             onMouseEnter={() => setMenuAppear(!menuAppear)}
             onMouseLeave={() => setMenuAppear(false)}
@@ -172,8 +165,8 @@ console.log(user)
                     Logout
                   </Link>
                 </li>
-                {(user || userInfo) && user.data.role === 'admin'? (
-                  <div >
+                {(user || userInfo) && user.data.role === "admin" ? (
+                  <div>
                     <li className="logoutlink2">
                       <Link to="/admin/userlist">Users</Link>
                     </li>
@@ -184,13 +177,18 @@ console.log(user)
                       <Link to="/admin/restaurantlist">Restaurants</Link>
                     </li>
                   </div>
-                ): (user || userInfo) && user.data.role === 'owner' ? (
+                ) : (user || userInfo) && user.data.role === "owner" ? (
                   <div className="special-links">
-                  <li className="logoutlink">
-                    <Link to={`/owner/restaurants/${user.data._id}`}>My Restaurants</Link>
-                  </li>
-                </div>
-                ):''}
+                    
+                    <li className="logoutlink4">
+                      <Link to={`/owner/restaurantlist/${user.data._id}`}>
+                        My Restaurants
+                      </Link>
+                    </li>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             )}
           </div>
