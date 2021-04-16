@@ -6,6 +6,7 @@ import Loader from "../../Components/Loading/Loader";
 import { updateDish } from "../../Actions/DishesActions/DishUpdateActions";
 import Message from "../../Components/Message/Message";
 import { UPDATE_DISH_RESET } from "../../Constants/DishesConstants/DishUpdateConstants";
+import './DishEditPage.css'
 import axios from "axios";
 const DishEditPage = ({ match }) => {
   const [price, setPrice] = useState(0);
@@ -47,6 +48,7 @@ const DishEditPage = ({ match }) => {
       dispatch({
         type: UPDATE_DISH_RESET,
       });
+      dispatch(getDishDetails(dishId));
       previousPage.goBack();
     } else {
       if (!dish.data.name || dish.data._id !== dishId) {
@@ -126,101 +128,105 @@ const DishEditPage = ({ match }) => {
           <Message> {error} </Message>
         ) : (
           <div className="form-container">
-            <form onSubmit={submitHandler}>
-              <label>Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="input-login-register"
-              />
-              <label>Description</label>
-              <input
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="input-login-register"
-              />
-              <label>Price</label>
-              <input
-                type="text"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="input-login-register"
-              />
+            <form onSubmit={submitHandler} className='dish-edit-form'>
+              <div>
+                <label>Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="input-login-register"
+                />
+                <label>Description</label>
+                <input
+                  type="text"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="input-login-register"
+                />
+                <label>Price</label>
+                <input
+                  type="text"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="input-login-register"
+                />
 
-              <label>Available</label>
-              <input
-                type="number"
-                value={available}
-                onChange={(e) => setAvailable(e.target.value)}
-                className="input-login-register"
-              />
-              <label>Image</label>
-              <input
-                type="text"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="input-login-register"
-              />
-              <label>Choose a file</label>
-              <input
-                type="file"
-                name=""
-                id="image-file"
-                onChange={uploadFileHandler}
-              />
-              {uploading && <Loader />}
-              <div className="checkbox-container">
-                <label>Vegan</label>
+                <label>Available</label>
                 <input
-                  type="checkbox"
-                  checked={vegan}
-                  onChange={(e) => setVegan(e.target.checked)}
-                  className="input-checkbox"
+                  type="number"
+                  value={available}
+                  onChange={(e) => setAvailable(e.target.value)}
+                  className="input-login-register"
                 />
-                <label>Vegetarian</label>
+                <label>Image</label>
                 <input
-                  type="checkbox"
-                  checked={vegetarian}
-                  onChange={(e) => setVegetarian(e.target.checked)}
-                  className="input-checkbox"
+                  type="text"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  className="input-login-register"
                 />
-                <label>Greek</label>
+                <label>Choose a file</label>
                 <input
-                  type="checkbox"
-                  checked={greek}
-                  onChange={(e) => setGreek(e.target.checked)}
-                  className="input-checkbox"
+                  type="file"
+                  name=""
+                  id="image-file"
+                  onChange={uploadFileHandler}
                 />
-                <label>Mexican</label>
-                <input
-                  type="checkbox"
-                  checked={mexican}
-                  onChange={(e) => setMexican(e.target.checked)}
-                  className="input-checkbox"
-                />
-                <label>Traditional</label>
-                <input
-                  type="checkbox"
-                  checked={traditional}
-                  onChange={(e) => setTraditional(e.target.checked)}
-                  className="input-checkbox"
-                />
-                <label>Chinese</label>
-                <input
-                  type="checkbox"
-                  checked={chinese}
-                  onChange={(e) => setChinese(e.target.checked)}
-                  className="input-checkbox"
-                />
-                <label>Italian</label>
-                <input
-                  type="checkbox"
-                  checked={italian}
-                  onChange={(e) => setItalian(e.target.checked)}
-                  className="input-checkbox"
-                />
+              </div>
+              <div>
+                {uploading && <Loader />}
+                <div className="checkbox-container">
+                  <label>Vegan</label>
+                  <input
+                    type="checkbox"
+                    checked={vegan}
+                    onChange={(e) => setVegan(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Vegetarian</label>
+                  <input
+                    type="checkbox"
+                    checked={vegetarian}
+                    onChange={(e) => setVegetarian(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Greek</label>
+                  <input
+                    type="checkbox"
+                    checked={greek}
+                    onChange={(e) => setGreek(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Mexican</label>
+                  <input
+                    type="checkbox"
+                    checked={mexican}
+                    onChange={(e) => setMexican(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Traditional</label>
+                  <input
+                    type="checkbox"
+                    checked={traditional}
+                    onChange={(e) => setTraditional(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Chinese</label>
+                  <input
+                    type="checkbox"
+                    checked={chinese}
+                    onChange={(e) => setChinese(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Italian</label>
+                  <input
+                    type="checkbox"
+                    checked={italian}
+                    onChange={(e) => setItalian(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                </div>
               </div>
               <button type="submit" className="dish-edit-update-button">
                 Update

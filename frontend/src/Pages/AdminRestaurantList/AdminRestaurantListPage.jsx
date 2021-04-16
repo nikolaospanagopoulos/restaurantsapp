@@ -26,16 +26,18 @@ const AdminRestaurantListPage = ({ history }) => {
     dispatch(deleteRestaurantAction(id))
   }
   useEffect(() => {
-    if (successUser && user.data.role !== "admin") {
-      history.push("/login");
-    } else if (successDelete) {
+    if (successDelete) {
       dispatch({ type: RESTAURANT_DELETE_RESET });
-      dispatch(getRestaurantList());
+    } else {
+      if (successUser && user.data.role !== "admin") {
+        history.push("/login");
+     
+      }else {
+        
+        dispatch(getRestaurantList());
+      }
     }
-    else {
-      
-      dispatch(getRestaurantList());
-    }
+   
   }, [dispatch, successUser, user, history,successDelete]);
   return (
     <div>

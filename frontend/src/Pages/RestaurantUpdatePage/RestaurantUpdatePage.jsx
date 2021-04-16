@@ -14,6 +14,7 @@ const RestaurantUpdatePage = ({ match }) => {
   const [website, setWebsite] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [fusion, setFusion] = useState("");
   const [address, setAddress] = useState("");
   const [photo, setPhoto] = useState("");
   const [photo2, setPhoto2] = useState("");
@@ -47,15 +48,16 @@ const RestaurantUpdatePage = ({ match }) => {
       dispatch({
         type: RESTAURANT_UPDATE_RESET,
       });
+      dispatch(getRestaurantDetails(restaurantId));
       previousPage.goBack();
     } else {
       if (!restaurant.name || restaurant._id !== restaurantId) {
         dispatch(getRestaurantDetails(restaurantId));
-        console.log(restaurant);
       } else {
         setName(restaurant.name);
         setDescription(restaurant.description);
         setVegan(restaurant.vegan);
+        setFusion(restaurant.fusion);
         setVegetarian(restaurant.vegetarian);
         setTraditional(restaurant.traditional);
         setWebsite(restaurant.website);
@@ -88,6 +90,7 @@ const RestaurantUpdatePage = ({ match }) => {
         website,
         photo,
         photo2,
+        fusion,
         phone,
         email,
         address,
@@ -206,12 +209,12 @@ const RestaurantUpdatePage = ({ match }) => {
                   id="image-file"
                   onChange={uploadFileHandler}
                   className="file-input"
-                    />
-                    <br></br>
+                />
+                <br></br>
                 <label>Photo2</label>
                 <input
                   type="text"
-                  value={photo}
+                  value={photo2}
                   onChange={(e) => setPhoto2(e.target.value)}
                   className="input-login-register"
                 />
@@ -220,7 +223,7 @@ const RestaurantUpdatePage = ({ match }) => {
                   type="file"
                   name=""
                   id="image-file"
-                  onChange={uploadFileHandler}
+                  onChange={uploadFileHandler2}
                 />
                 {uploading && <Loader />}
                 <div className="checkbox-container">
@@ -236,6 +239,13 @@ const RestaurantUpdatePage = ({ match }) => {
                     type="checkbox"
                     checked={vegetarian}
                     onChange={(e) => setVegetarian(e.target.checked)}
+                    className="input-checkbox"
+                  />
+                  <label>Fusion</label>
+                  <input
+                    type="checkbox"
+                    checked={fusion}
+                    onChange={(e) => setFusion(e.target.checked)}
                     className="input-checkbox"
                   />
                   <label>Traditional</label>

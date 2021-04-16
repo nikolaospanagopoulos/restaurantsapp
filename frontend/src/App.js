@@ -67,7 +67,7 @@ const App = () => {
       <Route component={DishEditPage} path="/dishes/:dishId/edit" exact/>
       <Route component={UserEditPage} path="/admin/users/:userId/edit" />
       <Route component={RestaurantsListPage} path="/" exact />
-      <Route component={RestaurantUpdatePage} path="/restaurants/:restaurantId/edit" exact/>
+      <Route component={RestaurantUpdatePage} path="/restaurants/:restaurantId/edit" />
     </Router>
   );
 };

@@ -1,0 +1,9 @@
+.dish-edit-form{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dish-edit-form div{
+    margin: 0 5vw;
+    width:25vw;
+}

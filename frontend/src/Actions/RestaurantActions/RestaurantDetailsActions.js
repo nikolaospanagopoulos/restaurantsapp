@@ -1,17 +1,16 @@
 import axios from "axios";
-import { RESTAURANT_DELETE_FAIL, RESTAURANT_DELETE_REQUEST, RESTAURANT_DELETE_SUCCESS } from "../../Constants/RestaurantConstants/RestaurantDeleteConstants";
-
+import { RESTAURANT_DETAILS_FAIL, RESTAURANT_DETAILS_REQUEST, RESTAURANT_DETAILS_SUCCESS } from '../../Constants/RestaurantConstants/RestaurantDetailsConstants'
 
 export const getRestaurantDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: RESTAURANT_DELETE_REQUEST });
+    dispatch({ type: RESTAURANT_DETAILS_REQUEST });
 
     const { data } = await axios.get(`/api/v1/restaurants/${id}`);
 
-    dispatch({ type: RESTAURANT_DELETE_SUCCESS, payload: data.data });
+    dispatch({ type: RESTAURANT_DETAILS_SUCCESS, payload: data.data });
   } catch (error) {
     dispatch({
-      type: RESTAURANT_DELETE_FAIL,
+      type: RESTAURANT_DETAILS_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error
