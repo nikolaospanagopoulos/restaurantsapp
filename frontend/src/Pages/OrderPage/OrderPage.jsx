@@ -94,14 +94,14 @@ console.log(order)
         </div>
       </div>
       {order.isPaid ? (
-        <Message color="green"> order got paid at {order.paidAt} </Message>
+        <Message color="green"> order got paid at {(order.paidAt).split('T')[0]} </Message>
       ) : (
         <Message> Not Paid </Message>
       )}
       {order.isDelivered && order.isPaid ? (
         <Message color="green">
           {" "}
-          order was delivered at {order.deliveredAt}{" "}
+          order was delivered at {(order.deliveredAt).split('T')[0]}{" "}
         </Message>
       ) : (
         <Message> Not Yet Delivered </Message>
