@@ -2,45 +2,45 @@ import { ErrorResponse } from "../../Utilis/errorResponse.js";
 import { asyncHandler } from "../../Middleware/async.js";
 import { User } from "../../Models/UserModel.js";
 import sgEmail from "@sendgrid/mail";
-
+import crypto from 'crypto'
 //register user
 //public
 //POST api/v1/auth/register
 export const register = asyncHandler(async (req, res, next) => {
-    const { name, email, password, role } = req.body
+  const { name, email, password, role } = req.body
 
-    //create user
-    const user = await User.create({
-        name,
-        email,
-        password,
-        role
-    })
-    
-    
-    console.log(user.email)
-    try {
-       
-        sgEmail.setApiKey(process.env.SENDGRID_API_KEY)
-        const message = {
-            to:email,
-            from:'nikos4222@outlook.com.gr',
-            subject:'Welcome to our application',
-            text:` Dear ${name} we are very glad to welcome you into our family. We offer the best prices and the most amazing quality. There are restaurants here that offer you whatever it is you desire. Click here https://greekrestaurantsapp.herokuapp.com/ `,
-    
-        }
-        await sgEmail.send(message)
-        sendTokenResponse(user, 200, res)
-      
-    } catch (error) {
-        console.log(error)
+  //create user
+  const user = await User.create({
+    name,
+    email,
+    password,
+    role
+  })
+
+
+  console.log(user.email)
+  try {
+
+    sgEmail.setApiKey(process.env.SENDGRID_API_KEY)
+    const message = {
+      to: email,
+      from: 'nikos4222@outlook.com.gr',
+      subject: 'Welcome to our application',
+      text: ` Dear ${name} we are very glad to welcome you into our family. We offer the best prices and the most amazing quality. There are restaurants here that offer you whatever it is you desire. Click here https://greekrestaurantsapp.herokuapp.com/ `,
+
     }
-   
-    
-     
-    
-      
-   
+    await sgEmail.send(message)
+    sendTokenResponse(user, 200, res)
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+
+
+
+
 })
 
 //auth user
@@ -150,15 +150,57 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorResponse("There is not user with that email", 404));
+    return next(new ErrorResponse("there is no user with that email", 404));
   }
 
-  //get reset token
+  //get reset password token
   const resetToken = user.getResetPasswordToken();
+
   await user.save({ validateBeforeSave: false });
-  console.log(resetToken);
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
+
+  //create reset url
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/auth/resetpassword/${resetToken}`;
+console.log(resetUrl)
+  sgEmail.setApiKey(process.env.SENDGRID_API_KEY)
+  const message = {
+    to: user.email,
+    from: 'nikos4222@outlook.com.gr',
+    subject: 'Welcome to our application',
+    text: `click on the following link to reset your password http://localhost:3000/resetpassword/${resetToken} `,
+
+  }
+  try {
+
+    await sgEmail.send(message)
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(new ErrorResponse("email could not be sent", 500));
+  }
 });
+//reset and change password
+//put /api/v1/auth/resetpassword/:resettoken
+export const changePassword = asyncHandler(async (req, res, next) => {
+  //get hashed token
+  const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex')
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }
+  })
+
+  if (!user) {
+    return next(new ErrorResponse('Invalid token', 400))
+  }
+  user.password = req.body.password
+  user.resetPasswordToken = undefined
+  user.resetPasswordExpire = undefined
+  await user.save()
+
+  sendTokenResponse(user, 200, res)
+})
