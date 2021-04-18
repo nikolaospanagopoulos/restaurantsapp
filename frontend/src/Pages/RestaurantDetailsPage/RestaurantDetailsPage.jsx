@@ -18,13 +18,13 @@ const RestaurantDetailsPage = ({ match, history }) => {
   const { restaurant, error, loading } = restaurantDetails;
 
   const loginInfo = useSelector((state) => state.loginInfo);
-  const { loading: loadingUser, success: successUser, user } = loginInfo;
+  const {  user } = loginInfo;
 
   const postReview = useSelector((state) => state.postReview);
   const {
     success: successReview,
     error: errorReview,
-    loading: loadingReview,
+    
   } = postReview;
 
   const dispatch = useDispatch();

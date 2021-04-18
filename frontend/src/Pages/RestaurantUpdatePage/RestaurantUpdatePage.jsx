@@ -33,7 +33,7 @@ const RestaurantUpdatePage = ({ match }) => {
   } = updatedRestaurant;
 
   const restaurantDetails = useSelector((state) => state.restaurantDetails);
-  const { success, loading, restaurant, error } = restaurantDetails;
+  const {loading, restaurant, error } = restaurantDetails;
   const previousPage = useHistory();
   useEffect(() => {
     if (errorUpdate) {

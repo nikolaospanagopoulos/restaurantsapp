@@ -14,7 +14,6 @@ export const createRestaurant = () => async (dispatch) => {
       description: `sample description `,
       image: "no_image.jpg",
       phone: 'sample phone',
-      phone:'sample phone',
       email:'sample@email.gr',
       address:'32 Germanou Patras'
 

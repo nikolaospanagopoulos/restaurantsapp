@@ -25,6 +25,8 @@ import AboutPage from "./Pages/AboutPage/AboutPage";
 import RestaurantUpdatePage from './Pages/RestaurantUpdatePage/RestaurantUpdatePage'
 import AdminRestaurantListPage from './Pages/AdminRestaurantList/AdminRestaurantListPage'
 import OwnerRestaurantListPage from './Pages/OwnerRestaurantList/OwnerRestaurantListPage'
+import ForgotPasswordPage from './Pages/ForgotPasswordPage/ForgotPasswordPage'
+import ResetPasswordPage from './Pages/ResetPasswordPage/ResetPasswordPage'
 //import react-router-dom for routing
 import { BrowserRouter as Router, Route } from "react-router-dom";
 const App = () => {
@@ -53,11 +55,13 @@ const App = () => {
       <Route component={PaymentMethodPage} path="/payment" />
       <Route component={RestaurantsPage} path="/restaurants" exact />
       <Route component={PlaceOrderPage} path="/placeorder" />
+      <Route component={ForgotPasswordPage} path="/forgotpassword" />
       <Route component={UserListPage} path="/admin/userlist" />
       <Route component={AdminRestaurantListPage} path="/admin/restaurantlist" />
       <Route component={OwnerRestaurantListPage} path="/owner/restaurantlist/:id"/>
       <Route component={AdminOrderList} path="/admin/orderlist" />
       <Route component={OrderPage} path="/order/:id" />
+      <Route component={ResetPasswordPage} path="/resetpassword/:id" />
       <Route component={OwnedRestaurants} path="/owner/restaurants/:id" />
 
       <Route

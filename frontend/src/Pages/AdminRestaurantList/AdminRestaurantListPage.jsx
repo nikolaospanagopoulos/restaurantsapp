@@ -3,7 +3,7 @@ import { getRestaurantList } from "../../Actions/RestaurantActions/RestaurantLis
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
-import { Link, useHistory } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { deleteRestaurantAction } from "../../Actions/RestaurantActions/RestaurantDeleteActions";
 import { RESTAURANT_DELETE_RESET } from "../../Constants/RestaurantConstants/RestaurantDeleteConstants";
 const AdminRestaurantListPage = ({ history }) => {
@@ -15,7 +15,6 @@ const AdminRestaurantListPage = ({ history }) => {
   const deleteRestaurant = useSelector((state) => state.deleteRestaurant);
   const {
     success: successDelete,
-    error: errorDelete,
     loading: loadingDelete,
   } = deleteRestaurant;
 

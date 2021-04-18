@@ -22,12 +22,11 @@ const OrderPage = ({ match }) => {
   const { loading: loadingPay, success: successPay } = orderPay;
 
   const orderDelivery = useSelector((state) => state.orderDelivery);
-  const { loading: loadingDelivery, success: successDelivery } = orderDelivery;
-
+  const { success: successDelivery } = orderDelivery;
 
   const loginInfo = useSelector((state) => state.loginInfo);
-  const { loading:loadingUser, success:successUser, user } = loginInfo;
-  useEffect(() => {
+  const { user } = loginInfo;
+  useEffect(() => { 
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/v1/config/paypal");
       const script = document.createElement("script");
@@ -50,7 +49,7 @@ const OrderPage = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay,successDelivery]);
+  }, [dispatch, order, orderId, successPay, successDelivery]);
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     console.log(paymentResult);
@@ -66,10 +65,10 @@ const OrderPage = ({ match }) => {
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
   }
-console.log(order)
+  console.log(order);
   const deliverHandler = () => {
-    dispatch(deliverOrder(order))
-  }
+    dispatch(deliverOrder(order));
+  };
   return loading ? (
     <Loader />
   ) : error ? (
@@ -94,14 +93,17 @@ console.log(order)
         </div>
       </div>
       {order.isPaid ? (
-        <Message color="green"> order got paid at {(order.paidAt).split('T')[0]} </Message>
+        <Message color="green">
+          {" "}
+          order got paid at {order.paidAt.split("T")[0]}{" "}
+        </Message>
       ) : (
         <Message> Not Paid </Message>
       )}
       {order.isDelivered && order.isPaid ? (
         <Message color="green">
           {" "}
-          order was delivered at {(order.deliveredAt).split('T')[0]}{" "}
+          order was delivered at {order.deliveredAt.split("T")[0]}{" "}
         </Message>
       ) : (
         <Message> Not Yet Delivered </Message>
@@ -146,11 +148,9 @@ console.log(order)
           <h4>Tax: {order.taxPrice}€</h4>
           <h4>Total: {order.totalPrice}€</h4>
         </div>
-            <div>
-           
+        <div>
           {!order.isPaid && (
             <div>
-              
               {!sdkReady ? (
                 <Loader />
               ) : (
@@ -160,12 +160,14 @@ console.log(order)
                 />
               )}
             </div>
-              )}
-              {user.data.role === 'admin' && order.isPaid && !order.isDelivered && (
-                <div>
-                  <button type='button' onClick={deliverHandler}>Deliver</button>
-                </div>
-              )}
+          )}
+          {user.data.role === "admin" && order.isPaid && !order.isDelivered && (
+            <div>
+              <button type="button" onClick={deliverHandler}>
+                Deliver
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

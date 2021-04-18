@@ -19,7 +19,7 @@ const ProfilePage = ({ history }) => {
   const { success: successUpdate, loading: loadingUpdate } = userUpdate;
 
   const passwordUpdate = useSelector((state) => state.passwordUpdate);
-  const { success: successPassword, passwordData } = passwordUpdate;
+  const { success: successPassword} = passwordUpdate;
 
   const createdRestaurant = useSelector((state) => state.createdRestaurant);
   const {

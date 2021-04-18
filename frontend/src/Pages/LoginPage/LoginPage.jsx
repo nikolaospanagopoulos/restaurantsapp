@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {logout} from '../../Actions/UserActions/logoutAction'
 import Message from "../../Components/Message/Message";
 import Loader from "../../Components/Loading/Loader";
-import { USER_LOGOUT } from "../../Constants/UserConstants/LoginConstants";
+import './LoginPage.css'
+
 const LoginPage = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,9 +60,12 @@ const LoginPage = ({ location, history }) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button type="submit">Sign In</button>
-            </form>
-          </div>
+                  <button type="submit">Sign In</button>
+                
+                </form>
+                
+              </div>
+             
           <div>
             <div className="register-link-container">
               <h3>
@@ -70,7 +74,8 @@ const LoginPage = ({ location, history }) => {
                   Register
                 </Link>
               </h3>
-            </div>
+                </div>
+                <button type="button" className='forgot-password-button' onClick={()=>history.push('/forgotpassword')}>Forgot Your Password?</button>
           </div>
         </div>
       )}

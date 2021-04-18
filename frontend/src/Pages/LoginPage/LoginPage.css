@@ -1,0 +1,10 @@
+.forgot-password-button{
+    display: block;
+    margin: -30px auto;
+    height: 30px;
+    width: 180px;
+    font-family: 'Montserrat', sans-serif;
+    background-image: linear-gradient(to bottom right, #ff3333, #ffff99);
+    cursor: pointer;
+    
+}

@@ -167,8 +167,8 @@ console.log(resetUrl)
   const message = {
     to: user.email,
     from: 'nikos4222@outlook.com.gr',
-    subject: 'Welcome to our application',
-    text: `click on the following link to reset your password http://localhost:3000/resetpassword/${resetToken} `,
+    subject: 'Password Reset',
+    text: `click on the following link to reset your password https://greekrestaurantsapp.herokuapp.com/resetpassword/${resetToken} `,
 
   }
   try {

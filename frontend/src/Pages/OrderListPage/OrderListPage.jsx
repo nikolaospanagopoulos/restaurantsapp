@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderList } from "../../Actions/OrderActions/GetOrderListActions";
 import Loader from "../../Components/Loading/Loader";
 import Message from "../../Components/Message/Message";
 import { Link } from "react-router-dom";
-import Pagination from "../../Components/Pagination/Pagination";
+
 const OrderListPage = ({ match }) => {
   const restaurantId = match.params.id;
   const dispatch = useDispatch();
-  const [nextPage, setNextPage] = useState(Number);
-  const [previousPage, setPreviousPage] = useState(Number);
+
   const orderList = useSelector((state) => state.orderList);
   const { orders, loading, error } = orderList;
 
   useEffect(() => {
-    dispatch(getOrderList(1,restaurantId));
+    dispatch(getOrderList(1, restaurantId));
   }, [dispatch, restaurantId]);
 
   if (!loading) {
@@ -22,10 +21,6 @@ const OrderListPage = ({ match }) => {
     console.log(data);
   }
 
-
-  const pageClick = (pageNum) => {
-    dispatch(getOrderList(pageNum));
-  };
   return (
     <div>
       {loading ? (
@@ -77,7 +72,6 @@ const OrderListPage = ({ match }) => {
               ))}
             </tbody>
           </table>
-  
         </div>
       )}
     </div>
