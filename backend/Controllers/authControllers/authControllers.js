@@ -17,7 +17,6 @@ export const register = asyncHandler(async (req, res, next) => {
     role
   })
 
-
   console.log(user.email)
   try {
 

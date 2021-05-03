@@ -54,7 +54,6 @@ const OrderPage = ({ match }) => {
     console.log(paymentResult);
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
-    dispatch({ type: CART_RESET });
   };
   if (!loading) {
     const addDecimals = (num) => {

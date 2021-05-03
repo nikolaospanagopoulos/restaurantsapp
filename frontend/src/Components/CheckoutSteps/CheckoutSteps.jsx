@@ -12,7 +12,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
           </div>
         ) : (
           <div>
-            <Link disabled className='disabled-link'>Sign In</Link>
+            <Link disabled to='/' className='disabled-link'>Sign In</Link>
           </div>
         )}
       </div>

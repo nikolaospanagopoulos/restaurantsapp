@@ -22,7 +22,7 @@ import { errorHandler } from "./Middleware/error.js";
 //import cookie parser to send jwt in cookie
 import cookieParser from "cookie-parser";
 import { addOrderItems } from "./Controllers/orderControllers/orderControllers.js";
-dotenv.config("./");
+dotenv.config();
 
 const app = express();
 
